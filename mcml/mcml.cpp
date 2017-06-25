@@ -1,8 +1,6 @@
 //The implementation of Monte Carlo Model
 
-#include"r_mcml.h"
-#include<random>
-
+#include"mcml.h"
 
 #define  PARTIALREFLECTION  0
 /* 1=split photon, 0=statistical reflection. */
@@ -16,147 +14,20 @@ const double COSZERO = (1.0 - 1.0E-12);
 const double  COS90D = 1.0E-6;
 /* cosine of about 1.57 - 1e-6 rad. */
 
-//use Mersenne twister to generate a random number
-double RandomNum() {
-	//set `static` to avoid generating some results
-	static std::random_device Rand;
-	static std::mt19937_64 RanEngine(Rand());
-	static std::uniform_real_distribution<double> Distribution(0.0, 1.0);
-	return Distribution(RanEngine);
-}
-
-/*
- * Compute the specular reflection.
- *
- * If the first layer is a turbid medium, use the Fresnel
- * reflection from the boundary of the first layer as the
- * specular reflectance.
- *
- * If the first layer is glass, multiple reflections in
- * the first layer is considered to get the specular
- * reflectance.
- *
- * The subroutine assumes the Layerspecs array is correctly
- * initialized.
-*/
-double Rspecular(vector<LayerClass>& LayerVec)
-{
-	/* direct reflections from the 1st and 2nd layers. */
-	double temp = (LayerVec[0].rfct_index - LayerVec[1].rfct_index)
-		/ (LayerVec[0].rfct_index + LayerVec[1].rfct_index);
-	double r1 = temp*temp;
-	double r2;
-	if ((LayerVec[1].abs_coef == 0.0) && (LayerVec[1].scat_coef == 0.0)) { /* glass layer. */
-		temp = (LayerVec[1].rfct_index - LayerVec[2].rfct_index)
-			/ (LayerVec[1].rfct_index + LayerVec[2].rfct_index);
-		r2 = temp*temp;
-		r1 = r1 + (1 - r1)*(1 - r1)*r2 / (1 - r1*r2);
-	}
-	return r1;
-}
-
-/*
- * Choose (sample) a new theta angle for photon propagation
- * according to the anisotropy.
- *
- * If anisotropy g is 0, then
- * cos(theta) = 2*rand-1.
- * otherwise
- * sample according to the Henyey-Greenstein function.
- *
- * Returns the cosine of the polar deflection angle theta.
-*/
-double SpinTheta(double g)
-{
-	double cost;
-	if (g == 0.0)
-		cost = 2 * RandomNum() - 1;
-	else {
-		double temp = (1 - g*g) / (1 - g + 2 * g*RandomNum());
-		cost = (1 + g*g - temp*temp) / (2 * g);
-	}
-	return cost;
-}
-
-/*
- * Compute the Fresnel reflectance.
- *
- * Make sure that the cosine of the incident angle a1
- * is positive, and the case when the angle is greater
- * than the critical angle is ruled out.
- *
- * Avoid trigonometric function operations as much as
- * possible, because they are computation-intensive.
- */
-double RFresnel(double n1, /* incident refractive index.*/
-	double n2, /* transmit refractive index.*/
-	double ca1, /* cosine of the incident */
-				/* angle. 0<a1<90 degrees. */
-	double& ca2_Ptr) /* pointer to the */
-					  /* cosine of the transmission */
-					  /* angle. a2>0. */
-{
-	double r;
-	if (n1 == n2) { /** matched boundary. **/
-		ca2_Ptr = ca1;
-		r = 0.0;
-	}
-	else if (ca1 > COSZERO) { /** normal incident. **/
-		ca2_Ptr = ca1;
-		r = (n2 - n1) / (n2 + n1);
-		r *= r;
-
-	}
-	else if (ca1 < COS90D) { /** very slant. **/
-		ca2_Ptr = 0.0;
-		r = 1.0;
-
-	}
-	else { /** general. **/
-		double sa1, sa2;
-		/* sine of the incident and transmission angles. */
-		double ca2;
-		sa1 = sqrt(1 - ca1*ca1);
-		sa2 = n1*sa1 / n2;
-		if (sa2 >= 1.0) {
-			/* double check for total internal reflection. */
-			ca2_Ptr = 0.0;
-			r = 1.0;
-
-		}
-		else {
-			double cap, cam; /* cosines of the sum ap or */
-							 /* difference am of the two */
-							 /* angles. ap = a1+a2 */
-							 /* am = a1 - a2. */
-			double sap, sam; /* sines. */
-			ca2_Ptr = ca2 = sqrt(1 - sa2*sa2);
-			cap = ca1*ca2 - sa1*sa2; /* c+ = cc - ss. */
-			cam = ca1*ca2 + sa1*sa2; /* c- = cc + ss. */
-			sap = sa1*ca2 + ca1*sa2; /* s+ = sc + cs. */
-			sam = sa1*ca2 - ca1*sa2; /* s- = sc - cs. */
-			r = 0.5*sam*sam*(cam*cam + cap*cap) / (sap*sap*cam*cam);
-			/* rearranged for speed. */
-
-		}
-
-	}
-	return r;
-}
 
 //The specific declaration of mem-function in PhotonClass
 void PhotonClass::launch(double Rspecular, vector<LayerClass>& LayerVec)
 {
-	weight = 1.0 - Rspecular;
-	dead = 0;
-	layer = 1;
-	cur_step = step_left = 0;
-	x =	y = z = 0.0;
-	dcos_x = dcos_y = 0.0;
-	dcos_z = 1.0;
-	if ((LayerVec[1].abs_coef == 0.0) && (LayerVec[1].scat_coef == 0.0)) { /* glass layer. */
-		layer = 2;
-		z = LayerVec[2].z0;
+	photon->weight = 1.0 - Rspecular;
+	photon->dead = false;
+	photon->layer = 1;
+	photon->cur_step = photon->step_left = 0;
+	photon->x = photon->y = photon->z = 0.0;
+	photon->dcos_x = photon->dcos_y = 0.0;
+	photon->dcos_z = 1.0;
+	if ((LayerVec[1].layer->abs_coef == 0.0) && (LayerVec[1].layer->scat_coef == 0.0)) { /* glass layer. */
+		photon->layer = 2;
+		photon->z = LayerVec[2].layer->z0;
 	}
 }
 
@@ -186,19 +57,19 @@ void PhotonClass::spin(double g) {
 	/* sqrt() is faster than sin(). */
 	else
 		sinp = -sqrt(1.0 - cosp*cosp);
-	if (fabs(dcos_z) > COSZERO) { /* normal incident. */
-		dcos_x = sint*cosp;
-		dcos_y = sint*sinp;
-		dcos_z = cost*SIGN(dcos_z);
+	if (fabs(photon->dcos_z) > COSZERO) { /* normal incident. */
+		photon->dcos_x = sint*cosp;
+		photon->dcos_y = sint*sinp;
+		photon->dcos_z = cost*SIGN(photon->dcos_z);
 		/* SIGN() is faster than division. */
 	}
 	else { /* regular incident. */
-		double temp = sqrt(1.0 - dcos_z*dcos_z);
-		dcos_x = sint*(dcos_x*dcos_z*cosp - dcos_y*sinp)
-			/ temp + dcos_x*cost;
-		dcos_y = sint*(dcos_y*dcos_z*cosp + dcos_x*sinp)
-			/ temp + dcos_y*cost;
-		dcos_z = -sint*cosp*temp + dcos_z*cost;
+		double temp = sqrt(1.0 - photon->dcos_z*photon->dcos_z);
+		photon->dcos_x = sint*(photon->dcos_x*photon->dcos_z*cosp - photon->dcos_y*sinp)
+			/ temp + photon->dcos_x*cost;
+		photon->dcos_y = sint*(photon->dcos_y*photon->dcos_z*cosp + photon->dcos_x*sinp)
+			/ temp + photon->dcos_y*cost;
+		photon->dcos_z = -sint*cosp*temp + photon->dcos_z*cost;
 	}
 }
 
@@ -206,10 +77,10 @@ void PhotonClass::spin(double g) {
 	Move the photon s away in the current layer of medium.
 */
 void PhotonClass::hop() {
-	double s = cur_step;
-	x += s*dcos_x;
-	y += s*dcos_y;
-	z += s*dcos_z;
+	double s = photon->cur_step;
+	photon->x += s*photon->dcos_x;
+	photon->y += s*photon->dcos_y;
+	photon->z += s*photon->dcos_z;
 }
 
 /*
@@ -224,19 +95,19 @@ void PhotonClass::hop() {
 */
 void PhotonClass::stepSizeInGlass(const InputClass& In) {
 	double dl_b; /* step size to boundary. */
-	short layer = this->layer;
-	double uz = this->dcos_z;
+	short layer = photon->layer;
+	double uz = photon->dcos_z;
 
 	/* Stepsize to the boundary. */
 	if (uz > 0.0)
-		dl_b = (In.layerspecs[layer].z1 - this->z)
+		dl_b = (In.input->layerspecs[layer].layer->z1 - photon->z)
 		/ uz;
 	else if (uz < 0.0)
-		dl_b = (In.layerspecs[layer].z0 - this->z)
+		dl_b = (In.input->layerspecs[layer].layer->z0 - photon->z)
 		/ uz;
 	else
 		dl_b = 0.0;
-	cur_step = dl_b;
+	photon->cur_step = dl_b;
 }
 
 /*
@@ -252,19 +123,16 @@ void PhotonClass::stepSizeInGlass(const InputClass& In) {
 
 void PhotonClass::stepSizeInTissue(const InputClass& In)
 {
-	short layer = this->layer;
-	double mua = In.layerspecs[layer].abs_coef;
-	double mus = In.layerspecs[layer].scat_coef;
-	if (step_left == 0.0) { /* make a new step. */
-		double rnd;
-		do rnd = RandomNum();
-		while (rnd <= 0.0); /* avoid zero. */
-		cur_step = -log(rnd) / (mua + mus);
-
+	short layer = photon->layer;
+	double mua = In.input->layerspecs[layer].layer->abs_coef;
+	double mus = In.input->layerspecs[layer].layer->scat_coef;
+	if (photon->step_left == 0.0) { /* make a new step. */
+		double rnd = RandomNum();
+		photon->cur_step = -log(rnd) / (mua + mus);
 	}
 	else { /* take the leftover. */
-		cur_step = step_left / (mua + mus);
-		step_left = 0.0;
+		photon->cur_step = photon->step_left / (mua + mus);
+		photon->step_left = 0.0;
 	}
 }
 
@@ -279,22 +147,21 @@ void PhotonClass::stepSizeInTissue(const InputClass& In)
 bool PhotonClass::hitBoundary(const InputClass& In)
 {
 	double dl_b; /* length to boundary. */
-	short layer = this->layer;
-	double uz = this->dcos_z;
+	short layer = photon->layer;
+	double uz = photon->dcos_z;
 	bool hit;
 	/* Distance to the boundary. */
 	if (uz > 0.0)
-
-		dl_b = (In.layerspecs[layer].z1 - this->z) / uz; /* dl_b>0. */
+		dl_b = (In.input->layerspecs[layer].layer->z1 - photon->z) / uz; /* dl_b>0. */
 	else if (uz < 0.0)
-		dl_b = (In.layerspecs[layer].z0 - this->z) / uz; /* dl_b>0. */
+		dl_b = (In.input->layerspecs[layer].layer->z0 - photon->z) / uz; /* dl_b>0. */
 
-	if (uz != 0.0 && this->cur_step > dl_b) {
+	if (uz != 0.0 && photon->cur_step > dl_b) {
 		/* not horizontal & crossing. */
-		double mut = In.layerspecs[layer].abs_coef
-			+ In.layerspecs[layer].scat_coef;
-		this->step_left = (this->cur_step - dl_b)*mut;
-		this->cur_step = dl_b;
+		double mut = In.input->layerspecs[layer].layer->abs_coef
+			+ In.input->layerspecs[layer].layer->scat_coef;
+		photon->step_left = (photon->cur_step - dl_b)*mut;
+		photon->cur_step = dl_b;
 		hit = true;
 	}
 	else
@@ -316,26 +183,26 @@ bool PhotonClass::hitBoundary(const InputClass& In)
 void PhotonClass::drop(const InputClass& In , OutClass& Out)
 {
 	double dwa; /* absorbed weight.*/
-	double x = this->x;
-	double y = this->y;
+	double x = photon->x;
+	double y = photon->y;
 	short iz, ir; /* index to z & r. */
-	short layer = this->layer;
+	short layer = photon->layer;
 	double mua, mus;
 
 	/* compute array indices. */
-	iz = static_cast<short>(this->z / In.dz);
-	if (iz > In.nz - 1) iz = In.nz - 1;
+	iz = static_cast<short>(photon->z / In.input->dz);
+	if (iz > In.input->nz - 1) iz = In.input->nz - 1;
 
-	ir = static_cast<short>(sqrt(x*x + y*y) / In.dr);
-	if (ir > In.nr - 1) ir = In.nr - 1;
+	ir = static_cast<short>(sqrt(x*x + y*y) / In.input->dr);
+	if (ir > In.input->nr - 1) ir = In.input->nr - 1;
 
 	/* update photon weight. */
-	mua = In.layerspecs[layer].abs_coef;
-	mus = In.layerspecs[layer].scat_coef;
-	dwa = this->weight * mua / (mua + mus);
-	this->weight -= dwa;
+	mua = In.input->layerspecs[layer].layer->abs_coef;
+	mus = In.input->layerspecs[layer].layer->scat_coef;
+	dwa = photon->weight * mua / (mua + mus);
+	photon->weight -= dwa;
 	/* assign dwa to the absorption array element. */
-	Out.A_rz[ir][iz] += dwa;
+	Out.out->A_rz[ir][iz] += dwa;
 }
 
 /*
@@ -344,13 +211,13 @@ void PhotonClass::drop(const InputClass& In , OutClass& Out)
  */
 void PhotonClass::roulette()
 {
-	if (this->weight == 0.0)
-		this->dead = true;
+	if (photon->weight == 0.0)
+		photon->dead = true;
 
 	else if (RandomNum() < CHANCE) /* survived the roulette.*/
-		this->weight /= CHANCE;
+		photon->weight /= CHANCE;
 	else
-		this->dead = true;
+		photon->dead = true;
 }
 
 /*
@@ -364,18 +231,18 @@ void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
 							   const InputClass& In,
 							   OutClass& Out)
 {
-	double x = this->x;
-	double y = this->y;
+	double x = photon->x;
+	double y = photon->y;
 	 /* index to r & angle. */
-	short ia = static_cast<short>(acos(-this->dcos_z) / In.da);
-	short ir = static_cast<short>(sqrt(x*x + y*y) / In.dr);
-	if (ir > In.nr - 1) ir = In.nr - 1;
+	short ia = static_cast<short>(acos(-photon->dcos_z) / In.input->da);
+	short ir = static_cast<short>(sqrt(x*x + y*y) / In.input->dr);
+	if (ir > In.input->nr - 1) ir = In.input->nr - 1;
 
-	if (ia > In.na - 1) ia = In.na - 1;
+	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the reflection array element. */
-	Out.Rd_ra[ir][ia] += this->weight*(1.0 - Refl);
+	Out.out->Rd_ra[ir][ia] += photon->weight*(1.0 - Refl);
 
-	this->weight *= Refl;
+	photon->weight *= Refl;
 }
 
 /*
@@ -387,16 +254,16 @@ void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
  */
 void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutClass& Out)
 {
-	double x = this->x;
-	double y = this->y;
+	double x = photon->x;
+	double y = photon->y;
 	short ir, ia; /* index to r & angle. */
-	ir = static_cast<short>(sqrt(x*x + y*y) / In.dr);
-	if (ir > In.nr - 1) ir = In.nr - 1;
-	ia = static_cast<short>(acos(this->dcos_z) / In.da);
-	if (ia > In.na - 1) ia = In.na - 1;
+	ir = static_cast<short>(sqrt(x*x + y*y) / In.input->dr);
+	if (ir > In.input->nr - 1) ir = In.input->nr - 1;
+	ia = static_cast<short>(acos(photon->dcos_z) / In.input->da);
+	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the transmittance array element. */
-	Out.Tt_ra[ir][ia] += this->weight*(1.0 - Refl);
-	this->weight *= Refl;
+	Out.out->Tt_ra[ir][ia] += photon->weight*(1.0 - Refl);
+	photon->weight *= Refl;
 }
 
 /*
@@ -420,53 +287,51 @@ void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutCl
  */
 void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 {
-	double uz = this->dcos_z; /* z directional cosine. */
-	double uz1; /* cosines of transmission alpha. always */
-				/* positive. */
+	double uz = photon->dcos_z; /* z directional cosine. */
+	double uz1; /* cosines of transmission alpha. always positive. */
 	double r = 0.0; /* reflectance */
-	short layer = this->layer;
-	double ni = In.layerspecs[layer].rfct_index;
-	double nt = In.layerspecs[layer - 1].rfct_index;
+	short layer = photon->layer;
+	double ni = In.input->layerspecs[layer].layer->rfct_index;
+	double nt = In.input->layerspecs[layer - 1].layer->rfct_index;
 
 	/* Get r. */
-	if (-uz <= In.layerspecs[layer].cos_crit_up)
+	if (-uz <= In.input->layerspecs[layer].layer->cos_crit_up)
 		r = 1.0; /* total internal reflection. */
 	else r = RFresnel(ni, nt, -uz, uz1);
 
 #if PARTIALREFLECTION
 	if (layer == 1 && r < 1.0) { /* partially transmitted. */
-		this->dcos_z = -uz1; /* transmitted photon. */
+		photon->dcos_z = -uz1; /* transmitted photon. */
 		recordWeightFirstLayer(r, In, Out);
-		this->uz = -uz; /* reflected photon. */
+		photon->uz = -uz; /* reflected photon. */
 
 	}
 	else if (RandomNum() > r) {/* transmitted to layer-1. */
-		this->layer--;
-		this->dcos_x *= ni / nt;
-		this->dcos_y *= ni / nt;
-		this->dcos_z = -uz1;
+		photon->layer--;
+		photon->dcos_x *= ni / nt;
+		photon->dcos_y *= ni / nt;
+		photon->dcos_z = -uz1;
 
 	}
 	else /* reflected. */
-		this->dcos_z = -uz;
+		photon->dcos_z = -uz;
 #else
 	if (RandomNum() > r) { /* transmitted to layer-1. */
 		if (layer == 1) {
-			this->dcos_z = -uz1;
+			photon->dcos_z = -uz1;
 			recordWeightFirstLayer(0.0, In,Out);
-			this->dead = true;
-
+			photon->dead = true;
 		}
 		else {
-			this->layer--;
-			this->dcos_x *= ni / nt;
-			this->dcos_y *= ni / nt;
-			this->dcos_z = -uz1;
+			photon->layer--;
+			photon->dcos_x *= ni / nt;
+			photon->dcos_y *= ni / nt;
+			photon->dcos_z = -uz1;
 		}
 
 	}
 	else /* reflected. */
-		this->dcos_z = -uz;
+		photon->dcos_z = -uz;
 #endif
 }
 
@@ -485,59 +350,59 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
  */
 void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 {
-	double uz = this->dcos_z; /* z directional cosine. */
+	double uz = photon->dcos_z; /* z directional cosine. */
 	double uz1; /* cosines of transmission alpha. */
 	double r = 0.0; /* reflectance */
-	short layer = this->layer;
-	double ni = In.layerspecs[layer].rfct_index;
-	double nt = In.layerspecs[layer + 1].rfct_index;
+	short layer = photon->layer;
+	double ni = In.input->layerspecs[layer].layer->rfct_index;
+	double nt = In.input->layerspecs[layer + 1].layer->rfct_index;
 	/* Get r. */
-	if (uz <= In.layerspecs[layer].cos_crit_down)
+	if (uz <= In.input->layerspecs[layer].layer->cos_crit_down)
 		r = 1.0; /* total internal reflection. */
 	else r = RFresnel(ni, nt, uz, uz1);
 
 #if PARTIALREFLECTION
-	if (layer == In.num_layers && r < 1.0) {
-		this->uz = uz1;
+	if (layer == In.input->num_layers && r < 1.0) {
+		photon->uz = uz1;
 		recordWeightLastLayer(r, In,Out);
-		this->uz = -uz;
+		photon->uz = -uz;
 
 	}
 	else if (RandomNum() > r) {/* transmitted to layer+1. */
-		this->layer++;
-		this->dcos_x *= ni / nt;
-		this->dcos_y *= ni / nt;
-		this->dcos_z = uz1;
+		photon->layer++;
+		photon->dcos_x *= ni / nt;
+		photon->dcos_y *= ni / nt;
+		photon->dcos_z = uz1;
 
 	}
 	else /* reflected. */
-		this->dcos_z = -uz;
+		photon->dcos_z = -uz;
 #else
 	if (RandomNum() > r) { /* transmitted to layer+1. */
-		if (layer == In.num_layers) {
-			this->dcos_z = uz1;
+		if (layer == In.input->num_layers) {
+			photon->dcos_z = uz1;
 			recordWeightLastLayer(0.0, In,Out);
-			this->dead = true;
+			photon->dead = true;
 
 		}
 		else {
-			this->layer++;
-			this->dcos_x *= ni / nt;
-			this->dcos_y *= ni / nt;
-			this->dcos_z = uz1;
+			photon->layer++;
+			photon->dcos_x *= ni / nt;
+			photon->dcos_y *= ni / nt;
+			photon->dcos_z = uz1;
 
 		}
 
 	}
 	else /* reflected. */
-		this->dcos_z = -uz;
+		photon->dcos_z = -uz;
 #endif
 }
 
 
 void PhotonClass::crossOrNot(const InputClass& In, OutClass& Out)
 {
-	if (this->dcos_z < 0.0)
+	if (photon->dcos_z < 0.0)
 		crossUpOrNot(In, Out);
 	else
 		crossDownOrNot(In,  Out);
@@ -552,9 +417,9 @@ void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
 
 	double dl; /* step size. 1/cm */
 
-	if (this->dcos_z == 0.0) {
+	if (photon->dcos_z == 0.0) {
 		/* horizontal photon in glass is killed. */
-		this->dead = true;
+		photon->dead = true;
 
 	}
 	else {
@@ -587,20 +452,20 @@ void PhotonClass::hopDropSpinInTissue(const InputClass& In, OutClass& Out) {
 	else {
 		hop();
 		drop(In, Out);
-		spin(In.layerspecs[this->layer].anisotropy);
+		spin(In.input->layerspecs[photon->layer].layer->anisotropy);
 	}
 }
 
 void PhotonClass::hopDropSpin(const InputClass& In, OutClass& Out) {
-	short layer = this->layer;
-	if ((In.layerspecs[layer].abs_coef == 0.0)
-		&& (In.layerspecs[layer].scat_coef == 0.0))
+	short layer = photon->layer;
+	if ((In.input->layerspecs[layer].layer->abs_coef == 0.0)
+		&& (In.input->layerspecs[layer].layer->scat_coef == 0.0))
 		/* glass layer. */
 		hopInGlass(In, Out);
 	else
 		hopDropSpinInTissue(In, Out);
 
-	if (this->weight < In.Wth && !this->dead)
+	if (photon->weight < In.input->Wth && !photon->dead)
 		roulette();
 }
 

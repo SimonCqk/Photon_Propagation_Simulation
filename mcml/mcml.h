@@ -35,7 +35,7 @@ struct PhotonStruct
 	double dcos_x, dcos_y, dcos_z;/* directional cosines of a photon. [光子的方向余弦] */
 	double weight; /* weight. */
 	bool dead; /* true if photon is terminated. */
-	short layer; /* index to layer where the photon  packet resides. */
+	size_t layer; /* index to layer where the photon  packet resides. */
 	double cur_step; /* current step size. [cm]. [当前步长] */
 	double step_left; /* step size left. dimensionless [-]. [剩余步长] */
 };
@@ -214,5 +214,11 @@ public:
 private:
 	shared_ptr<OutStruct> out;
 };
+
+double RandomNum();
+double Rspecular(vector<LayerClass>& LayerVec);
+double SpinTheta(double g);
+double RFresnel(double n1, double n2, double ca1, double& ca2_Ptr);
+
 
 #endif // !R_MCML_H
