@@ -32,13 +32,11 @@ void PhotonClass::launch(double Rspecular, vector<LayerClass>& LayerVec)
 }
 
 /*
- * Choose a new direction for photon propagation by
- * sampling the polar deflection angle theta and the
+ * Choose a new direction for photon propagation by sampling the polar deflection angle theta and the
  * azimuthal angle psi.
  *
  * Note:
- * theta: 0 - pi so sin(theta) is always positive
- * feel free to use sqrt() for cos(theta).
+ * theta: 0 - pi so sin(theta) is always positive feel free to use sqrt() for cos(theta).
  *
  * psi: 0 - 2pi
  * for 0-pi sin(psi) is +
@@ -84,18 +82,16 @@ void PhotonClass::hop() {
 }
 
 /*
- * If dcos_z != 0, return the photon step size in glass,
- * Otherwise, return 0.
+ * If dcos_z != 0, return the photon step size in glass, Otherwise, return 0.
  *
- * The step size is the distance between the current
- * position and the boundary in the photon direction.
+ * The step size is the distance between the current position and the boundary in the photon direction.
  *
  * Make sure dcos_z !=0 before calling this function.
 
 */
 void PhotonClass::stepSizeInGlass(const InputClass& In) {
 	double dl_b; /* step size to boundary. */
-	short layer = photon->layer;
+	size_t layer = photon->layer;
 	double uz = photon->dcos_z;
 
 	/* Stepsize to the boundary. */
@@ -111,8 +107,7 @@ void PhotonClass::stepSizeInGlass(const InputClass& In) {
 }
 
 /*
- * Pick a step size for a photon packet when it is in
- * tissue.
+ * Pick a step size for a photon packet when it is in tissue.
  * If the member sleft is zero, make a new step size
  * with: -log(rnd)/(mua+mus).
  * Otherwise, pick up the leftover in sleft.
@@ -123,7 +118,7 @@ void PhotonClass::stepSizeInGlass(const InputClass& In) {
 
 void PhotonClass::stepSizeInTissue(const InputClass& In)
 {
-	short layer = photon->layer;
+	size_t layer = photon->layer;
 	double mua = In.input->layerspecs[layer].layer->abs_coef;
 	double mus = In.input->layerspecs[layer].layer->scat_coef;
 	if (photon->step_left == 0.0) { /* make a new step. */
@@ -138,16 +133,15 @@ void PhotonClass::stepSizeInTissue(const InputClass& In)
 
 /*
  * Check if the step will hit the boundary.
- * Return 1 if hit boundary.
- * Return 0 otherwise.
+ * Return true if hit boundary.
+ * Return false otherwise.
  *
- * If the projected step hits the boundary, the members
- * s and sleft of Photon_Ptr are updated.
+ * If the projected step hits the boundary, the members cur_step and step_left of Photon are updated.
 */
 bool PhotonClass::hitBoundary(const InputClass& In)
 {
 	double dl_b; /* length to boundary. */
-	short layer = photon->layer;
+	size_t layer = photon->layer;
 	double uz = photon->dcos_z;
 	bool hit;
 	/* Distance to the boundary. */
@@ -177,23 +171,22 @@ bool PhotonClass::hitBoundary(const InputClass& In)
  *
  * The weight drop is dw = w*mua/(mua+mus).
  *
- * The dropped weight is assigned to the absorption array
- * elements.
+ * The dropped weight is assigned to the absorption array elements.
 */
 void PhotonClass::drop(const InputClass& In , OutClass& Out)
 {
 	double dwa; /* absorbed weight.*/
 	double x = photon->x;
 	double y = photon->y;
-	short iz, ir; /* index to z & r. */
-	short layer = photon->layer;
+	size_t iz, ir; /* index to z & r. */
+	size_t layer = photon->layer;
 	double mua, mus;
 
 	/* compute array indices. */
-	iz = static_cast<short>(photon->z / In.input->dz);
+	iz = static_cast<size_t>(photon->z / In.input->dz);
 	if (iz > In.input->nz - 1) iz = In.input->nz - 1;
 
-	ir = static_cast<short>(sqrt(x*x + y*y) / In.input->dr);
+	ir = static_cast<size_t>(sqrt(x*x + y*y) / In.input->dr);
 	if (ir > In.input->nr - 1) ir = In.input->nr - 1;
 
 	/* update photon weight. */
@@ -206,8 +199,7 @@ void PhotonClass::drop(const InputClass& In , OutClass& Out)
 }
 
 /*
- * The photon weight is small, and the photon packet tries
- * to survive a roulette.
+ * The photon weight is small, and the photon packet tries to survive a roulette.
  */
 void PhotonClass::roulette()
 {
@@ -222,8 +214,7 @@ void PhotonClass::roulette()
 
 /*
  * Record the photon weight exiting the first layer(uz<0),
- * no matter whether the layer is glass or not, to the
- * reflection array.
+ * no matter whether the layer is glass or not, to the reflection array.
  *
  * Update the photon weight as well.
  */
@@ -234,8 +225,8 @@ void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
 	double x = photon->x;
 	double y = photon->y;
 	 /* index to r & angle. */
-	short ia = static_cast<short>(acos(-photon->dcos_z) / In.input->da);
-	short ir = static_cast<short>(sqrt(x*x + y*y) / In.input->dr);
+	size_t ia = static_cast<size_t>(acos(-photon->dcos_z) / In.input->da);
+	size_t ir = static_cast<size_t>(sqrt(x*x + y*y) / In.input->dr);
 	if (ir > In.input->nr - 1) ir = In.input->nr - 1;
 
 	if (ia > In.input->na - 1) ia = In.input->na - 1;
@@ -256,10 +247,10 @@ void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutCl
 {
 	double x = photon->x;
 	double y = photon->y;
-	short ir, ia; /* index to r & angle. */
-	ir = static_cast<short>(sqrt(x*x + y*y) / In.input->dr);
+	size_t ir, ia; /* index to r & angle. */
+	ir = static_cast<size_t>(sqrt(x*x + y*y) / In.input->dr);
 	if (ir > In.input->nr - 1) ir = In.input->nr - 1;
-	ia = static_cast<short>(acos(photon->dcos_z) / In.input->da);
+	ia = static_cast<size_t>(acos(photon->dcos_z) / In.input->da);
 	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the transmittance array element. */
 	Out.out->Tt_ra[ir][ia] += photon->weight*(1.0 - Refl);
@@ -268,20 +259,15 @@ void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutCl
 
 /*
  * Decide whether the photon will be transmitted or
- * reflected on the upper boundary (dcos_z<0) of the current
- * layer.
+ * reflected on the upper boundary (dcos_z<0) of the current layer.
  *
- * If "layer" is the first layer, the photon packet will
- * be partially transmitted and partially reflected if
- * PARTIALREFLECTION is set to 1,
- * or the photon packet will be either transmitted or
- * reflected determined statistically if PARTIALREFLECTION
- * is set to 0.
+ * If "layer" is the first layer, the photon packet will be partially transmitted and partially reflected if
+ * PARTIALREFLECTION is set to 1, or the photon packet will be either transmitted or
+ * reflected determined statistically if PARTIALREFLECTION is set to 0.
  *
  * Record the transmitted photon weight as reflection.
  *
- * If the "layer" is not the first layer and the photon
- * packet is transmitted, move the photon to "layer-1".
+ * If the "layer" is not the first layer and the photon packet is transmitted, move the photon to "layer-1".
  *
  * Update the photon parmameters.
  */
@@ -290,7 +276,7 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 	double uz = photon->dcos_z; /* z directional cosine. */
 	double uz1; /* cosines of transmission alpha. always positive. */
 	double r = 0.0; /* reflectance */
-	short layer = photon->layer;
+	size_t layer = photon->layer;
 	double ni = In.input->layerspecs[layer].layer->rfct_index;
 	double nt = In.input->layerspecs[layer - 1].layer->rfct_index;
 
@@ -338,13 +324,10 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 
 /*
  * Decide whether the photon will be transmitted or be
- * reflected on the bottom boundary (dcos_z>0) of the current
- * layer.
+ * reflected on the bottom boundary (dcos_z>0) of the current layer.
  *
- * If the photon is transmitted, move the photon to
- * "layer+1". If "layer" is the last layer, record the
- * transmitted weight as transmittance. See comments for
- * CrossUpOrNot.
+ * If the photon is transmitted, move the photon to "layer+1". If "layer" is the last layer, record the
+ * transmitted weight as transmittance. See comments for CrossUpOrNot.
  *
  * Update the photon parmameters.
  */
@@ -353,7 +336,7 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 	double uz = photon->dcos_z; /* z directional cosine. */
 	double uz1; /* cosines of transmission alpha. */
 	double r = 0.0; /* reflectance */
-	short layer = photon->layer;
+	size_t layer = photon->layer;
 	double ni = In.input->layerspecs[layer].layer->rfct_index;
 	double nt = In.input->layerspecs[layer + 1].layer->rfct_index;
 	/* Get r. */
@@ -410,8 +393,7 @@ void PhotonClass::crossOrNot(const InputClass& In, OutClass& Out)
 
 /*
  * Move the photon packet in glass layer.
- * Horizontal photons are killed because they will
- * never interact with tissue again.
+ * Horizontal photons are killed because they will never interact with tissue again.
  */
 void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
 
@@ -433,15 +415,11 @@ void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
  * Set a step size, move the photon, drop some weight,
  * choose a new photon direction for propagation.
  *
- * When a step size is long enough for the photon to
- * hit an interface, this step is divided into two steps.
- * First, move the photon to the boundary free of
- * absorption or scattering, then decide whether the
+ * When a step size is long enough for the photon to hit an interface, this step is divided into two steps.
+ * First, move the photon to the boundary free of absorption or scattering, then decide whether the
  * photon is reflected or transmitted.
- * Then move the photon in the current or transmission
- * medium with the unfinished stepsize to interaction
- * site. If the unfinished stepsize is still too long,
- * repeat the above process.
+ * Then move the photon in the current or transmission medium with the unfinished stepsize to interaction
+ * site. If the unfinished stepsize is still too long, repeat the above process.
  */
 void PhotonClass::hopDropSpinInTissue(const InputClass& In, OutClass& Out) {
 	stepSizeInTissue( In);
@@ -457,7 +435,7 @@ void PhotonClass::hopDropSpinInTissue(const InputClass& In, OutClass& Out) {
 }
 
 void PhotonClass::hopDropSpin(const InputClass& In, OutClass& Out) {
-	short layer = photon->layer;
+	size_t layer = photon->layer;
 	if ((In.input->layerspecs[layer].layer->abs_coef == 0.0)
 		&& (In.input->layerspecs[layer].layer->scat_coef == 0.0))
 		/* glass layer. */
