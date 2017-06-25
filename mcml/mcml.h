@@ -35,8 +35,7 @@ struct PhotonStruct
 	double dcos_x, dcos_y, dcos_z;/* directional cosines of a photon. [光子的方向余弦] */
 	double weight; /* weight. */
 	bool dead; /* true if photon is terminated. */
-	short layer; /* index to layer where the photon */
-				 /* packet resides. */
+	short layer; /* index to layer where the photon  packet resides. */
 	double cur_step; /* current step size. [cm]. [当前步长] */
 	double step_left; /* step size left. dimensionless [-]. [剩余步长] */
 };
@@ -215,8 +214,5 @@ public:
 private:
 	shared_ptr<OutStruct> out;
 };
-
-
-void nrerror(const string &);
 
 #endif // !R_MCML_H
