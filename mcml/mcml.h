@@ -22,11 +22,6 @@ const double PI = 3.1415926;
 const double WEIGHT = 1E-4;/* Critical weight for roulette. */
 const double CHANCE = 0.1; /* Chance of roulette survival. */
 
-class PthotonClass;
-class LayerClass;
-class InputClass;
-class OutClass;
-
 // Class used to describe a photon packet.[¹â×Ó]
 
 struct PhotonStruct
