@@ -22,7 +22,7 @@ const double PI = 3.1415926;
 const double WEIGHT = 1E-4;/* Critical weight for roulette. */
 const double CHANCE = 0.1; /* Chance of roulette survival. */
 
-// Class used to describe a photon packet.[光子]
+						   // Class used to describe a photon packet.[光子]
 
 struct PhotonStruct
 {
@@ -37,11 +37,14 @@ struct PhotonStruct
 
 class PhotonClass {
 public:
-	PhotonClass() = default;
+	PhotonClass() :
+		photon(make_shared<PhotonStruct>()) {}
+	PhotonClass(const PhotonStruct& item) :
+		photon(make_shared<PhotonStruct>(item)) {}
 	//forbid some constructors
 	PhotonClass(const PhotonClass&) = delete;
 	PhotonClass& operator=(const PhotonClass&) = delete;
-	~PhotonClass()=default;
+	~PhotonClass() = default;
 
 	void launch(double Rspecular, vector<LayerClass>& LayerVec); //Initialize a photon packet.
 	void spin(double g);  //Choose a new direction for photon propagation
@@ -58,20 +61,20 @@ public:
 	void crossOrNot(const InputClass& In, OutClass& Out);
 	void hopInGlass(const InputClass& In, OutClass& Out);  //Move the photon packet in glass layer.
 	void hopDropSpinInTissue(const InputClass& In, OutClass& Out);  //Set a step size, move the photon, drop some weight, choose a new photon direction for propagation.
-	void hopDropSpin(const InputClass& In, OutClass& Out); 
+	void hopDropSpin(const InputClass& In, OutClass& Out);
 
 private:
 	shared_ptr<PhotonStruct> photon;
 };
 
 /****
- * Structure used to describe the geometry and optical [几何光学] properties of a layer.
- * z0 and z1 are the z coordinates for the upper boundary  and lower boundary respectively.
- * cos_crit0 and cos_crit1 are the cosines of the critical angle of total internal reflection for the
- * upper boundary and lower boundary respectively.
- * They are set to zero if no total internal reflection exists.
- * They are used for computation speed.
- ****/
+* Structure used to describe the geometry and optical [几何光学] properties of a layer.
+* z0 and z1 are the z coordinates for the upper boundary  and lower boundary respectively.
+* cos_crit0 and cos_crit1 are the cosines of the critical angle of total internal reflection for the
+* upper boundary and lower boundary respectively.
+* They are set to zero if no total internal reflection exists.
+* They are used for computation speed.
+****/
 
 struct LayerStruct
 {
@@ -92,7 +95,10 @@ class LayerClass {
 	friend class PhotonClass;
 
 public:
-	LayerClass() = default;
+	LayerClass() :
+		layer(make_shared<LayerStruct>()) {}
+	LayerClass(const LayerStruct& item) :
+		layer(make_shared<LayerStruct>(item)) {}
 	//forbid some constructors
 	LayerClass(const LayerClass&) = delete;
 	LayerClass& operator=(const LayerClass&) = delete;
@@ -104,17 +110,17 @@ private:
 };
 
 /****
- * Input parameters for each independent run.
- *
- * z and r are for the cylindrical coordinate system. [cm] [圆柱坐标系统]
- * a is for the angle alpha between the photon exiting direction and the surface normal. [radian]
- *
- * The grid line separations in z, r, and alpha directions are dz, dr, and da respectively. The numbers
- * of grid lines in z, r, and alpha directions are nz, nr, and na respectively.
- *
- * The member layerspecs will point to an array of structures which store parameters of each layer.
- * This array has (number_layers + 2) elements. One element is for a layer.
- * The layers 0 and (num_layers + 1) are for top ambient medium and the bottom ambient medium respectively.
+* Input parameters for each independent run.
+*
+* z and r are for the cylindrical coordinate system. [cm] [圆柱坐标系统]
+* a is for the angle alpha between the photon exiting direction and the surface normal. [radian]
+*
+* The grid line separations in z, r, and alpha directions are dz, dr, and da respectively. The numbers
+* of grid lines in z, r, and alpha directions are nz, nr, and na respectively.
+*
+* The member layerspecs will point to an array of structures which store parameters of each layer.
+* This array has (number_layers + 2) elements. One element is for a layer.
+* The layers 0 and (num_layers + 1) are for top ambient medium and the bottom ambient medium respectively.
 */
 
 struct InputStruct
@@ -148,7 +154,10 @@ class InputClass {
 	friend void ReadNzNrNa(ifstream& File_Ptr, InputClass& In_Ptr);
 	friend void ReadNumLayers(ifstream& File_Ptr, InputClass& In_Ptr);
 public:
-	InputClass() = default;
+	InputClass() :
+		input(make_shared<InputStruct>()) {}
+	InputClass(const InputStruct& item) :
+		input(make_shared<InputStruct>(item)) {}
 	//forbid some constructors
 	InputClass(const InputClass&) = delete;
 	InputClass& operator=(const InputClass&) = delete;
@@ -159,12 +168,12 @@ private:
 
 
 
-/* 
- * Classes for scoring physical quantities.
- * z and r represent z and r coordinates of the [圆柱坐标系的坐标] cylindrical coordinate system. [cm]
- * a is the angle alpha between the photon exiting direction and the normal to the surfaces. [radian]
- * See comments of the InputStruct.
- * See manual for the physcial quantities.
+/*
+* Classes for scoring physical quantities.
+* z and r represent z and r coordinates of the [圆柱坐标系的坐标] cylindrical coordinate system. [cm]
+* a is the angle alpha between the photon exiting direction and the normal to the surfaces. [radian]
+* See comments of the InputStruct.
+* See manual for the physcial quantities.
 */
 
 struct OutStruct
@@ -200,7 +209,10 @@ class OutClass
 	friend class PhotonClass;
 
 public:
-	OutClass() = default;
+	OutClass() :
+		out(make_shared<OutStruct>()) {}
+	OutClass(const OutStruct& item) :
+		out(make_shared<OutStruct>(item)) {}
 	//forbid some constructors
 	OutClass(const OutClass&) = delete;
 	OutClass& operator=(const OutClass&) = delete;
