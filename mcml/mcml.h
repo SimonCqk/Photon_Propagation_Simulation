@@ -39,7 +39,7 @@ class PhotonClass {
 public:
 	PhotonClass() :
 		photon(make_shared<PhotonStruct>()) {}
-	PhotonClass(const PhotonStruct& item) :
+	explicit PhotonClass(const PhotonStruct& item) :
 		photon(make_shared<PhotonStruct>(item)) {}
 	//forbid some constructors
 	PhotonClass(const PhotonClass&) = delete;
@@ -97,7 +97,7 @@ class LayerClass {
 public:
 	LayerClass() :
 		layer(make_shared<LayerStruct>()) {}
-	LayerClass(const LayerStruct& item) :
+	explicit LayerClass(const LayerStruct& item) :
 		layer(make_shared<LayerStruct>(item)) {}
 	//forbid some constructors
 	LayerClass(const LayerClass&) = delete;
@@ -156,7 +156,7 @@ class InputClass {
 public:
 	InputClass() :
 		input(make_shared<InputStruct>()) {}
-	InputClass(const InputStruct& item) :
+	explicit InputClass(const InputStruct& item) :
 		input(make_shared<InputStruct>(item)) {}
 	//forbid some constructors
 	InputClass(const InputClass&) = delete;
@@ -211,7 +211,7 @@ class OutClass
 public:
 	OutClass() :
 		out(make_shared<OutStruct>()) {}
-	OutClass(const OutStruct& item) :
+	explicit OutClass(const OutStruct& item) :
 		out(make_shared<OutStruct>(item)) {}
 	//forbid some constructors
 	OutClass(const OutClass&) = delete;
