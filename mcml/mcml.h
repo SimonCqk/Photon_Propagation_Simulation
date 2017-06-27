@@ -89,8 +89,7 @@ struct LayerStruct
 
 class LayerClass {
 	friend double Rspecular(vector<LayerClass>& LayerVec);
-	friend void ReadAmbient(ifstream& File_Ptr, LayerClass& Layer_Ptr, string& side);
-	friend bool ReadOneLayer(ifstream& File_Ptr, LayerClass& Layer_Ptr, double& Z_Ptr);
+	friend	void CriticalAngle(size_t Layer_num,vector<LayerClass>& layerspecs);
 
 	friend class PhotonClass;
 
@@ -148,11 +147,6 @@ struct InputStruct
 class InputClass {
 	friend class PhotonClass;
 
-	friend void ReadFnameFormat(ifstream& File_Ptr, InputClass& In_Ptr);
-	friend void ReadNumPhotons(ifstream& File_Ptr, InputClass& In_Ptr);
-	friend void ReadDzDr(ifstream& File_Ptr, InputClass& In_Ptr);
-	friend void ReadNzNrNa(ifstream& File_Ptr, InputClass& In_Ptr);
-	friend void ReadNumLayers(ifstream& File_Ptr, InputClass& In_Ptr);
 public:
 	InputClass() :
 		input(make_shared<InputStruct>()) {}
