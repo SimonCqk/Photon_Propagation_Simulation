@@ -8,6 +8,7 @@
 #include<string>
 #include<vector>
 #include<fstream>
+#include"utility_fwd.h"
 using std::vector;
 using std::function;
 using std::string;
@@ -22,7 +23,9 @@ const double PI = 3.1415926;
 const double WEIGHT = 1E-4;/* Critical weight for roulette. */
 const double CHANCE = 0.1; /* Chance of roulette survival. */
 
-						   // Class used to describe a photon packet.[光子]
+class OutClass;
+
+// Class used to describe a photon packet.[光子]
 
 struct PhotonStruct
 {
@@ -90,7 +93,7 @@ struct LayerStruct
 class LayerClass {
 	friend double Rspecular(vector<LayerClass>& LayerVec);
 	friend	void CriticalAngle(size_t Layer_num,vector<LayerClass>& layerspecs);
-
+	friend size_t IzToLayer(size_t Iz, const InputClass& In_Parm);
 	friend class PhotonClass;
 
 public:
@@ -147,6 +150,14 @@ struct InputStruct
 class InputClass {
 	friend class PhotonClass;
 
+	friend void Sum2DRd(const InputClass& In, OutClass& Out);
+	friend size_t IzToLayer(size_t Iz, const InputClass& In_Parm);
+	friend void Sum2DA(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void Sum2DTt(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void ScaleRdTt(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void ScaleA(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
+
 public:
 	InputClass() :
 		input(make_shared<InputStruct>()) {}
@@ -201,6 +212,13 @@ struct OutStruct
 class OutClass
 {
 	friend class PhotonClass;
+
+	friend void Sum2DRd(const InputClass& In, OutClass& Out);
+	friend void Sum2DA(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void Sum2DTt(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void ScaleRdTt(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void ScaleA(const InputClass& In_Parm, OutClass& Out_Ptr);
+	friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
 
 public:
 	OutClass() :
