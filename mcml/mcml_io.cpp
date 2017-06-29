@@ -1,8 +1,5 @@
 #include"utility_fwd.h"
 using std::vector;
-const double PI = 3.1415926;
-const double WEIGHT = 1E-4;/* Critical weight for roulette. */
-const double CHANCE = 0.1; /* Chance of roulette survival. */
 
 /*
 Compute the critical angles for total internal reflection according to the relative refractive index of the layer.
@@ -195,7 +192,7 @@ void ScaleA(const InputClass& In_Parm, OutClass& Out_Ptr)
 	for (iz = 0; iz < nz; iz++)
 		Out_Ptr.out->A_z[iz] *= scale1;
 	/* Scale A_l. Avoid int/int. */
-	scale1 = 1.0 / static<double>(In_Parm.input->num_photons);
+	scale1 = 1.0 / static_cast<double>(In_Parm.input->num_photons);
 	for (il = 0; il <= nl + 1; il++)
 		Out_Ptr.out->A_l[il] *= scale1;
 	Out_Ptr.out->A *= scale1;

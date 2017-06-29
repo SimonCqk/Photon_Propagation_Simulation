@@ -24,6 +24,7 @@ const double WEIGHT = 1E-4;/* Critical weight for roulette. */
 const double CHANCE = 0.1; /* Chance of roulette survival. */
 
 class OutClass;
+class InputClass;
 
 // Class used to describe a photon packet.[¹â×Ó]
 
