@@ -231,7 +231,7 @@ void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
 
 	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the reflection array element. */
-	Out.out->Rd_ra[ir][ia] += photon->weight*(1.0 - Refl);
+	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
 
 	photon->weight *= Refl;
 }
@@ -253,7 +253,7 @@ void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutCl
 	ia = static_cast<size_t>(acos(photon->dcos_z) / In.input->da);
 	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the transmittance array element. */
-	Out.out->Tt_ra[ir][ia] += photon->weight*(1.0 - Refl);
+	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
 	photon->weight *= Refl;
 }
 

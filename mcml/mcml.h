@@ -57,9 +57,12 @@ private:
     shared_ptr<PhotonStruct> photon;
 };
 
+
+void CriticalAngle(size_t Layer_num, vector<LayerClass>& layerspecs);
+
 class LayerClass {
     friend double Rspecular(vector<LayerClass>& LayerVec);
-    friend	void CriticalAngle(size_t Layer_num,vector<LayerClass>& layerspecs);
+    friend void CriticalAngle(size_t Layer_num,vector<LayerClass>& layerspecs);
     friend size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
     friend class PhotonClass;
 
