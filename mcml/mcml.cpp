@@ -195,7 +195,7 @@ void PhotonClass::drop(const InputClass& In , OutClass& Out)
 	dwa = photon->weight * mua / (mua + mus);
 	photon->weight -= dwa;
 	/* assign dwa to the absorption array element. */
-	Out.out->A_rz[ir][iz] += dwa;
+    Out.out->abs_prob_rz[ir][iz] += dwa;
 }
 
 /*

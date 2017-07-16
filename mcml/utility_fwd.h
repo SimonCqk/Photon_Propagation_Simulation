@@ -12,12 +12,12 @@ double SpinTheta(double g);
 double RFresnel(double n1, double n2, double ca1, double& ca2_Ptr);
 
 void CriticalAngle(size_t Layer_num,vector<LayerClass>& layerspecs);
-void Sum2DRd(const InputClass& In,OutClass& Out);
-size_t IzToLayer(size_t Iz, const InputClass& In_Parm);
-void Sum2DA(const InputClass& In_Parm, OutClass& Out_Ptr);
-void Sum2DTt(const InputClass& In_Parm, OutClass& Out_Ptr);
-void ScaleRdTt(const InputClass& In_Parm, OutClass& Out_Ptr);
-void ScaleA(const InputClass& In_Parm, OutClass& Out_Ptr);
+void Sum2D_DiffReflect(const InputClass& In,OutClass& Out);
+size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
+void Sum2D_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
+void Sum2D_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
+void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
+void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
 void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
 
 template<class Type>

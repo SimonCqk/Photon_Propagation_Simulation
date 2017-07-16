@@ -25,10 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    mcml/mcml.cpp \
+    mcml/mcml_io.cpp \
+    mcml/utilitiy.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    mcml/mcml.h \
+    mcml/mcml_fwd.h \
+    mcml/mcml_impl.h \
+    mcml/utility_fwd.h
 
 FORMS += \
         mainwindow.ui
