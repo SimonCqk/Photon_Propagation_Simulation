@@ -5,6 +5,8 @@
 #define  PARTIALREFLECTION  0
 /* 1=split photon, 0=statistical reflection. */
 
+auto SIGN = [](int x) {return (x >= 0) ? 1 : -1; };
+
 const int STANDARDTEST = 0;
 /* testing program using fixed rnd seed. */
 
@@ -58,7 +60,7 @@ void PhotonClass::spin(double g) {
 	if (fabs(photon->dcos_z) > COSZERO) { /* normal incident. */
 		photon->dcos_x = sint*cosp;
 		photon->dcos_y = sint*sinp;
-		photon->dcos_z = cost*SIGN(photon->dcos_z);
+        photon->dcos_z = cost*(SIGN(photon->dcos_z));
 		/* SIGN() is faster than division. */
 	}
 	else { /* regular incident. */

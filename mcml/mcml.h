@@ -3,18 +3,15 @@
 #define R_MCML_H
 
 #include<iostream>
-#include<functional>
 #include<memory>
 #include"mcml_impl.h"
 #include"utility_fwd.h"
 //using std::vector;
-using std::function;
-using std::string;
+//using std::string;
 using std::shared_ptr;
 using std::weak_ptr;
 using std::make_shared;
 
-function<int(int)>SIGN = [](int x) {return (x >= 0) ? 1 : -1; };
 
 const double PI = 3.1415926;
 const double WEIGHT = 1E-4;/* Critical weight for roulette. */
