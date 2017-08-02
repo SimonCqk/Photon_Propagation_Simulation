@@ -31,7 +31,7 @@ double RandomNum() {
 *
 * The subroutine assumes the Layerspecs array is correctly initialized.
 */
-double Rspecular(vector<LayerClass>& LayerVec)
+double Rspecular(QVector<LayerClass>& LayerVec)
 {
 	/* direct reflections from the 1st and 2nd layers. */
 	double temp = (LayerVec[0].layer->rfct_index - LayerVec[1].layer->rfct_index)
@@ -135,7 +135,7 @@ double RFresnel(double n1, /* incident refractive index.*/
 Compute the critical angles for total internal reflection according to the relative refractive index of the layer.
 All layers are processed.
 */
-void CriticalAngle(size_t Layer_num, vector<LayerClass>& layerspecs)
+void CriticalAngle(size_t Layer_num, QVector<LayerClass>& layerspecs)
 {
 	double n1, n2;
 	for (int i = 1; i <= Layer_num; ++i) {

@@ -16,7 +16,7 @@ const double  COS90D = 1.0E-6;
 
 
 //The specific declaration of mem-function in PhotonClass
-void PhotonClass::launch(double Rspecular, vector<LayerClass>& LayerVec)
+void PhotonClass::launch(double Rspecular, QVector<LayerClass>& LayerVec)
 {
 	photon->weight = 1.0 - Rspecular;
 	photon->dead = false;

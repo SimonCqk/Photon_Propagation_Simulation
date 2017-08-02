@@ -1,9 +1,11 @@
 #pragma once
 #ifndef MCML_IMPL_H
 #define MCML_IMPL_H
-
+#include<QVector>
+#include"mcml_fwd.h"
 using std::string;
-using std::vector;
+//using std::vector;
+
 
 struct PhotonStruct
 {
@@ -71,7 +73,7 @@ struct InputStruct
 	size_t na; /* array range 0..na-1. */
 
 	size_t num_layers; /* number of layers. */
-	vector<LayerClass> layerspecs;   /* layer parameters. */
+    QVector<LayerClass> layerspecs;   /* layer parameters. */
 };
 
 
@@ -87,27 +89,27 @@ struct InputStruct
 struct OutStruct
 {
     double spec_reflect; /* specular reflectance. [-]  [镜面反射率]*/
-    vector<vector<double>> diff_reflect_2d; /* 2D distribution of diffuse [二维弥散分布] */
+    QVector<QVector<double>> diff_reflect_2d; /* 2D distribution of diffuse [二维弥散分布] */
                                   /* reflectance. [1/(cm2 sr)] */
-    vector<double> diff_reflect_rdl; /* 1D radial distribution of diffuse [一维径向弥散分布]*/
+    QVector<double> diff_reflect_rdl; /* 1D radial distribution of diffuse [一维径向弥散分布]*/
                          /* reflectance. [1/cm2] */
-    vector<double> diff_reflect_agl; /* 1D angular distribution of diffuse [一维角度弥散分布] */
+    QVector<double> diff_reflect_agl; /* 1D angular distribution of diffuse [一维角度弥散分布] */
                          /* reflectance. [1/sr] */
     double diff_reflect; /* total diffuse reflectance. [-] [总漫反射] */
 
-    vector<vector<double>> abs_prob_rz; /* 2D probability density in turbid [二维浑浊概率密度] */
+    QVector<QVector<double>> abs_prob_rz; /* 2D probability density in turbid [二维浑浊概率密度] */
                                  /* media over r & z. [1/cm3] */
-    vector<double> abs_prob_z; /* 1D probability density over z. */
+    QVector<double> abs_prob_z; /* 1D probability density over z. */
                         /* [1/cm] */
-    vector<double> abs_prob_layer; /* each layer's absorption */
+    QVector<double> abs_prob_layer; /* each layer's absorption */
                         /* probability. [-] [每层的吸收概率]*/
     double abs_prob; /* total absorption probability. [-] [总吸收概率] */
 
-    vector<vector<double>> total_trans_2d; /* 2D distribution of total */
+    QVector<QVector<double>> total_trans_2d; /* 2D distribution of total */
                                   /* transmittance. [1/(cm2 sr)] [二维总透光率分布] */
-    vector<double> total_trans_rdl; /* 1D radial distribution of */
+    QVector<double> total_trans_rdl; /* 1D radial distribution of */
                          /* transmittance. [1/cm2] [一维径向透光率分布]*/
-    vector<double> total_trans_agl; /* 1D angular distribution of */
+    QVector<double> total_trans_agl; /* 1D angular distribution of */
                          /* transmittance. [1/sr] [一维角透光率分布]*/
     double total_trans; /* total transmittance. [-] [总透光率] */
 };

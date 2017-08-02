@@ -7,7 +7,7 @@
 #include<memory>
 #include"mcml_impl.h"
 #include"utility_fwd.h"
-using std::vector;
+//using std::vector;
 using std::function;
 using std::string;
 using std::shared_ptr;
@@ -36,7 +36,7 @@ public:
     PhotonClass& operator=(const PhotonClass&) = delete;
     ~PhotonClass() = default;
 
-    void launch(double Rspecular, vector<LayerClass>& LayerVec); //Initialize a photon packet.
+    void launch(double Rspecular, QVector<LayerClass>& LayerVec); //Initialize a photon packet.
     void spin(double g);  //Choose a new direction for photon propagation
     void hop();  //Move the photon s away in the current layer of medium.
     void stepSizeInGlass(const InputClass& In);  // return the photon step size in glass
@@ -58,11 +58,11 @@ private:
 };
 
 
-void CriticalAngle(size_t Layer_num, vector<LayerClass>& layerspecs);
+void CriticalAngle(size_t Layer_num, QVector<LayerClass>& layerspecs);
 
 class LayerClass {
-    friend double Rspecular(vector<LayerClass>& LayerVec);
-    friend void CriticalAngle(size_t Layer_num,vector<LayerClass>& layerspecs);
+    friend double Rspecular(QVector<LayerClass>& LayerVec);
+    friend void CriticalAngle(size_t Layer_num,QVector<LayerClass>& layerspecs);
     friend size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
     friend class PhotonClass;
 
@@ -71,9 +71,6 @@ public:
         layer(make_shared<LayerStruct>(LayerStruct())) {}
     explicit LayerClass(const LayerStruct& item) :
         layer(make_shared<LayerStruct>(item)) {}
-    //forbid some constructors
-    LayerClass(const LayerClass&) = delete;
-    LayerClass& operator=(const LayerClass&) = delete;
     ~LayerClass() = default;
 
 
@@ -134,7 +131,7 @@ private:
 };
 
 double RandomNum();
-double Rspecular(vector<LayerClass>& LayerVec);
+double Rspecular(QVector<LayerClass>& LayerVec);
 double SpinTheta(double g);
 double RFresnel(double n1, double n2, double ca1, double& ca2_Ptr);
 
