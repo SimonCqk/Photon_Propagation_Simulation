@@ -28,19 +28,39 @@ SOURCES += \
         mainwindow.cpp \
     mcml/mcml.cpp \
     mcml/mcml_io.cpp \
-    mcml/utilitiy.cpp
+    mcml/utilitiy.cpp \
+    start.cpp \
+    mcml/mcml.cpp \
+    mcml/mcml_io.cpp \
+    mcml/utilitiy.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    start.cpp
 
 HEADERS += \
         mainwindow.h \
     mcml/mcml.h \
     mcml/mcml_fwd.h \
     mcml/mcml_impl.h \
-    mcml/utility_fwd.h
+    mcml/utility_fwd.h \
+    start.h \
+    mcml/mcml.h \
+    mcml/mcml_fwd.h \
+    mcml/mcml_impl.h \
+    mcml/utility_fwd.h \
+    mainwindow.h \
+    start.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    start.ui
 
 RESOURCES += \
     resources.qrc
 
 RC_ICONS=logo.ico
+
+DISTFILES += \
+    image/logo.jpg \
+    image/logo.ico \
+    image/photon.jpeg

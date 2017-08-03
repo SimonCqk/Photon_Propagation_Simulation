@@ -2,9 +2,8 @@
 #ifndef MCML_IMPL_H
 #define MCML_IMPL_H
 #include<QVector>
-#include<QString>
 #include"mcml_fwd.h"
-//using std::string;
+using std::string;
 //using std::vector;
 
 
@@ -57,7 +56,7 @@ struct LayerStruct
 
 struct InputStruct
 {
-    QString out_fname; /* output file name. */
+    string out_fname; /* output file name. */
 	char out_fformat; /* output file format. */
 					  /* 'A' for ASCII, */
 					  /* 'B' for binary. */
