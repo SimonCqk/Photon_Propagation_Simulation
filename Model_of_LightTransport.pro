@@ -39,3 +39,8 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    resources.qrc
+
+RC_ICONS=logo.ico
