@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/image">
         <file alias="logo">image/logo.ico</file>
-        <file>image/background.jpg</file>
         <file>image/logo.jpg</file>
+        <file alias="background">image/photon.jpeg</file>
     </qresource>
 </RCC>
