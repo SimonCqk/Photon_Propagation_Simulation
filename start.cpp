@@ -1,7 +1,7 @@
 #include "start.h"
 #include "ui_start.h"
 #include<QImage>
-#include<QDebug>
+//#include<QDebug>
 
 start::start(QWidget *parent) :
     QWidget(parent),
@@ -10,7 +10,6 @@ start::start(QWidget *parent) :
     ui->setupUi(this);
     this->setAutoFillBackground(true);
     QString bground_path=":/image/background";
-    qDebug()<<bground_path;
     QPixmap bground;  // set background image
     bground.load(bground_path);
     QPalette palette;
@@ -19,6 +18,7 @@ start::start(QWidget *parent) :
                                                                            Qt::IgnoreAspectRatio,
                                                                            Qt::SmoothTransformation)));
     this->setPalette(palette);
+    this->setWindowTitle("Welcome Page");
 }
 
 start::~start()
