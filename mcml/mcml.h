@@ -4,8 +4,10 @@
 
 #include<iostream>
 #include<memory>
-#include"mcml_impl.h"
-#include"utility_fwd.h"
+#include"mcml/mcml_fwd.h"
+#include"mcml/utility_fwd.h"
+#include"mcml/mcml_impl.h"
+#include<QVector>
 //using std::vector;
 //using std::string;
 using std::shared_ptr;
@@ -13,12 +15,9 @@ using std::weak_ptr;
 using std::make_shared;
 
 
-const double PI = 3.1415926;
-const double WEIGHT = 1E-4;/* Critical weight for roulette. */
-const double CHANCE = 0.1; /* Chance of roulette survival. */
+//const double WEIGHT = 1E-4;/* Critical weight for roulette. */
 
-class OutClass;
-class InputClass;
+
 
 // Class used to describe a photon packet.[¹â×Ó]
 
@@ -126,11 +125,5 @@ public:
 private:
     shared_ptr<OutStruct> out;
 };
-
-double RandomNum();
-double Rspecular(QVector<LayerClass>& LayerVec);
-double SpinTheta(double g);
-double RFresnel(double n1, double n2, double ca1, double& ca2_Ptr);
-
 
 #endif // !R_MCML_H

@@ -18,6 +18,9 @@ public:
 private slots:
     void on_QuitButton_clicked();
 
+    void on_ConfrimButton_clicked();
+
+
 private:
     Ui::start *ui;
 };

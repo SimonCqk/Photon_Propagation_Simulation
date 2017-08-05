@@ -2,9 +2,10 @@
 #ifndef MCML_FUN_FWD_H
 #define MCML_FUN_FWD_H
 
-#include"mcml.h"
+#include"mcml/mcml_fwd.h"
 #include<vector>
 using std::vector;
+
 
 double RandomNum();
 double Rspecular(vector<LayerClass>& LayerVec);

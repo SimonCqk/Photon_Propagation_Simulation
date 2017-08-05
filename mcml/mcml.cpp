@@ -1,6 +1,6 @@
 //The implementation of Monte Carlo Model
 
-#include"mcml.h"
+#include"mcml/mcml.h"
 
 #define  PARTIALREFLECTION  0
 /* 1=split photon, 0=statistical reflection. */
@@ -16,6 +16,8 @@ const double COSZERO = (1.0 - 1.0E-12);
 const double  COS90D = 1.0E-6;
 /* cosine of about 1.57 - 1e-6 rad. */
 
+const double CHANCE = 0.1; /* Chance of roulette survival. */
+const double PI = 3.1415926;
 
 //The specific declaration of mem-function in PhotonClass
 void PhotonClass::launch(double Rspecular, QVector<LayerClass>& LayerVec)
@@ -399,7 +401,7 @@ void PhotonClass::crossOrNot(const InputClass& In, OutClass& Out)
  */
 void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
 
-	double dl; /* step size. 1/cm */
+    //double dl; /* step size. 1/cm */
 
 	if (photon->dcos_z == 0.0) {
 		/* horizontal photon in glass is killed. */

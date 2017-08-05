@@ -1,6 +1,8 @@
 #include"utility_fwd.h"
-using std::vector;
+#include"mcml/mcml.h"
 
+using std::vector;
+const double PI = 3.1415926;
 
 /*
 Get 1D array elements by summing the 2D array elements.
