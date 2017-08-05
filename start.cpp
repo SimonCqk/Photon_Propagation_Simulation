@@ -25,3 +25,8 @@ start::~start()
 {
     delete ui;
 }
+
+void start::on_QuitButton_clicked()
+{
+    this->close();
+}
