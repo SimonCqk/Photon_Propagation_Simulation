@@ -16,10 +16,10 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <widget class="QPushButton" name="ConfrimButton">
+  <widget class="QPushButton" name="EnterButton">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>80</x>
      <y>220</y>
      <width>80</width>
      <height>20</height>
@@ -33,7 +33,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Confirm</string>
+    <string>Enter</string>
    </property>
   </widget>
   <widget class="QPushButton" name="QuitButton">
@@ -59,8 +59,8 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>20</y>
+     <x>90</x>
+     <y>40</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -77,89 +77,47 @@
     <string>Model of Light Transport</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>70</y>
-     <width>271</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft YaHei</family>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Input the Number of Model-Runs OR Quit.</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
+  <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>140</y>
-     <width>201</width>
-     <height>41</height>
+     <y>100</y>
+     <width>231</width>
+     <height>81</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <family>Microsoft YaHei</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Click &lt;Enter&gt; to configure a RUN.</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QLabel" name="label">
       <property name="font">
        <font>
         <family>Microsoft YaHei UI</family>
-        <pointsize>9</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
        </font>
       </property>
       <property name="text">
-       <string>Number of RUNs:</string>
+       <string>                     Or Quit.</string>
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QSpinBox" name="spinBox_Run"/>
-    </item>
    </layout>
-  </widget>
-  <widget class="QSlider" name="horizontalSlider">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>180</y>
-     <width>91</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>horizontalSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox_Run</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>236</x>
-     <y>186</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>234</x>
-     <y>164</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
