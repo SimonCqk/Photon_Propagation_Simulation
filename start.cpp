@@ -20,7 +20,12 @@ start::start(QWidget *parent) :
                                                                            Qt::SmoothTransformation)));
     this->setPalette(palette);
     this->setWindowTitle("Welcome Page");
-
+    // set color of labels text
+    QPalette pa;
+    pa.setColor(QPalette::WindowText,Qt::yellow);
+    ui->label->setPalette(pa);
+    ui->label_2->setPalette(pa);
+    ui->label_3->setPalette(pa);
 }
 
 start::~start()
