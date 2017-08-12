@@ -7,10 +7,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //set color of pushbutton
-    ui->ConfigButton->setStyleSheet("background-color: rgb(103, 103, 103);");
-    ui->ResultButton->setStyleSheet("background-color: rgb(103, 103, 103);");
-    ui->HistoryButton->setStyleSheet("background-color: rgb(103, 103, 103);");
-    ui->AboutButton->setStyleSheet("background-color: rgb(103, 103, 103);");
+    ui->ConfigButton->setStyleSheet("background-color: rgb(150, 150, 150);");
+    ui->ResultButton->setStyleSheet("background-color: rgb(150, 150, 150);");
+    ui->HistoryButton->setStyleSheet("background-color: rgb(150, 150, 150);");
+    ui->AboutButton->setStyleSheet("background-color: rgb(150, 150, 150);");
+
+    ui->statusBar->showMessage(QString("May it helps you. :)"));
+    QPalette pa;
+    pa.setColor(QPalette::ColorGroup,Qt::gray);
+    ui->statusBar->setPalette(pa);
+    //let main windows can not scale
+    this->setFixedSize(625,380);
 
 }
 
