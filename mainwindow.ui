@@ -24,110 +24,28 @@
     <normaloff>:/image/logo</normaloff>:/image/logo</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="AboutButton">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>255</y>
-      <width>135</width>
-      <height>85</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Microsoft YaHei UI</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>About</string>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="ConfigButton">
+   <widget class="QTabWidget" name="TabWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>135</width>
-      <height>85</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Microsoft YaHei UI</family>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Configure Parameters</string>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="HistoryButton">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>170</y>
-      <width>135</width>
-      <height>85</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Microsoft YaHei UI</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>View History</string>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="ResultButton">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>85</y>
-      <width>135</width>
-      <height>85</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Microsoft YaHei UI</family>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Run Result</string>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>0</y>
-      <width>501</width>
+      <width>631</width>
       <height>341</height>
      </rect>
     </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::West</enum>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
