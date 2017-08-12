@@ -63,4 +63,5 @@ RC_ICONS=logo.ico
 DISTFILES += \
     image/logo.jpg \
     image/logo.ico \
-    image/photon.jpeg
+    image/photon.jpeg \
+    .gitignore
