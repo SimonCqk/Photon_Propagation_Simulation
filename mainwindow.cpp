@@ -14,7 +14,7 @@ public:
         if (type == QStyle::CT_TabBarTab) {
             s.transpose();
             s.rwidth() = 135;
-            s.rheight() = 80;
+            s.rheight() = 85;
         }
         return s;
     }
@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->statusBar->showMessage(QString("May it helps you. :)"));
     //let main windows can not scale
     this->setFixedSize(625,380);
+    //delete default tabs in Tab Widget
     delete ui->tab;
     delete ui->tab_2;
     //First page: configure parameters
@@ -88,6 +89,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->TabWidget->setTabPosition(QTabWidget::West);
     ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
     ui->TabWidget->tabBar()->setStyleSheet("background-color: rgb(150, 150, 150);");
+    QFont font("Consolas",10);
+    ui->TabWidget->tabBar()->setFont(font);
 
 }
 
