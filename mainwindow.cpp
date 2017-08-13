@@ -27,8 +27,8 @@ public:
 
                 if (tab->state & QStyle::State_Selected) {
                     painter->save();
-                    painter->setPen(0x89cfff);
-                    painter->setBrush(QBrush(0x89cfff));
+                    painter->setPen(0x0077dd);
+                    painter->setBrush(QBrush(0x0077dd));
                     painter->drawRect(allRect.adjusted(6, 6, -6, -6));
                     painter->restore();
                 }
@@ -88,9 +88,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->TabWidget->addTab(About,"About");
     //ui->TabWidget->setTabPosition(QTabWidget::West);
     ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
-    ui->TabWidget->tabBar()->setStyleSheet("background-color: rgb(150, 150, 150);");
-    QFont font("Consolas",10);
-    ui->TabWidget->tabBar()->setFont(font);
+    ui->TabWidget->tabBar()->setStyleSheet("background-color: rgb(130, 130, 130);\
+                                            font-size: 10pt; font-family: Consolas;");
 
 }
 
