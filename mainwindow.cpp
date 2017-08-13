@@ -57,19 +57,47 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    /*
-    ui->ConfigButton->setStyleSheet("background-color: rgb(110, 110, 110);");
-    ui->ResultButton->setStyleSheet("background-color: rgb(110, 110, 110);");
-    ui->HistoryButton->setStyleSheet("background-color: rgb(110, 110, 110);");
-    ui->AboutButton->setStyleSheet("background-color: rgb(110, 110, 110);");
-    ui->statusBar->setStyleSheet("background-color: rgb(150, 150, 150);");
-    */
+
     ui->statusBar->showMessage(QString("May it helps you. :)"));
     //let main windows can not scale
     this->setFixedSize(625,380);
     //delete default tabs in Tab Widget
     delete ui->tab;
     delete ui->tab_2;
+    //ui->TabWidget->setTabPosition(QTabWidget::West);
+    ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
+    ui->TabWidget->tabBar()->setStyleSheet("background-color: rgb(130, 130, 130);\
+                                            font-size: 10pt; font-family: Consolas;");
+    this->addTabWidgets();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::setConfParas(QWidget *wid)
+{
+
+}
+
+void MainWindow::setRunResults(QWidget *wid)
+{
+
+}
+
+void MainWindow::setRunHistory(QWidget *wid)
+{
+
+}
+
+void MainWindow::setAbout(QWidget *wid)
+{
+
+}
+
+void MainWindow::addTabWidgets()
+{
     //First page: configure parameters
     QWidget *ConfParas=new QWidget();
 
@@ -86,15 +114,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->TabWidget->addTab(RunResults,"Run Results");
     ui->TabWidget->addTab(RunHistory,"History");
     ui->TabWidget->addTab(About,"About");
-    //ui->TabWidget->setTabPosition(QTabWidget::West);
-    ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
-    ui->TabWidget->tabBar()->setStyleSheet("background-color: rgb(130, 130, 130);\
-                                            font-size: 10pt; font-family: Consolas;");
-
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
 
