@@ -7,6 +7,7 @@ About::About(QWidget *parent) :
     ui(new Ui::About)
 {
     ui->setupUi(this);
+    ui->textBrowser->setOpenLinks(false);
 }
 
 About::~About()
@@ -16,6 +17,5 @@ About::~About()
 
 void About::on_textBrowser_anchorClicked(const QUrl &arg1)
 {
-    ui->textBrowser->setOpenLinks(false);
     QDesktopServices::openUrl(arg1);
 }
