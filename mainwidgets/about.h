@@ -14,7 +14,9 @@ class About : public QWidget
 public:
     explicit About(QWidget *parent = 0);
     ~About();
-
+protected:
+    //rewrite painEvent() to make stylesheet usable in derived class
+    void paintEvent(QPaintEvent *);
 private slots:
     void on_textBrowser_anchorClicked(const QUrl &arg1);
 

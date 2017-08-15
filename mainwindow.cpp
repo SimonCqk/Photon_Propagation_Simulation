@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include"mainwidgets/about.h"
+#include"mainwidgets/confparas.h"
 
 #include <QPainter>
 #include <QProxyStyle>
@@ -84,8 +85,8 @@ MainWindow::~MainWindow()
 void MainWindow::setConfParas()
 {
     //First page: configure parameters
-    QWidget *ConfParas=new QWidget();
-    ui->TabWidget->addTab(ConfParas,"Configure Parameters");
+    ConfParas *confparas=new ConfParas();
+    ui->TabWidget->addTab(confparas,"Configure Parameters");
 }
 
 void MainWindow::setRunResults()

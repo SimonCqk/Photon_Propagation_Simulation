@@ -36,7 +36,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     start.cpp \
-    mainwidgets/about.cpp
+    mainwidgets/about.cpp \
+    mainwidgets/confparas.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,12 +52,14 @@ HEADERS += \
     mcml/utility_fwd.h \
     mainwindow.h \
     start.h \
-    mainwidgets/about.h
+    mainwidgets/about.h \
+    mainwidgets/confparas.h
 
 FORMS += \
         mainwindow.ui \
     start.ui \
-    mainwidgets/about.ui
+    mainwidgets/about.ui \
+    mainwidgets/confparas.ui
 
 RESOURCES += \
     resources.qrc
