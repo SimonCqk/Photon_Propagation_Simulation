@@ -17,11 +17,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    void addTabWidgets();
-    void setConfParas(QWidget *wid);
-    void setRunResults(QWidget *wid);
-    void setRunHistory(QWidget *wid);
-    void setAbout(QWidget *wid);
+    void setConfParas();
+    void setRunResults();
+    void setRunHistory();
+    void setAbout();
 
 
 };

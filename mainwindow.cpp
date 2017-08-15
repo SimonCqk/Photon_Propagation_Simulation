@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include"mainwidgets/about.h"
 
 #include <QPainter>
 #include <QProxyStyle>
@@ -68,7 +69,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
     ui->TabWidget->tabBar()->setStyleSheet("background-color: rgb(130, 130, 130);\
                                             font-size: 10pt; font-family: Consolas;");
-    this->addTabWidgets();
+    //set up tab widgets
+    setConfParas();
+    setRunResults();
+    setRunHistory();
+    setAbout();
 }
 
 MainWindow::~MainWindow()
@@ -76,44 +81,38 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setConfParas(QWidget *wid)
-{
-
-}
-
-void MainWindow::setRunResults(QWidget *wid)
-{
-
-}
-
-void MainWindow::setRunHistory(QWidget *wid)
-{
-
-}
-
-void MainWindow::setAbout(QWidget *wid)
-{
-
-}
-
-void MainWindow::addTabWidgets()
+void MainWindow::setConfParas()
 {
     //First page: configure parameters
     QWidget *ConfParas=new QWidget();
+    ui->TabWidget->addTab(ConfParas,"Configure Parameters");
+}
 
+void MainWindow::setRunResults()
+{
     //Second page: show run results
     QWidget *RunResults=new QWidget();
+    ui->TabWidget->addTab(RunResults,"Run Results");
 
+}
+
+void MainWindow::setRunHistory()
+{
     //Third page: show running history
     QWidget *RunHistory=new QWidget();
+    ui->TabWidget->addTab(RunHistory,"History");
+
+}
+
+void MainWindow::setAbout()
+{
 
     //Fourth page: show about information
-    QWidget *About=new QWidget();
+    About *about=new About();
 
-    ui->TabWidget->addTab(ConfParas,"Configure Parameters");
-    ui->TabWidget->addTab(RunResults,"Run Results");
-    ui->TabWidget->addTab(RunHistory,"History");
-    ui->TabWidget->addTab(About,"About");
+    ui->TabWidget->addTab(about,"About");
+
+
 }
 
 
