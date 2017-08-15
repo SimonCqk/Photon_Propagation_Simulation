@@ -15,6 +15,9 @@ public:
     explicit About(QWidget *parent = 0);
     ~About();
 
+private slots:
+    void on_textBrowser_anchorClicked(const QUrl &arg1);
+
 private:
     Ui::About *ui;
 };
