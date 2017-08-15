@@ -7,7 +7,8 @@ About::About(QWidget *parent) :
     ui(new Ui::About)
 {
     ui->setupUi(this);
-    ui->textBrowser->setOpenLinks(false);
+    ui->textBrowser->setOpenLinks(false);  // Indispensable!!Or Qt will try to open hyperlink locally
+    ui->textBrowser->setStyleSheet("font-family:Consolas;");  // seems doesn't work
 }
 
 About::~About()
