@@ -13,7 +13,6 @@ ConfParas::ConfParas(QWidget *parent) :
                                     border: 1px solid #bbb;  \
                                     background: white;  \
                                     height: 10px;  \
-                                    border-radius: 4px;  \
                                     }  \
                                       \
                                     QSlider::sub-page:horizontal {  \
@@ -23,14 +22,12 @@ ConfParas::ConfParas(QWidget *parent) :
                                         stop: 0 #bbf, stop: 1 #55f);  \
                                     border: 1px solid #777;  \
                                     height: 10px;  \
-                                    border-radius: 4px;  \
                                     }  \
                                       \
                                     QSlider::add-page:horizontal {  \
                                     background: #fff;  \
                                     border: 1px solid #777;  \
                                     height: 10px;  \
-                                    border-radius: 4px;  \
                                     }  \
                                       \
                                     QSlider::handle:horizontal {  \
@@ -40,14 +37,12 @@ ConfParas::ConfParas(QWidget *parent) :
                                     width: 13px;  \
                                     margin-top: -2px;  \
                                     margin-bottom: -2px;  \
-                                    border-radius: 4px;  \
                                     }  \
                                       \
                                     QSlider::handle:horizontal:hover {  \
                                     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,  \
                                         stop:0 #fff, stop:1 #ddd);  \
                                     border: 1px solid #444;  \
-                                    border-radius: 4px;  \
                                     }  \
                                       \
                                     QSlider::sub-page:horizontal:disabled {  \
@@ -63,7 +58,6 @@ ConfParas::ConfParas(QWidget *parent) :
                                     QSlider::handle:horizontal:disabled {  \
                                     background: #eee;  \
                                     border: 1px solid #aaa;  \
-                                    border-radius: 4px;  \
                                     }");
 }
 
