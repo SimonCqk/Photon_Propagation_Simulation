@@ -2,6 +2,8 @@
 #include "ui_confparas.h"
 #include<QPainter>
 #include<QStyleOption>
+#include<QIntValidator>
+#include<QDoubleValidator>
 ConfParas::ConfParas(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ConfParas)
@@ -59,6 +61,17 @@ ConfParas::ConfParas(QWidget *parent) :
                                     background: #eee;  \
                                     border: 1px solid #aaa;  \
                                     }");
+    // set line edits `int` or 'double' input only
+    QIntValidator *intvalid=new QIntValidator();
+    QDoubleValidator *doublevalid=new QDoubleValidator();
+    intvalid->setBottom(1);
+    doublevalid->setBottom(0.0);
+    ui->zGridEdit->setValidator(doublevalid);
+    ui->rGridEdit->setValidator(doublevalid);
+    ui->No_aGridEdit->setValidator(intvalid);
+    ui->No_rGridEdit->setValidator(intvalid);
+    ui->No_zGridEdit->setValidator(intvalid);
+
 }
 
 ConfParas::~ConfParas()
