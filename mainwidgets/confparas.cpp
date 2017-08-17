@@ -4,6 +4,10 @@
 #include<QStyleOption>
 #include<QIntValidator>
 #include<QDoubleValidator>
+#include<QDialog>
+#include<QVBoxLayout>
+#include<QDebug>
+
 ConfParas::ConfParas(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ConfParas)
@@ -71,7 +75,6 @@ ConfParas::ConfParas(QWidget *parent) :
     ui->No_aGridEdit->setValidator(intvalid);
     ui->No_rGridEdit->setValidator(intvalid);
     ui->No_zGridEdit->setValidator(intvalid);
-
 }
 
 ConfParas::~ConfParas()
@@ -86,3 +89,31 @@ void ConfParas::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
+
+void ConfParas::saveLayerDatas(QPlainTextEdit *LayerEdit)
+{
+    LayerDatas=LayerEdit->toPlainText();
+    qDebug()<<"<<<<<<<<<"<<LayerDatas;
+}
+
+void ConfParas::on_SpeLayerButton_clicked()
+{
+    QDialog *SpecifyLayer=new QDialog();
+    SpecifyLayer->setWindowTitle("Specify parameters for layers");
+    SpecifyLayer->setFixedSize(QSize(170,120));
+    QPlainTextEdit *LayerEdit=new QPlainTextEdit();
+    QDoubleValidator *doublevalid=new QDoubleValidator();
+    doublevalid->setBottom(0.0);
+    LayerEdit->setv
+    QPushButton *Confrim=new QPushButton("Confirm");
+    QVBoxLayout *layout=new QVBoxLayout();
+    layout->addWidget(LayerEdit);
+    layout->addWidget(Confrim);
+    SpecifyLayer->setLayout(layout);
+    connect(Confrim,SIGNAL(QPushButton::clicked),SpecifyLayer,SLOT(ConfParas::saveLayerDatas(LayerEdit)));
+    connect(Confrim,&QPushButton::clicked,SpecifyLayer,&QDialog::close);
+    SpecifyLayer->show();
+
+}
+
+

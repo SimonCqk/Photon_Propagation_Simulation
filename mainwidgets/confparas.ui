@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>20</y>
+     <y>10</y>
      <width>501</width>
      <height>20</height>
     </rect>
@@ -38,9 +38,9 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>50</y>
-     <width>361</width>
+     <x>40</x>
+     <y>40</y>
+     <width>411</width>
      <height>31</height>
     </rect>
    </property>
@@ -54,6 +54,9 @@
       </property>
       <property name="text">
        <string>Number Of Photons:</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -90,9 +93,9 @@
   <widget class="QWidget" name="horizontalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>90</y>
-     <width>361</width>
+     <x>40</x>
+     <y>70</y>
+     <width>411</width>
      <height>31</height>
     </rect>
    </property>
@@ -106,6 +109,9 @@
       </property>
       <property name="text">
        <string>z/r Grid Separation:</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -147,13 +153,13 @@
   <widget class="QWidget" name="horizontalLayoutWidget_3">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>130</y>
-     <width>361</width>
+     <x>40</x>
+     <y>100</y>
+     <width>411</width>
      <height>31</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="NohorizontalLayout">
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="font">
@@ -162,7 +168,10 @@
        </font>
       </property>
       <property name="text">
-       <string>No. of z/r/alpha Grid Sep:</string>
+       <string>No. of z/r/alpha Grid Separation:</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -225,11 +234,43 @@
     </item>
    </layout>
   </widget>
-  <zorder>label</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>label_2</zorder>
-  <zorder>horizontalLayoutWidget_2</zorder>
-  <zorder>horizontalLayoutWidget_3</zorder>
+  <widget class="QPlainTextEdit" name="plainTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>130</y>
+     <width>411</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+    </font>
+   </property>
+   <property name="plainText">
+    <string>Specify Refractive Index/Absorption Coefficient/Scattering Coefficient/Anisotropy/Thickness of each layer.
+[One Line for each layer]</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="SpeLayerButton">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>180</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+    </font>
+   </property>
+   <property name="text">
+    <string>Clik Here to spcify</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

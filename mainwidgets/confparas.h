@@ -2,6 +2,8 @@
 #define CONFPARAS_H
 
 #include <QWidget>
+#include<QPlainTextEdit>
+
 
 namespace Ui {
 class ConfParas;
@@ -16,8 +18,12 @@ public:
     ~ConfParas();
 protected:
     void paintEvent(QPaintEvent *);  // ready for style sheet setting
+private slots:
+    void on_SpeLayerButton_clicked();
+    void saveLayerDatas(QPlainTextEdit *LayerEdit);
 private:
     Ui::ConfParas *ui;
+    QString LayerDatas;
 };
 
 #endif // CONFPARAS_H
