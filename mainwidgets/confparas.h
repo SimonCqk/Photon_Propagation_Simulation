@@ -20,10 +20,10 @@ protected:
     void paintEvent(QPaintEvent *);  // ready for style sheet setting
 private slots:
     void on_SpeLayerButton_clicked();
-    void saveLayerDatas(QPlainTextEdit *LayerEdit);
+    void getLayerDatas(QPlainTextEdit *LayerEdit);
 private:
     Ui::ConfParas *ui;
-    QString LayerDatas;
+    QString* LayerDatas=new QString();
 };
 
 #endif // CONFPARAS_H

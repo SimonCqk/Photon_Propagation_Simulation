@@ -80,6 +80,7 @@ ConfParas::ConfParas(QWidget *parent) :
 ConfParas::~ConfParas()
 {
     delete ui;
+    qDebug()<<"<<<<<<<<<"<<*LayerDatas;
 }
 
 void ConfParas::paintEvent(QPaintEvent *)
@@ -90,10 +91,11 @@ void ConfParas::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void ConfParas::saveLayerDatas(QPlainTextEdit *LayerEdit)
+void ConfParas::getLayerDatas(QPlainTextEdit *LayerEdit)
 {
-    LayerDatas=LayerEdit->toPlainText();
-    qDebug()<<"<<<<<<<<<"<<LayerDatas;
+    qDebug()<<"<<"<<*LayerDatas;
+    *LayerDatas=LayerEdit->toPlainText();
+    qDebug()<<"<<<<<"<<*LayerDatas;
 }
 
 void ConfParas::on_SpeLayerButton_clicked()
@@ -102,16 +104,22 @@ void ConfParas::on_SpeLayerButton_clicked()
     SpecifyLayer->setWindowTitle("Specify parameters for layers");
     SpecifyLayer->setFixedSize(QSize(170,120));
     QPlainTextEdit *LayerEdit=new QPlainTextEdit();
-    QDoubleValidator *doublevalid=new QDoubleValidator();
-    doublevalid->setBottom(0.0);
-    LayerEdit->setv
+    //QDoubleValidator *doublevalid=new QDoubleValidator();
+    //doublevalid->setBottom(0.0);
     QPushButton *Confrim=new QPushButton("Confirm");
+    Confrim->setFont(QFont("Consolas"));
     QVBoxLayout *layout=new QVBoxLayout();
     layout->addWidget(LayerEdit);
-    layout->addWidget(Confrim);
-    SpecifyLayer->setLayout(layout);
-    connect(Confrim,SIGNAL(QPushButton::clicked),SpecifyLayer,SLOT(ConfParas::saveLayerDatas(LayerEdit)));
+    layout->addWidget(Confrim);  
+
+    connect(Confrim,&QPushButton::clicked,[LayerEdit,this]{
+        qDebug()<<"<<"<<*LayerDatas;
+        *LayerDatas=LayerEdit->toPlainText();
+        qDebug()<<"<<<<<"<<*LayerDatas;
+    });
     connect(Confrim,&QPushButton::clicked,SpecifyLayer,&QDialog::close);
+
+    SpecifyLayer->setLayout(layout);
     SpecifyLayer->show();
 
 }
