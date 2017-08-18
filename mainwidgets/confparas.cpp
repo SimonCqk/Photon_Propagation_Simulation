@@ -80,7 +80,6 @@ ConfParas::ConfParas(QWidget *parent) :
 ConfParas::~ConfParas()
 {
     delete ui;
-    qDebug()<<"<<<<<<<<<"<<*LayerDatas;
 }
 
 void ConfParas::paintEvent(QPaintEvent *)
@@ -91,12 +90,6 @@ void ConfParas::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void ConfParas::getLayerDatas(QPlainTextEdit *LayerEdit)
-{
-    qDebug()<<"<<"<<*LayerDatas;
-    *LayerDatas=LayerEdit->toPlainText();
-    qDebug()<<"<<<<<"<<*LayerDatas;
-}
 
 void ConfParas::on_SpeLayerButton_clicked()
 {
@@ -112,10 +105,8 @@ void ConfParas::on_SpeLayerButton_clicked()
     layout->addWidget(LayerEdit);
     layout->addWidget(Confrim);  
 
-    connect(Confrim,&QPushButton::clicked,[LayerEdit,this]{
-        qDebug()<<"<<"<<*LayerDatas;
-        *LayerDatas=LayerEdit->toPlainText();
-        qDebug()<<"<<<<<"<<*LayerDatas;
+    connect(Confrim,&QPushButton::clicked,[LayerEdit,this]{ // use lambda instead of slots                       // lambda syntax is amazing.
+        *LayerDatas=LayerEdit->toPlainText().split("\n",QString::SkipEmptyParts);
     });
     connect(Confrim,&QPushButton::clicked,SpecifyLayer,&QDialog::close);
 
