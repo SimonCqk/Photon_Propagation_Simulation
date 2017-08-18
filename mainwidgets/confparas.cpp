@@ -105,8 +105,8 @@ void ConfParas::on_SpeLayerButton_clicked()
     layout->addWidget(LayerEdit);
     layout->addWidget(Confrim);  
 
-    connect(Confrim,&QPushButton::clicked,[LayerEdit,this]{ // use lambda instead of slots                       // lambda syntax is amazing.
-        *LayerDatas=LayerEdit->toPlainText().split("\n",QString::SkipEmptyParts);
+    connect(Confrim,&QPushButton::clicked,[LayerEdit,this]{ // use lambda instead of slots
+        *LayerDatas=LayerEdit->toPlainText().split("\n",QString::SkipEmptyParts);  // lambda syntax is amazing.
     });
     connect(Confrim,&QPushButton::clicked,SpecifyLayer,&QDialog::close);
 
