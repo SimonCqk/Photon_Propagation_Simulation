@@ -77,6 +77,7 @@ ConfParas::ConfParas(QWidget *parent) :
     ui->No_zGridEdit->setValidator(intvalid);
 
     ui->Instructor->setAutoFillBackground(true);
+    ui->Instructor->setAlignment(Qt::AlignCenter);
     setInstructor();
 }
 
@@ -142,6 +143,8 @@ bool ConfParas::checkLayerDatas()
     for(auto &it:(*LayerDatas))
     {
         QStringList tmp=it.split(" ");
+        if(tmp.size()!=4)
+            return false;
         for(auto &i:tmp)
         {
             if(i.contains("."))
