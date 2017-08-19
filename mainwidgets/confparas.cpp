@@ -176,9 +176,9 @@ void ConfParas::setInstructor()
         }
         else
         {
-            pa.setColor(QPalette::Background,Qt::green);
+            pa.setColor(QPalette::Background,Qt::red);
             ui->Instructor->setPalette(pa);
-            ui->Instructor->setText("Valid paras");
+            ui->Instructor->setText("Invalid paras");
         }
     }
 }
