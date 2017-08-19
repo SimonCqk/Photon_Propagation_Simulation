@@ -234,50 +234,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="gridLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>140</y>
-     <width>411</width>
-     <height>72</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QPlainTextEdit" name="plainTextEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="plainText">
-       <string>Specify Refractive Index/Absorption Coefficient/Scattering Coefficient/Anisotropy/Thickness of each layer.
-[One Line for each layer]</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="SpeLayerButton">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Clik Here to spcify</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_4">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>220</y>
+     <y>230</y>
      <width>411</width>
-     <height>51</height>
+     <height>41</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="MediumhorizontalLayout">
@@ -330,7 +293,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="ClearButton">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -354,6 +317,61 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>150</y>
+     <width>143</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="SpeLayerButton">
+      <property name="font">
+       <font>
+        <family>Consolas</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>Clik Here to spcify</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="Instructor">
+      <property name="font">
+       <font>
+        <family>Consolas</family>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>41</x>
+     <y>141</y>
+     <width>262</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+    </font>
+   </property>
+   <property name="plainText">
+    <string>Specify Refractive Index/Absorption Coefficient/Scattering Coefficient/Anisotropy/Thickness of each layer.
+[One Line for each layer]</string>
+   </property>
   </widget>
  </widget>
  <resources/>

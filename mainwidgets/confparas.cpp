@@ -75,6 +75,9 @@ ConfParas::ConfParas(QWidget *parent) :
     ui->No_aGridEdit->setValidator(intvalid);
     ui->No_rGridEdit->setValidator(intvalid);
     ui->No_zGridEdit->setValidator(intvalid);
+
+    ui->Instructor->setAutoFillBackground(true);
+    setInstructor();
 }
 
 ConfParas::~ConfParas()
@@ -105,9 +108,12 @@ void ConfParas::on_SpeLayerButton_clicked()
     layout->addWidget(LayerEdit);
     layout->addWidget(Confrim);  
 
-    connect(Confrim,&QPushButton::clicked,[LayerEdit,this]{ // use lambda instead of slots
-        *LayerDatas=LayerEdit->toPlainText().split("\n",QString::SkipEmptyParts);  // lambda syntax is amazing.
+    connect(Confrim,&QPushButton::clicked,[LayerEdit,this]{
+        // use lambda instead of slots
+        // lambda syntax is amazing.
+        *LayerDatas=LayerEdit->toPlainText().split("\n",QString::SkipEmptyParts);
     });
+    connect(Confrim,&QPushButton::clicked,this,&ConfParas::setInstructor);
     connect(Confrim,&QPushButton::clicked,SpecifyLayer,&QDialog::close);
 
     SpecifyLayer->setLayout(layout);
@@ -116,3 +122,63 @@ void ConfParas::on_SpeLayerButton_clicked()
 }
 
 
+
+void ConfParas::on_ClearButton_clicked()
+{
+    ui->PhoNumSpinBox->clear();
+    ui->MedAboveEdit->clear();
+    ui->MedBelowEdit->clear();
+    ui->No_aGridEdit->clear();
+    ui->No_rGridEdit->clear();
+    ui->No_zGridEdit->clear();
+    ui->rGridEdit->clear();
+    ui->zGridEdit->clear();
+    LayerDatas->clear();
+}
+
+bool ConfParas::checkLayerDatas()
+{
+    bool flag;
+    for(auto &it:(*LayerDatas))
+    {
+        QStringList tmp=it.split(" ");
+        for(auto &i:tmp)
+        {
+            if(i.contains("."))
+            {
+                i=i.toDouble(&flag);
+            }
+            else
+            {
+                i=i.toInt(&flag,10);
+            }
+        }
+    }
+    return flag;
+}
+
+void ConfParas::setInstructor()
+{
+    QPalette pa;
+    if(LayerDatas->isEmpty())
+    {
+        pa.setColor(QPalette::Background,Qt::red);
+        ui->Instructor->setPalette(pa);
+        ui->Instructor->setText("Layer paras is empty");
+    }
+    else
+    {
+        if(checkLayerDatas())
+        {
+            pa.setColor(QPalette::Background,Qt::green);
+            ui->Instructor->setPalette(pa);
+            ui->Instructor->setText("Valid paras");
+        }
+        else
+        {
+            pa.setColor(QPalette::Background,Qt::green);
+            ui->Instructor->setPalette(pa);
+            ui->Instructor->setText("Valid paras");
+        }
+    }
+}
