@@ -1,8 +1,28 @@
 #include"utility_fwd.h"
 #include"mcml/mcml.h"
+#include<list>
 
-using std::vector;
 const double PI = 3.1415926;
+
+
+/*
+Compute the critical angles for total internal reflection according to the relative refractive index of the layer.
+All layers are processed.
+*/
+void CriticalAngle(size_t Layer_num, list<LayerClass>& layerspecs)
+{
+    double n1, n2;
+    for (int i = 1; i <= Layer_num; ++i) {
+        n1 = layerspecs[i].layer->scat_coef;
+        n2 = layerspecs[i - 1].layer->scat_coef;
+
+        layerspecs[i].layer->cos_crit_up = (n1>n2) ? sqrt(1.0 - n2*n2 / n1*n1) : 0.0;
+
+        n2 = layerspecs[i + 1].layer->scat_coef;
+
+        layerspecs[i].layer->cos_crit_down = (n1>n2) ? sqrt(1.0 - n2*n2 / n1*n1) : 0.0;
+    }
+}
 
 /*
 Get 1D array elements by summing the 2D array elements.

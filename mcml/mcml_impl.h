@@ -9,13 +9,13 @@ using std::string;
 
 struct PhotonStruct
 {
-    double x, y, z; /* Cartesian coordinates.[cm] [?????????] [cm]???¦Ë*/
-    double dcos_x, dcos_y, dcos_z;/* directional cosines of a photon. [????????????] */
+    double x, y, z; /* Cartesian coordinates.[cm] */
+    double dcos_x, dcos_y, dcos_z;/* directional cosines of a photon. */
     double weight; /* weight. */
     bool dead; /* true if photon is terminated. */
     size_t layer; /* index to layer where the photon  packet resides. */
-    double cur_step; /* current step size. [cm]. [???????] */
-    double step_left; /* step size left. dimensionless [-]. [?????] */
+    double cur_step; /* current step size. [cm].  */
+    double step_left; /* step size left. dimensionless [-]. */
 };
 
 
@@ -30,20 +30,20 @@ struct PhotonStruct
 
 struct LayerStruct
 {
-    double z0, z1; /* z coordinates of a layer. [cm] [????????] */
+    double z0, z1; /* z coordinates of a layer. [cm]  */
     double rfct_index; /* refractive index of a layer. */
-    double abs_coef; /* absorption coefficient. [1/cm] [???????]*/
-    double scat_coef; /* scattering coefficient. [1/cm] [??????]*/
-    double anisotropy; /* anisotropy. [???????????] */
-    double cos_crit_up;  /* [??????????????????????] */
-    double cos_crit_down;	/*[????????????¡À?????????]*/
+    double abs_coef; /* absorption coefficient. [1/cm] */
+    double scat_coef; /* scattering coefficient. [1/cm] */
+    double anisotropy; /* anisotropy.  */
+    double cos_crit_up;  /*  */
+    double cos_crit_down;	/*  */
 };
 
 
 /****
 * Input parameters for each independent run.
 *
-* z and r are for the cylindrical coordinate system. [cm] [?????????]
+* z and r are for the cylindrical coordinate system. [cm]
 * a is for the angle alpha between the photon exiting direction and the surface normal. [radian]
 *
 * The grid line separations in z, r, and alpha directions are dz, dr, and da respectively. The numbers
@@ -80,7 +80,7 @@ struct InputStruct
 
 /*
 * Classes for scoring physical quantities.
-* z and r represent z and r coordinates of the [??????????????] cylindrical coordinate system. [cm]
+* z and r represent z and r coordinates of the  cylindrical coordinate system. [cm]
 * a is the angle alpha between the photon exiting direction and the normal to the surfaces. [radian]
 * See comments of the InputStruct.
 * See manual for the physcial quantities.
@@ -88,29 +88,29 @@ struct InputStruct
 
 struct OutStruct
 {
-    double spec_reflect; /* specular reflectance. [-]  [????????]*/
-    QVector<QVector<double>> diff_reflect_2d; /* 2D distribution of diffuse [?????????] */
+    double spec_reflect; /* specular reflectance. [-]  */
+    QVector<QVector<double>> diff_reflect_2d; /* 2D distribution of diffuse  */
                                   /* reflectance. [1/(cm2 sr)] */
-    QVector<double> diff_reflect_rdl; /* 1D radial distribution of diffuse [????????????]*/
+    QVector<double> diff_reflect_rdl; /* 1D radial distribution of diffuse */
                          /* reflectance. [1/cm2] */
-    QVector<double> diff_reflect_agl; /* 1D angular distribution of diffuse [???????????] */
+    QVector<double> diff_reflect_agl; /* 1D angular distribution of diffuse */
                          /* reflectance. [1/sr] */
-    double diff_reflect; /* total diffuse reflectance. [-] [????????] */
+    double diff_reflect; /* total diffuse reflectance. [-] */
 
-    QVector<QVector<double>> abs_prob_rz; /* 2D probability density in turbid [?????????????] */
+    QVector<QVector<double>> abs_prob_rz; /* 2D probability density in turbid */
                                  /* media over r & z. [1/cm3] */
     QVector<double> abs_prob_z; /* 1D probability density over z. */
                         /* [1/cm] */
     QVector<double> abs_prob_layer; /* each layer's absorption */
-                        /* probability. [-] [????????????]*/
-    double abs_prob; /* total absorption probability. [-] [?????????] */
+                        /* probability. [-] */
+    double abs_prob; /* total absorption probability. [-] */
 
     QVector<QVector<double>> total_trans_2d; /* 2D distribution of total */
-                                  /* transmittance. [1/(cm2 sr)] [????????????] */
+                                  /* transmittance. [1/(cm2 sr)] */
     QVector<double> total_trans_rdl; /* 1D radial distribution of */
-                         /* transmittance. [1/cm2] [?????????????]*/
+                         /* transmittance. [1/cm2] */
     QVector<double> total_trans_agl; /* 1D angular distribution of */
-                         /* transmittance. [1/sr] [???????????]*/
-    double total_trans; /* total transmittance. [-] [???????] */
+                         /* transmittance. [1/sr] */
+    double total_trans; /* total transmittance. [-]  */
 };
 #endif MCML_IMPL_H

@@ -61,7 +61,7 @@ class LayerClass {
     friend void CriticalAngle(size_t Layer_num,QVector<LayerClass>& layerspecs);
     friend size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
     friend class PhotonClass;
-
+    friend void ConfParas::readDatas(InputClass& In_Ptr,list<LayerClass>& Layer_List);
 public:
     LayerClass() :
         layer(make_shared<LayerStruct>(LayerStruct())) {}
@@ -75,6 +75,7 @@ private:
 };
 
 
+class ConfParas;
 class InputClass {
     friend class PhotonClass;
 
@@ -85,7 +86,7 @@ class InputClass {
     friend void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
-
+    friend void ConfParas::readDatas(InputClass& In_Ptr,list<LayerClass>& Layer_List);
 public:
     InputClass() :
         input(make_shared<InputStruct>(InputStruct())) {}

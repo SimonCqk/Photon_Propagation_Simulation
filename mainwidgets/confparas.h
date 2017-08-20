@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include<QPlainTextEdit>
-
+#include"../mcml/mcml.h"
+#include<list>
 
 namespace Ui {
 class ConfParas;
@@ -28,6 +29,9 @@ private:
     QStringList* LayerDatas=new QStringList();
     bool checkLayerDatas();
     void setInstructor();
+    void readDatas(InputClass& In_Ptr,list<LayerClass>& Layer_Ptr);
+
+
 };
 
 #endif // CONFPARAS_H
