@@ -379,7 +379,6 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 			photon->dcos_z = uz1;
 
 		}
-
 	}
 	else /* reflected. */
 		photon->dcos_z = -uz;

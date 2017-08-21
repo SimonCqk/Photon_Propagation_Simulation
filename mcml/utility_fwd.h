@@ -24,20 +24,23 @@ void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
 void DoOneRun(InputClass* In_Ptr);  // main running control function.
 
 template<class Type>
-inline void AllocVector(vector<Type>& vec,size_t row)
+inline void AllocVector(QVector<Type>& vec,size_t row)
 {
-    vec.resize(row+1);
+    vec.resize(row);
+    vec.fill(0.0)
 }
 
 
 template<class Type>
-inline void AllocMatrix(vector<vector<Type>>& mat,size_t row,size_t col)
+inline void AllocMatrix(QVector<QVector<Type>>& mat,size_t row,size_t col)
 {
-    mat.resize(row+1);
-    for(size_t i=0;i<=col;++i)mat[i].resize(col+1);
+    mat.resize(row);
+    for(size_t i=0;i<=col;++i)
+    {
+        mat[i].resize(col);
+        mat[i].fill(0.0);
+    }
 }
-
-
 
 
 #endif

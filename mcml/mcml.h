@@ -88,6 +88,8 @@ class InputClass {
     friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void ConfParas::readDatas(InputClass& In_Ptr,list<LayerClass>& Layer_List);
     friend void DoOneRun(InputClass* In_Ptr);
+    friend void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
+
 public:
     InputClass() :
         input(make_shared<InputStruct>(InputStruct())) {}
@@ -114,6 +116,8 @@ class OutClass
     friend void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void DoOneRun(InputClass* In_Ptr);
+    friend void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
+
 public:
     OutClass() :
         out(make_shared<OutStruct>(OutStruct())) {}

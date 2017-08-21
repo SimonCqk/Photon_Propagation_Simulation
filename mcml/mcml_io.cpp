@@ -5,6 +5,33 @@
 const double PI = 3.1415926;
 
 
+void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr)
+{
+    size_t nz = In_Parm.input->nz;
+    size_t nr = In_Parm.input->nr;
+    size_t na = In_Parm.input->na;
+    size_t nl = In_Parm.input->num_layers;
+
+    /* Init pure numbers. */
+    Out_Ptr.out->spec_reflect = 0.0;
+    Out_Ptr.out->diff_reflect = 0.0;
+    Out_Ptr.out->abs_prob = 0.0;
+    Out_Ptr.out->total_trans= 0.0;
+
+    AllocMatrix<double>(Out_Ptr.out->diff_reflect_2d,nr,na);
+    AllocVector<double>(Out_Ptr.out->diff_reflect_rdl, nr);
+    AllocVector<double>(Out_Ptr.out->diff_reflect_agl, na);
+
+    AllocMatrix<double>(Out_Ptr.out->abs_prob_rz, nr , nz );
+    AllocVector<double>( Out_Ptr.out->abs_prob_z,nz);
+    AllocVector<double>(Out_Ptr.out->abs_prob_layer, nl + 1);  // maybe nl+2
+
+    AllocMatrix<double>(Out_Ptr.out->total_trans_2d,nr, na);
+    AllocVector<double>(Out_Ptr.out->total_trans_rdl, nr );
+    AllocVector<double>(Out_Ptr.out->total_trans_agl, na);
+}
+
+
 /*
 Compute the critical angles for total internal reflection according to the relative refractive index of the layer.
 All layers are processed.

@@ -238,7 +238,7 @@ void DoOneRun(InputClass* In_Ptr)
     //index to each photon . register for speed.
     register long int idx_photons=In_Ptr->input->num_photons;
     OutClass out_parm;
-    InitOutputData();
+    InitOutputData(*In_Ptr,out_parm);
     PhotonClass photon;
     out_parm.out->spec_reflect=Rspecular(In_Ptr->input->layerspecs);
 
