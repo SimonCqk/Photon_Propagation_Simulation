@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->statusBar->showMessage(QString("May it helps you. :)"));
+    ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);");
     //let main windows can not scale
     this->setFixedSize(625,380);
     //delete default tabs in Tab Widget
