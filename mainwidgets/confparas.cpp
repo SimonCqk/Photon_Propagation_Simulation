@@ -7,8 +7,9 @@
 #include<QDialog>
 #include<QVBoxLayout>
 #include<QDebug>
+#include"../mcml/utility_fwd.h"
+#include"../mcml/mcml.h"
 
-using std::list;
 
 ConfParas::ConfParas(QWidget *parent) :
     QWidget(parent),
@@ -193,7 +194,7 @@ void ConfParas::setInstructor()
 /*
  * read data from Configure page to Input Class for running
  */
-void ConfParas::readDatas(InputClass& In_Ptr, list<LayerClass>& layerspecs)
+void ConfParas::readDatas(InputClass& In_Ptr)
 {
     In_Ptr.input->num_photons=ui->PhoNumSpinBox->value();
 
@@ -206,6 +207,7 @@ void ConfParas::readDatas(InputClass& In_Ptr, list<LayerClass>& layerspecs)
     In_Ptr.input->na=ui->No_aGridEdit->text()->toInt(&ok,10);
 
     In_Ptr.input->num_layers=LayerDatas->size();
+    QVector<LayerClass>& layerspecs;
     //Read the refractive index of the ambient and parameters of layers.
     LayerClass top;
     top.layer->rfct_index=ui->MedAboveEdit->text()->toDouble();
@@ -227,5 +229,25 @@ void ConfParas::readDatas(InputClass& In_Ptr, list<LayerClass>& layerspecs)
     LayerClass bottom;
     bottom.layer->rfct_index=ui->MedBelowEdit->text()->toDouble();
     layerspecs.push_back(bottom);
+    In_Ptr.input->layerspecs=layerspecs;
+    CriticalAngle(In_Ptr.input->num_layers,In_Ptr.input->layerspecs);
 }
 
+void DoOneRun(InputClass* In_Ptr)
+{
+    //index to each photon . register for speed.
+    register long int idx_photons=In_Ptr->input->num_photons;
+    OutClass out_parm;
+    InitOutputData();
+    PhotonClass photon;
+    out_parm.out->spec_reflect=Rspecular(In_Ptr->input->layerspecs);
+
+    do
+    {
+        photon.launch(out_parm.out->spec_reflect,In_Ptr->input->layerspecs);
+        do
+            photon.hopDropSpin(*In_Ptr,out_parm);
+        while(!photon.photon->dead);
+    }
+    while(--idx_photons);
+}

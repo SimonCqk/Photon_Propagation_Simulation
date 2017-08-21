@@ -9,7 +9,7 @@ const double PI = 3.1415926;
 Compute the critical angles for total internal reflection according to the relative refractive index of the layer.
 All layers are processed.
 */
-void CriticalAngle(size_t Layer_num, list<LayerClass>& layerspecs)
+void CriticalAngle(size_t Layer_num, QVector<LayerClass>& layerspecs)
 {
     double n1, n2;
     for (int i = 1; i <= Layer_num; ++i) {
