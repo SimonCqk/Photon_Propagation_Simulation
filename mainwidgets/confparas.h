@@ -17,6 +17,7 @@ class ConfParas : public QWidget
 public:
     explicit ConfParas(QWidget *parent = 0);
     ~ConfParas();
+    void readDatas(InputClass& In_Ptr);
 protected:
     void paintEvent(QPaintEvent *);  // ready for style sheet setting
 private slots:
@@ -29,9 +30,6 @@ private:
     QStringList* LayerDatas=new QStringList();
     bool checkLayerDatas();
     void setInstructor();
-    void readDatas(InputClass& In_Ptr);
-
-
 };
 
 #endif // CONFPARAS_H

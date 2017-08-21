@@ -198,36 +198,36 @@ void ConfParas::readDatas(InputClass& In_Ptr)
 {
     In_Ptr.input->num_photons=ui->PhoNumSpinBox->value();
 
-    In_Ptr.input->dz=ui->zGridEdit->text()->toDouble();
-    In_Ptr.input->dr=ui->rGridEdit->text()->toDouble();
+    In_Ptr.input->dz=ui->zGridEdit->text().toDouble();
+    In_Ptr.input->dr=ui->rGridEdit->text().toDouble();
 
     bool ok;
-    In_Ptr.input->nz=ui->No_zGridEdit->text()->toInt(&ok,10);
-    In_Ptr.input->nr=ui->No_rGridEdit->text()->toInt(&ok,10);
-    In_Ptr.input->na=ui->No_aGridEdit->text()->toInt(&ok,10);
+    In_Ptr.input->nz=ui->No_zGridEdit->text().toInt(&ok,10);
+    In_Ptr.input->nr=ui->No_rGridEdit->text().toInt(&ok,10);
+    In_Ptr.input->na=ui->No_aGridEdit->text().toInt(&ok,10);
 
     In_Ptr.input->num_layers=LayerDatas->size();
-    QVector<LayerClass>& layerspecs;
+    QVector<LayerClass> layerspecs;
     //Read the refractive index of the ambient and parameters of layers.
     LayerClass top;
-    top.layer->rfct_index=ui->MedAboveEdit->text()->toDouble();
+    top.layer->rfct_index=ui->MedAboveEdit->text().toDouble();
     layerspecs.push_back(top);
     double z = 0.0; /* z coordinate of the current layer. */
     for(size_t i=0;i<In_Ptr.input->num_layers;++i)
     {
         LayerClass lay;
-        QStringList data=LayerDatas[i].split(" ");
-        lay.layer->rfct_index=data[0];
-        lay.layer->abs_coef=data[1];
-        lay.layer->scat_coef=data[2];
-        lay.layer->anisotropy=data[3];
+        QStringList data=LayerDatas->at(i).split(" ");
+        lay.layer->rfct_index=data[0].toDouble();
+        lay.layer->abs_coef=data[1].toDouble();
+        lay.layer->scat_coef=data[2].toDouble();
+        lay.layer->anisotropy=data[3].toDouble();
         lay.layer->z0=z;
-        z+=data[4];
+        z+=data[4].toDouble();
         lay.layer->z1=z;
         layerspecs.push_back(lay);
     }
     LayerClass bottom;
-    bottom.layer->rfct_index=ui->MedBelowEdit->text()->toDouble();
+    bottom.layer->rfct_index=ui->MedBelowEdit->text().toDouble();
     layerspecs.push_back(bottom);
     In_Ptr.input->layerspecs=layerspecs;
     CriticalAngle(In_Ptr.input->num_layers,In_Ptr.input->layerspecs);

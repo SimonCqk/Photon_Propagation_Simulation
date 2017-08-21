@@ -7,6 +7,7 @@
 #include"mcml/mcml_fwd.h"
 #include"mcml/utility_fwd.h"
 #include"mcml/mcml_impl.h"
+#include"../mainwidgets/confparas.h"
 #include<QVector>
 //using std::vector;
 //using std::string;
@@ -22,6 +23,7 @@ using std::make_shared;
 // Class used to describe a photon packet.
 
 class PhotonClass {
+    friend void DoOneRun(InputClass* In_Ptr);
 public:
     PhotonClass() :
         photon(make_shared<PhotonStruct>(PhotonStruct())) {}
@@ -61,7 +63,8 @@ class LayerClass {
     friend void CriticalAngle(size_t Layer_num,QVector<LayerClass>& layerspecs);
     friend size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
     friend class PhotonClass;
-    friend void ConfParas::readDatas(InputClass& In_Ptr,list<LayerClass>& Layer_List);
+    friend class ConfParas;
+
 public:
     LayerClass() :
         layer(make_shared<LayerStruct>(LayerStruct())) {}
@@ -75,7 +78,6 @@ private:
 };
 
 
-class ConfParas;
 class InputClass {
     friend class PhotonClass;
 
@@ -86,9 +88,9 @@ class InputClass {
     friend void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
-    friend void ConfParas::readDatas(InputClass& In_Ptr,list<LayerClass>& Layer_List);
     friend void DoOneRun(InputClass* In_Ptr);
     friend void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
+    friend class ConfParas;
 
 public:
     InputClass() :

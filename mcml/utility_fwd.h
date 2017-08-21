@@ -12,6 +12,7 @@ double Rspecular(QVector<LayerClass>& LayerVec);
 double SpinTheta(double g);
 double RFresnel(double n1, double n2, double ca1, double& ca2_Ptr);
 
+void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
 void CriticalAngle(size_t Layer_num,QVector<LayerClass>& layerspecs);
 void Sum2D_DiffReflect(const InputClass& In,OutClass& Out);
 size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
@@ -27,7 +28,7 @@ template<class Type>
 inline void AllocVector(QVector<Type>& vec,size_t row)
 {
     vec.resize(row);
-    vec.fill(0.0)
+    vec.fill(0.0);
 }
 
 
