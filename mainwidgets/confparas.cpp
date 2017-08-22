@@ -104,7 +104,8 @@ void ConfParas::on_SpeLayerButton_clicked()
 {
     QDialog *SpecifyLayer=new QDialog();
     SpecifyLayer->setWindowTitle("Specify parameters for layers");
-    SpecifyLayer->setFixedSize(QSize(170,120));
+    SpecifyLayer->setFixedSize(QSize(220,150));
+    SpecifyLayer->setFont(QFont("Consolas"));
     SpecifyLayer->setModal(true);
     QPlainTextEdit *LayerEdit=new QPlainTextEdit();
     //QDoubleValidator *doublevalid=new QDoubleValidator();

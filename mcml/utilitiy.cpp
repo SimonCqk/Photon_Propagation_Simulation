@@ -31,7 +31,7 @@ double RandomNum() {
 *
 * The subroutine assumes the Layerspecs array is correctly initialized.
 */
-double Rspecular(QVector<LayerClass>& LayerVec)
+double Rspecular(const QVector<LayerClass>& LayerVec)
 {
 	/* direct reflections from the 1st and 2nd layers. */
 	double temp = (LayerVec[0].layer->rfct_index - LayerVec[1].layer->rfct_index)

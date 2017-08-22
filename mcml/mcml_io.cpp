@@ -1,6 +1,6 @@
 #include"utility_fwd.h"
 #include"mcml/mcml.h"
-#include<list>
+#include<QDebug>
 
 const double PI = 3.1415926;
 
@@ -24,7 +24,7 @@ void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr)
 
     AllocMatrix<double>(Out_Ptr.out->abs_prob_rz, nr , nz );
     AllocVector<double>( Out_Ptr.out->abs_prob_z,nz);
-    AllocVector<double>(Out_Ptr.out->abs_prob_layer, nl + 1);  // maybe nl+2
+    AllocVector<double>(Out_Ptr.out->abs_prob_layer, nl + 2);
 
     AllocMatrix<double>(Out_Ptr.out->total_trans_2d,nr, na);
     AllocVector<double>(Out_Ptr.out->total_trans_rdl, nr );
