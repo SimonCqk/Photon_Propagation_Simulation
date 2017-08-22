@@ -32,7 +32,7 @@ void PhotonClass::launch(double Rspecular, QVector<LayerClass>& LayerVec)
 	if ((LayerVec[1].layer->abs_coef == 0.0) && (LayerVec[1].layer->scat_coef == 0.0)) { /* glass layer. */
 		photon->layer = 2;
 		photon->z = LayerVec[2].layer->z0;
-	}
+    }
 }
 
 /*
@@ -72,7 +72,7 @@ void PhotonClass::spin(double g) {
 		photon->dcos_y = sint*(photon->dcos_y*photon->dcos_z*cosp + photon->dcos_x*sinp)
 			/ temp + photon->dcos_y*cost;
 		photon->dcos_z = -sint*cosp*temp + photon->dcos_z*cost;
-	}
+    }
 }
 
 /*
@@ -107,7 +107,7 @@ void PhotonClass::stepSizeInGlass(const InputClass& In) {
 		/ uz;
 	else
 		dl_b = 0.0;
-	photon->cur_step = dl_b;
+    photon->cur_step = dl_b;
 }
 
 /*
@@ -132,7 +132,7 @@ void PhotonClass::stepSizeInTissue(const InputClass& In)
 	else { /* take the leftover. */
 		photon->cur_step = photon->step_left / (mua + mus);
 		photon->step_left = 0.0;
-	}
+    }
 }
 
 /*
@@ -163,7 +163,7 @@ bool PhotonClass::hitBoundary(const InputClass& In)
 		hit = true;
 	}
 	else
-		hit = false;
+        hit = false;
 	return hit;
 }
 
@@ -237,7 +237,7 @@ void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
 	/* assign photon to the reflection array element. */
 	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
 
-	photon->weight *= Refl;
+    photon->weight *= Refl;
 }
 
 /*
@@ -258,7 +258,7 @@ void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutCl
 	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the transmittance array element. */
 	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
-	photon->weight *= Refl;
+    photon->weight *= Refl;
 }
 
 /*

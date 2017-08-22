@@ -25,6 +25,9 @@ private slots:
 
     void on_ClearButton_clicked();
 
+
+    void on_RunButton_clicked();
+
 private:
     Ui::ConfParas *ui;
     QStringList* LayerDatas=new QStringList();

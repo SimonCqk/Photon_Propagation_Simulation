@@ -305,7 +305,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="RunButton">
       <property name="font">
        <font>
         <family>Consolas</family>

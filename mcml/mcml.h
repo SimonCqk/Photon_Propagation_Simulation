@@ -23,7 +23,7 @@ using std::make_shared;
 // Class used to describe a photon packet.
 
 class PhotonClass {
-    friend void DoOneRun(InputClass* In_Ptr);
+    friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
 public:
     PhotonClass() :
         photon(make_shared<PhotonStruct>(PhotonStruct())) {}
@@ -88,7 +88,7 @@ class InputClass {
     friend void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
-    friend void DoOneRun(InputClass* In_Ptr);
+    friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
     friend void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
     friend class ConfParas;
 
@@ -110,14 +110,14 @@ private:
 class OutClass
 {
     friend class PhotonClass;
-
+    friend class ConfParas;
     friend void Sum2D_DiffReflect(const InputClass& In, OutClass& Out);
     friend void Sum2D_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Sum2D_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
-    friend void DoOneRun(InputClass* In_Ptr);
+    friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
     friend void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
 
 public:

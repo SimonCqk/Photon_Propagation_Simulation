@@ -105,6 +105,7 @@ void ConfParas::on_SpeLayerButton_clicked()
     QDialog *SpecifyLayer=new QDialog();
     SpecifyLayer->setWindowTitle("Specify parameters for layers");
     SpecifyLayer->setFixedSize(QSize(170,120));
+    SpecifyLayer->setModal(true);
     QPlainTextEdit *LayerEdit=new QPlainTextEdit();
     //QDoubleValidator *doublevalid=new QDoubleValidator();
     //doublevalid->setBottom(0.0);
@@ -233,11 +234,10 @@ void ConfParas::readDatas(InputClass& In_Ptr)
     CriticalAngle(In_Ptr.input->num_layers,In_Ptr.input->layerspecs);
 }
 
-void DoOneRun(InputClass* In_Ptr)
+void DoOneRun(InputClass* In_Ptr,OutClass& out_parm)
 {
     //index to each photon . register for speed.
     register long int idx_photons=In_Ptr->input->num_photons;
-    OutClass out_parm;
     InitOutputData(*In_Ptr,out_parm);
     PhotonClass photon;
     out_parm.out->spec_reflect=Rspecular(In_Ptr->input->layerspecs);
@@ -250,4 +250,14 @@ void DoOneRun(InputClass* In_Ptr)
         while(!photon.photon->dead);
     }
     while(--idx_photons);
+}
+
+
+void ConfParas::on_RunButton_clicked()
+{
+    InputClass in_parm;
+    OutClass out_parm;
+    readDatas(in_parm);
+    DoOneRun(&in_parm,out_parm);
+    qDebug()<<out_parm.out->abs_prob<<"\n"<<out_parm.out->diff_reflect_2d;
 }
