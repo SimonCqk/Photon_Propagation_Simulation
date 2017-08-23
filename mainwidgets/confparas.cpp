@@ -206,7 +206,8 @@ bool ConfParas::judgeParamsNotEmpty()
             ui->No_rGridEdit->text().isEmpty()||
             ui->No_zGridEdit->text().isEmpty()||
             ui->MedAboveEdit->text().isEmpty()||
-            ui->MedBelowEdit->text().isEmpty())
+            ui->MedBelowEdit->text().isEmpty()||
+            LayerDatas->isEmpty())
     {
         QDialog *error=new QDialog();
         error->setWindowTitle(QString("error msg"));
@@ -216,6 +217,7 @@ bool ConfParas::judgeParamsNotEmpty()
         error->setWindowIcon(QIcon(":/image/logo"));
         QPlainTextEdit *msg=new QPlainTextEdit();
         msg->setPlainText("Empty param exists!\nPlease re-input!");
+        msg->setReadOnly(true);
         QPushButton *Confrim=new QPushButton("Confirm");
         Confrim->setFont(QFont("Consolas"));
         QVBoxLayout *layout=new QVBoxLayout();
@@ -234,6 +236,7 @@ bool ConfParas::judgeParamsNotEmpty()
  */
 void ConfParas::readDatas(InputClass& In_Ptr)
 {
+    In_Ptr.input->Wth=WEIGHT;
     In_Ptr.input->num_photons=ui->PhoNumSpinBox->value();
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(In_Ptr.input->num_photons);
@@ -287,8 +290,12 @@ void ConfParas::doOneRun(InputClass* In_Ptr,OutClass& out_parm)
         photon.launch(out_parm.out->spec_reflect,In_Ptr->input->layerspecs);
         qDebug()<<">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> one run done";
         do
+        {
             photon.hopDropSpin(*In_Ptr,out_parm);
+            qDebug()<<"==========photon is dead:"<<photon.photon->dead;
+        }
         while(!photon.photon->dead);
+
         ui->progressBar->setValue(i);
         QCoreApplication::processEvents();
     }

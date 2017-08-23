@@ -36,6 +36,9 @@
     <property name="tabPosition">
      <enum>QTabWidget::West</enum>
     </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Tab 1</string>
@@ -59,16 +62,22 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>文件</string>
+     <string>File</string>
     </property>
     <addaction name="action"/>
+    <addaction name="actionOpen_Input_Sample"/>
    </widget>
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action">
    <property name="text">
-    <string>保存结果</string>
+    <string>Save Run Results</string>
+   </property>
+  </action>
+  <action name="actionOpen_Input_Sample">
+   <property name="text">
+    <string>Open Input Sample</string>
    </property>
   </action>
  </widget>

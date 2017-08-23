@@ -16,6 +16,7 @@ const double COSZERO = (1.0 - 1.0E-12);
 const double  COS90D = 1.0E-6;
 /* cosine of about 1.57 - 1e-6 rad. */
 
+//const double WEIGHT = 1E-4;/* Critical weight for roulette. */
 const double CHANCE = 0.1; /* Chance of roulette survival. */
 const double PI = 3.1415926;
 
@@ -131,8 +132,9 @@ void PhotonClass::stepSizeInTissue(const InputClass& In)
 	double mus = In.input->layerspecs[layer].layer->scat_coef;
 	if (photon->step_left == 0.0) { /* make a new step. */
         double rnd;
-        do rnd== RandomNum();
-        while(rnd<=0.0);
+        do
+            rnd= RandomNum();
+        while(rnd<=0.0);  // avoid zero
 		photon->cur_step = -log(rnd) / (mua + mus);
 	}
 	else { /* take the leftover. */
@@ -224,6 +226,7 @@ void PhotonClass::roulette()
 	else
 		photon->dead = true;
     qDebug()<<"<<<<<<<<roulette complete";
+    qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 /*
@@ -336,6 +339,7 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 		photon->dcos_z = -uz;
 #endif
     qDebug()<<"<<<<<<<<cross up or not complete";
+    qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 
@@ -397,6 +401,7 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 		photon->dcos_z = -uz;
 #endif
     qDebug()<<"<<<<<<<<cross down or not complete";
+    qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 
@@ -426,6 +431,7 @@ void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
 		hop();
 		crossOrNot(In, Out);
 	}
+    qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 /*

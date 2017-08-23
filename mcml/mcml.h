@@ -15,10 +15,7 @@ using std::shared_ptr;
 using std::weak_ptr;
 using std::make_shared;
 
-
-//const double WEIGHT = 1E-4;/* Critical weight for roulette. */
-
-
+const double WEIGHT = 1E-4;/* Critical weight for roulette. [Specify when read Datas] */
 
 // Class used to describe a photon packet.
 
