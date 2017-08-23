@@ -84,6 +84,10 @@ ConfParas::ConfParas(QWidget *parent) :
     ui->Instructor->setAutoFillBackground(true);
     ui->Instructor->setAlignment(Qt::AlignCenter);
     setInstructor();
+
+    ui->progressBar->setFont(QFont("Consolas"));
+    ui->progressBar->setWindowTitle(QString("Progress"));
+    ui->progressBar->setValue(0);
 }
 
 ConfParas::~ConfParas()
@@ -106,7 +110,8 @@ void ConfParas::on_SpeLayerButton_clicked()
     SpecifyLayer->setWindowTitle("Specify parameters for layers");
     SpecifyLayer->setFixedSize(QSize(220,150));
     SpecifyLayer->setFont(QFont("Consolas"));
-    SpecifyLayer->setModal(true);
+    SpecifyLayer->setWindowModality(Qt::WindowModal);
+    SpecifyLayer->setWindowIcon(QIcon(":/image/logo"));
     QPlainTextEdit *LayerEdit=new QPlainTextEdit();
     //QDoubleValidator *doublevalid=new QDoubleValidator();
     //doublevalid->setBottom(0.0);
@@ -193,13 +198,45 @@ void ConfParas::setInstructor()
     }
 }
 
+bool ConfParas::judgeParamsNotEmpty()
+{
+    if(ui->zGridEdit->text().isEmpty()||
+            ui->rGridEdit->text().isEmpty()||
+            ui->No_aGridEdit->text().isEmpty()||
+            ui->No_rGridEdit->text().isEmpty()||
+            ui->No_zGridEdit->text().isEmpty()||
+            ui->MedAboveEdit->text().isEmpty()||
+            ui->MedBelowEdit->text().isEmpty())
+    {
+        QDialog *error=new QDialog();
+        error->setWindowTitle(QString("error msg"));
+        error->setWindowModality(Qt::WindowModal);
+        error->setFont(QFont("Consolas"));
+        error->setFixedSize(QSize(200,100));
+        error->setWindowIcon(QIcon(":/image/logo"));
+        QPlainTextEdit *msg=new QPlainTextEdit();
+        msg->setPlainText("Empty param exists!\nPlease re-input!");
+        QPushButton *Confrim=new QPushButton("Confirm");
+        Confrim->setFont(QFont("Consolas"));
+        QVBoxLayout *layout=new QVBoxLayout();
+        layout->addWidget(msg);
+        layout->addWidget(Confrim);
+        error->setLayout(layout);
+        connect(Confrim,&QPushButton::clicked,error,&QDialog::close);
+        error->show();
+        return false;
+    }
+    return true;
+}
+
 /*
  * read data from Configure page to Input Class for running
  */
 void ConfParas::readDatas(InputClass& In_Ptr)
 {
     In_Ptr.input->num_photons=ui->PhoNumSpinBox->value();
-
+    ui->progressBar->setMinimum(0);
+    ui->progressBar->setMaximum(In_Ptr.input->num_photons);
     In_Ptr.input->dz=ui->zGridEdit->text().toDouble();
     In_Ptr.input->dr=ui->rGridEdit->text().toDouble();
 
@@ -233,24 +270,29 @@ void ConfParas::readDatas(InputClass& In_Ptr)
     layerspecs.push_back(bottom);
     In_Ptr.input->layerspecs=layerspecs;
     CriticalAngle(In_Ptr.input->num_layers,In_Ptr.input->layerspecs);
+
 }
 
-void DoOneRun(InputClass* In_Ptr,OutClass& out_parm)
+void ConfParas::doOneRun(InputClass* In_Ptr,OutClass& out_parm)
 {
     //index to each photon . register for speed.
     register long int idx_photons=In_Ptr->input->num_photons;
     InitOutputData(*In_Ptr,out_parm);
+    qDebug()<<"<<<<<<<<init output complete";
     PhotonClass photon;
     out_parm.out->spec_reflect=Rspecular(In_Ptr->input->layerspecs);
-
-    do
+    qDebug()<<"<<<<<<<<respecular complete";
+    for(size_t i=0;i<idx_photons;++i)
     {
         photon.launch(out_parm.out->spec_reflect,In_Ptr->input->layerspecs);
+        qDebug()<<">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> one run done";
         do
             photon.hopDropSpin(*In_Ptr,out_parm);
         while(!photon.photon->dead);
+        ui->progressBar->setValue(i);
+        QCoreApplication::processEvents();
     }
-    while(--idx_photons);
+    ui->progressBar->setValue(idx_photons);
 }
 
 
@@ -258,8 +300,10 @@ void ConfParas::on_RunButton_clicked()
 {
     InputClass in_parm;
     OutClass out_parm;
+    if(!judgeParamsNotEmpty())
+        return;
     readDatas(in_parm);
     qDebug()<<"<<<<<<<<<<<<<<read complete";
-    DoOneRun(&in_parm,out_parm);
+    doOneRun(&in_parm,out_parm);
     qDebug()<<out_parm.out->abs_prob<<"\n"<<out_parm.out->diff_reflect_2d;
 }

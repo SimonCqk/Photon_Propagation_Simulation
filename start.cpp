@@ -36,5 +36,6 @@ start::~start()
 void start::on_QuitButton_clicked()
 {
     this->close();
+    QCoreApplication::quit();
 }
 

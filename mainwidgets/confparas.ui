@@ -238,7 +238,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>230</y>
+     <y>220</y>
      <width>411</width>
      <height>41</height>
     </rect>
@@ -279,42 +279,6 @@
     </item>
     <item>
      <widget class="QLineEdit" name="MedBelowEdit"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_5">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>280</y>
-     <width>231</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QPushButton" name="ClearButton">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Clear All</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="RunButton">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Start a Run</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
@@ -370,8 +334,55 @@
    </property>
    <property name="plainText">
     <string>Specify Refractive Index/Absorption Coefficient/Scattering Coefficient/Anisotropy/Thickness of each layer.
-[One Line for each layer]</string>
+[One Line for each layer,split by space.]</string>
    </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>271</y>
+     <width>268</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="ClearButton">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear All</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="RunButton">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Start a Run</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>24</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
