@@ -37,7 +37,7 @@ template<class Type>
 inline void AllocMatrix(QVector<QVector<Type>>& mat,size_t row,size_t col)
 {
     mat.resize(row+1);
-    for(size_t i=0;i<=col;++i)
+    for(size_t i=0;i<=row;++i)
     {
         mat[i].resize(col+1);
         mat[i].fill(0.0);

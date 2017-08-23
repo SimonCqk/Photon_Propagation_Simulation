@@ -59,7 +59,7 @@ private:
 void CriticalAngle(size_t Layer_num, QVector<LayerClass>& layerspecs);
 
 class LayerClass {
-    friend double Rspecular(QVector<LayerClass>& LayerVec);
+    friend double Rspecular(const QVector<LayerClass>& LayerVec);
     friend void CriticalAngle(size_t Layer_num,QVector<LayerClass>& layerspecs);
     friend size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
     friend class PhotonClass;

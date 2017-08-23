@@ -259,6 +259,7 @@ void ConfParas::on_RunButton_clicked()
     InputClass in_parm;
     OutClass out_parm;
     readDatas(in_parm);
+    qDebug()<<"<<<<<<<<<<<<<<read complete";
     DoOneRun(&in_parm,out_parm);
     qDebug()<<out_parm.out->abs_prob<<"\n"<<out_parm.out->diff_reflect_2d;
 }
