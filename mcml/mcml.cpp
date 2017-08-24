@@ -1,6 +1,5 @@
 //The implementation of Monte Carlo Model
-#include"mcml/utility_fwd.h"
-#include"mcml/mcml.h"
+#include"mcml.h"
 
 #define  PARTIALREFLECTION  0
 /* 1=split photon, 0=statistical reflection. */

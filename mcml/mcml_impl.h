@@ -2,7 +2,7 @@
 #ifndef MCML_IMPL_H
 #define MCML_IMPL_H
 #include<QVector>
-#include"mcml/mcml_fwd.h"
+#include"mcml_fwd.h"
 using std::string;
 //using std::vector;
 

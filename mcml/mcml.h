@@ -4,9 +4,9 @@
 
 #include<iostream>
 #include<memory>
-#include"mcml/mcml_fwd.h"
-#include"mcml/utility_fwd.h"
-#include"mcml/mcml_impl.h"
+#include"mcml_fwd.h"
+#include"utility_fwd.h"
+#include"mcml_impl.h"
 #include"../mainwidgets/confparas.h"
 #include<QVector>
 //using std::vector;

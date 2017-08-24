@@ -1,5 +1,5 @@
 #include"utility_fwd.h"
-#include"mcml/mcml.h"
+#include"mcml.h"
 #include<QDebug>
 
 const double PI = 3.1415926;

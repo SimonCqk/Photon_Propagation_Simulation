@@ -1,5 +1,5 @@
 #include<random>
-#include"mcml/mcml.h"
+#include"mcml.h"
 
 
 const int STANDARDTEST = 0;

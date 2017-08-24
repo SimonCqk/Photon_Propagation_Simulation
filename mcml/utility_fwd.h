@@ -2,7 +2,7 @@
 #ifndef MCML_FUN_FWD_H
 #define MCML_FUN_FWD_H
 
-#include"mcml/mcml_fwd.h"
+#include"mcml_fwd.h"
 #include<QVector>
 //#include<QDebug>
 
@@ -23,16 +23,16 @@ void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
 
 //void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);  // main running control function.
 
-template<class Type>
-inline void AllocVector(QVector<Type>& vec,size_t row)
+template<typename Type>
+inline void AllocVector(QVector<Type>& vec,const size_t& row)
 {
     vec.resize(row+1);
     vec.fill(0.0);
 }
 
 
-template<class Type>
-inline void AllocMatrix(QVector<QVector<Type>>& mat,size_t row,size_t col)
+template<typename Type>
+inline void AllocMatrix(QVector<QVector<Type>>& mat,const size_t& row,const size_t& col)
 {
     mat.resize(row+1);
     for(auto &m : mat)
