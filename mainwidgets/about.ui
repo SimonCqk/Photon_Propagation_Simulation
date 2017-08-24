@@ -32,7 +32,8 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 10pt &quot;Consolas&quot;;</string>
+    <string notr="true">font: 10pt &quot;Consolas&quot;;
+font-family: &quot;Consolas&quot;;</string>
    </property>
    <property name="html">
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;

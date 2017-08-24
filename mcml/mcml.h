@@ -122,9 +122,9 @@ public:
         out(make_shared<OutStruct>(OutStruct())) {}
     explicit OutClass(const OutStruct& item) :
         out(make_shared<OutStruct>(item)) {}
-    //forbid some constructors
-    OutClass(const OutClass&) = delete;
-    OutClass& operator=(const OutClass&) = delete;
+
+    OutClass(const OutClass&) = default;
+    OutClass& operator=(const OutClass&) = default;
     ~OutClass() = default;
 
 private:

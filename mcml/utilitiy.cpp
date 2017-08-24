@@ -14,7 +14,7 @@ const double  COS90D = 1.0E-6;
 
 //use Mersenne twister to generate a random number
 double RandomNum() {
-	//set `static` to avoid generating some results
+    //set `static` to avoid generating same results
 	static std::random_device Rand;
 	static std::mt19937_64 RanEngine(Rand());
 	static std::uniform_real_distribution<double> Distribution(0.0, 1.0);

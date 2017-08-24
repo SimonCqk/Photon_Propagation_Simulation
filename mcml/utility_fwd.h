@@ -35,10 +35,10 @@ template<class Type>
 inline void AllocMatrix(QVector<QVector<Type>>& mat,size_t row,size_t col)
 {
     mat.resize(row+1);
-    for(size_t i=0;i<=row;++i)
+    for(auto &m : mat)
     {
-        mat[i].resize(col+1);
-        mat[i].fill(0.0);
+        m.resize(col+1);
+        m.fill(0.0);
     }
 }
 

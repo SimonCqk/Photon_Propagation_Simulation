@@ -12,3 +12,8 @@ RunResults::~RunResults()
 {
     delete ui;
 }
+
+void RunResults::getOutputData()
+{
+    this->out_param=out_temp;
+}

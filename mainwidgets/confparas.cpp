@@ -9,7 +9,7 @@
 //#include<QDebug>
 #include"../mcml/utility_fwd.h"
 #include"../mcml/mcml.h"
-
+#include"runresults.h"
 
 ConfParas::ConfParas(QWidget *parent) :
     QWidget(parent),
@@ -310,4 +310,6 @@ void ConfParas::on_RunButton_clicked()
         return;
     readDatas(in_parm);
     doOneRun(&in_parm,out_parm);
+    OutClass out_temp=out_parm;
+
 }
