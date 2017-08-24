@@ -67,8 +67,6 @@ FORMS += \
 RESOURCES += \
     resources.qrc
 
-RC_ICONS=logo.ico
-
 DISTFILES += \
     image/logo.jpg \
     image/logo.ico \
