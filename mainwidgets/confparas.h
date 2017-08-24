@@ -26,7 +26,6 @@ private slots:
 
     void on_ClearButton_clicked();
 
-
     void on_RunButton_clicked();
 
 private:

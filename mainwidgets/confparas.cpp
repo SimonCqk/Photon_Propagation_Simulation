@@ -6,7 +6,7 @@
 #include<QDoubleValidator>
 #include<QDialog>
 #include<QVBoxLayout>
-#include<QDebug>
+//#include<QDebug>
 #include"../mcml/utility_fwd.h"
 #include"../mcml/mcml.h"
 
@@ -276,23 +276,22 @@ void ConfParas::readDatas(InputClass& In_Ptr)
 
 }
 
+/*
+ * main running-control function
+ */
 void ConfParas::doOneRun(InputClass* In_Ptr,OutClass& out_parm)
 {
     //index to each photon . register for speed.
     register long int idx_photons=In_Ptr->input->num_photons;
     InitOutputData(*In_Ptr,out_parm);
-    qDebug()<<"<<<<<<<<init output complete";
     PhotonClass photon;
     out_parm.out->spec_reflect=Rspecular(In_Ptr->input->layerspecs);
-    qDebug()<<"<<<<<<<<respecular complete";
     for(size_t i=0;i<idx_photons;++i)
     {
         photon.launch(out_parm.out->spec_reflect,In_Ptr->input->layerspecs);
-        qDebug()<<">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> one run done";
         do
         {
             photon.hopDropSpin(*In_Ptr,out_parm);
-            qDebug()<<"==========photon is dead:"<<photon.photon->dead;
         }
         while(!photon.photon->dead);
 
@@ -310,7 +309,5 @@ void ConfParas::on_RunButton_clicked()
     if(!judgeParamsNotEmpty())
         return;
     readDatas(in_parm);
-    qDebug()<<"<<<<<<<<<<<<<<read complete";
     doOneRun(&in_parm,out_parm);
-    qDebug()<<out_parm.out->abs_prob<<"\n"<<out_parm.out->diff_reflect_2d;
 }

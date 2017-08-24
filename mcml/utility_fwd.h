@@ -4,9 +4,7 @@
 
 #include"mcml/mcml_fwd.h"
 #include<QVector>
-#include<vector>
-#include<QDebug>
-using std::vector;
+//#include<QDebug>
 
 double RandomNum();
 double Rspecular(const QVector<LayerClass>& LayerVec);
@@ -23,7 +21,7 @@ void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
 void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
 void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
 
-void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);  // main running control function.
+//void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);  // main running control function.
 
 template<class Type>
 inline void AllocVector(QVector<Type>& vec,size_t row)

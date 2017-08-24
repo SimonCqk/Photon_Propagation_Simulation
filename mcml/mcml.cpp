@@ -34,7 +34,7 @@ void PhotonClass::launch(double Rspecular, QVector<LayerClass>& LayerVec)
 		photon->layer = 2;
 		photon->z = LayerVec[2].layer->z0;
     }
-    qDebug()<<"<<<<<<<<launch complete";
+    //qDebug()<<"<<<<<<<<launch complete";
 }
 
 /*
@@ -75,7 +75,7 @@ void PhotonClass::spin(double g) {
 			/ temp + photon->dcos_y*cost;
 		photon->dcos_z = -sint*cosp*temp + photon->dcos_z*cost;
     }
-    qDebug()<<"<<<<<<<<spin complete";
+    //qDebug()<<"<<<<<<<<spin complete";
 }
 
 /*
@@ -86,7 +86,7 @@ void PhotonClass::hop() {
 	photon->x += s*photon->dcos_x;
 	photon->y += s*photon->dcos_y;
 	photon->z += s*photon->dcos_z;
-    qDebug()<<"<<<<<<<<hop complete";
+    //qDebug()<<"<<<<<<<<hop complete";
 }
 
 /*
@@ -112,7 +112,7 @@ void PhotonClass::stepSizeInGlass(const InputClass& In) {
 	else
 		dl_b = 0.0;
     photon->cur_step = dl_b;
-    qDebug()<<"<<<<<<<<step size in glass complete";
+    //qDebug()<<"<<<<<<<<step size in glass complete";
 }
 
 /*
@@ -141,7 +141,7 @@ void PhotonClass::stepSizeInTissue(const InputClass& In)
 		photon->cur_step = photon->step_left / (mua + mus);
 		photon->step_left = 0.0;
     }
-    qDebug()<<"<<<<<<<<step size in tissue complete";
+    //qDebug()<<"<<<<<<<<step size in tissue complete";
 }
 
 /*
@@ -173,7 +173,7 @@ bool PhotonClass::hitBoundary(const InputClass& In)
 	}
 	else
         hit = false;
-    qDebug()<<"<<<<<<<<hit boundary complete";
+    //qDebug()<<"<<<<<<<<hit boundary complete";
 	return hit;
 }
 
@@ -210,7 +210,7 @@ void PhotonClass::drop(const InputClass& In , OutClass& Out)
 	photon->weight -= dwa;
 	/* assign dwa to the absorption array element. */
     Out.out->abs_prob_rz[ir][iz] += dwa;
-    qDebug()<<"<<<<<<<<drop complete";
+    //qDebug()<<"<<<<<<<<drop complete";
 }
 
 /*
@@ -225,8 +225,8 @@ void PhotonClass::roulette()
 		photon->weight /= CHANCE;
 	else
 		photon->dead = true;
-    qDebug()<<"<<<<<<<<roulette complete";
-    qDebug()<<"==========photon is dead:"<<photon->dead;
+    //qDebug()<<"<<<<<<<<roulette complete";
+    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 /*
@@ -251,7 +251,7 @@ void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
 	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
 
     photon->weight *= Refl;
-    qDebug()<<"<<<<<<<<record weight first layer complete";
+    //qDebug()<<"<<<<<<<<record weight first layer complete";
 }
 
 /*
@@ -273,7 +273,7 @@ void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutCl
 	/* assign photon to the transmittance array element. */
 	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
     photon->weight *= Refl;
-    qDebug()<<"<<<<<<<<record weight last layer complete";
+    //qDebug()<<"<<<<<<<<record weight last layer complete";
 }
 
 /*
@@ -338,8 +338,8 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 	else /* reflected. */
 		photon->dcos_z = -uz;
 #endif
-    qDebug()<<"<<<<<<<<cross up or not complete";
-    qDebug()<<"==========photon is dead:"<<photon->dead;
+    //qDebug()<<"<<<<<<<<cross up or not complete";
+    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 
@@ -400,8 +400,8 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 	else /* reflected. */
 		photon->dcos_z = -uz;
 #endif
-    qDebug()<<"<<<<<<<<cross down or not complete";
-    qDebug()<<"==========photon is dead:"<<photon->dead;
+    //qDebug()<<"<<<<<<<<cross down or not complete";
+    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 
@@ -431,7 +431,7 @@ void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
 		hop();
 		crossOrNot(In, Out);
 	}
-    qDebug()<<"==========photon is dead:"<<photon->dead;
+    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 /*
@@ -455,7 +455,7 @@ void PhotonClass::hopDropSpinInTissue(const InputClass& In, OutClass& Out) {
 		drop(In, Out);
 		spin(In.input->layerspecs[photon->layer].layer->anisotropy);
 	}
-    qDebug()<<"<<<<<<<<hop drop spin in tissue complete";
+    //qDebug()<<"<<<<<<<<hop drop spin in tissue complete";
 }
 
 void PhotonClass::hopDropSpin(const InputClass& In, OutClass& Out) {
@@ -469,6 +469,6 @@ void PhotonClass::hopDropSpin(const InputClass& In, OutClass& Out) {
 
 	if (photon->weight < In.input->Wth && !photon->dead)
 		roulette();
-    qDebug()<<"<<<<<<<<hop drop spin complete";
+    //qDebug()<<"<<<<<<<<hop drop spin complete";
 }
 
