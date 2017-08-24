@@ -310,6 +310,7 @@ void ConfParas::on_RunButton_clicked()
         return;
     readDatas(in_parm);
     doOneRun(&in_parm,out_parm);
-    OutClass out_temp=out_parm;
+
+    OutClass out_temp=out_parm;  //out_temp(extern) is declared in runresults.h
 
 }

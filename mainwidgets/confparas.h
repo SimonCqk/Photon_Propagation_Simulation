@@ -15,7 +15,19 @@ class ConfParas : public QWidget
     Q_OBJECT
 
 public:
+    /*
+     * apply singleton-pattern to ensure only one page exists.
+     */
+    static ConfParas* getInstance()
+    {
+        static ConfParas theConfParas;
+        return &theConfParas;
+    }
+
     explicit ConfParas(QWidget *parent = 0);
+    ConfParas(const ConfParas&)=delete;
+    ConfParas& operator=(const ConfParas&)=delete;
+
     ~ConfParas();
     void readDatas(InputClass& In_Ptr);
     void doOneRun(InputClass* In_Ptr,OutClass& out_parm);
