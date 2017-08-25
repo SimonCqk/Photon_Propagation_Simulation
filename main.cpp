@@ -2,7 +2,7 @@
 #include <QApplication>
 #include"start.h"
 #include"mcml/mcml.h"
-
+#include<QDialog>
 
 
 int main(int argc, char *argv[])
@@ -14,8 +14,9 @@ int main(int argc, char *argv[])
     main_window.setWindowOpacity(0.85);
     main_window.show();
 
-   // start start_widget;
-   // start_widget.show();
+   //start start_widget;
+   //start_widget.show();
+
 
     return app.exec();
 }
