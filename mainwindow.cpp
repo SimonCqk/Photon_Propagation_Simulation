@@ -86,14 +86,14 @@ MainWindow::~MainWindow()
 void MainWindow::setConfParas()
 {
     //First page: configure parameters
-    ConfParas *confparas=new ConfParas();
+    ConfParas *confparas=ConfParas::getInstance();
     ui->TabWidget->addTab(confparas,"Configure Parameters");
 }
 
 void MainWindow::setRunResults()
 {
     //Second page: show run results
-    RunResults *runresults=new RunResults();
+    RunResults *runresults=RunResults::getInstance();
     ui->TabWidget->addTab(runresults,"Run Results");
 
 }
@@ -109,7 +109,7 @@ void MainWindow::setAbout()
 {
 
     //Fourth page: show about information
-    About *about=new About();
+    About *about=About::getInstance();
     ui->TabWidget->addTab(about,"About");
 
 }

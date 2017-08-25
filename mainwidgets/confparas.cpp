@@ -11,6 +11,8 @@
 #include"../mcml/mcml.h"
 #include"runresults.h"
 
+ConfParas* ConfParas::theConfParas=nullptr;
+
 ConfParas::ConfParas(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ConfParas)

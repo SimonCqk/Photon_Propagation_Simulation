@@ -1,6 +1,8 @@
 #include "runresults.h"
 #include "ui_runresults.h"
 
+RunResults* RunResults::theRunResults=nullptr;
+
 RunResults::RunResults(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RunResults)

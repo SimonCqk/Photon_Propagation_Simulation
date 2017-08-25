@@ -4,6 +4,7 @@
 #include<QPainter>
 #include<QStyleOption>
 
+About* About::theAbout=nullptr;
 
 About::About(QWidget *parent) :
     QWidget(parent),

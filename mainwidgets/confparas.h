@@ -15,6 +15,12 @@ class ConfParas : public QWidget
     Q_OBJECT
 
 public:
+    static ConfParas* getInstance()
+    {
+        if(!theConfParas)
+            theConfParas=new ConfParas();
+        return theConfParas;
+    }
 
     explicit ConfParas(QWidget *parent = 0);
     ConfParas(const ConfParas&)=delete;
@@ -38,6 +44,7 @@ private:
     bool checkLayerDatas();
     void setInstructor();
     bool judgeParamsNotEmpty();
+    static ConfParas* theConfParas;
 };
 
 #endif // CONFPARAS_H

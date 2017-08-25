@@ -12,6 +12,12 @@ class About : public QWidget
     Q_OBJECT
 
 public:
+    static About* getInstance()
+    {
+        if(!theAbout)
+            theAbout=new About();
+        return theAbout;
+    }
     explicit About(QWidget *parent = 0);
     About(const About&)=delete;
     About& operator=(const About&)=delete;
@@ -25,6 +31,7 @@ private slots:
 
 private:
     Ui::About *ui;
+    static About* theAbout;
 };
 
 #endif // ABOUT_H
