@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
     main_window.setWindowTitle(QString("Model of Light Transport in Multi-layered Tissues"));
     main_window.setWindowOpacity(0.88);
     main_window.show();
-    /*
+
     start start_widget;
     start_widget.show();
-    */
+
     return app.exec();
 }

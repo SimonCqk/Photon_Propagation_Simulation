@@ -46,7 +46,7 @@
    </property>
    <layout class="QHBoxLayout" name="PNhorizontalLayout">
     <item>
-     <widget class="QPushButton" name="PhoNumButton">
+     <widget class="QLabel" name="PhoNumLabel">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -54,9 +54,6 @@
       </property>
       <property name="text">
        <string>Number Of Photons:</string>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -101,7 +98,7 @@
    </property>
    <layout class="QHBoxLayout" name="GridhorizontalLayout">
     <item>
-     <widget class="QPushButton" name="ZRGridButton">
+     <widget class="QLabel" name="zrGridLabel">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -109,9 +106,6 @@
       </property>
       <property name="text">
        <string>z/r Grid Separation:</string>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -161,7 +155,7 @@
    </property>
    <layout class="QHBoxLayout" name="NohorizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QLabel" name="No_zra_Label">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -169,9 +163,6 @@
       </property>
       <property name="text">
        <string>No. of z/r/alpha Grid Separation:</string>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -245,7 +236,7 @@
    </property>
    <layout class="QHBoxLayout" name="MediumhorizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QLabel" name="MedLabel">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -253,9 +244,6 @@
       </property>
       <property name="text">
        <string>Refractive Index for medium Above/Below</string>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -343,7 +331,7 @@
      <x>110</x>
      <y>271</y>
      <width>268</width>
-     <height>51</height>
+     <height>52</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">

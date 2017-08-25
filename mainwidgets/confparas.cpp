@@ -81,6 +81,24 @@ ConfParas::ConfParas(QWidget *parent) :
     ui->MedAboveEdit->setValidator(doublevalid);
     ui->MedBelowEdit->setValidator(doublevalid);
 
+    this->setAutoFillBackground(true);
+    QString bground_path=":/image/image/Photon.jpg";
+    QPixmap bground;  // set background image
+    bground.load(bground_path);
+    QPalette palette;
+    // set image scaled
+    palette.setBrush(this->backgroundRole(),QBrush(bground.scaled(this->size(),
+                                                                           Qt::IgnoreAspectRatio,
+                                                                           Qt::SmoothTransformation)));
+    this->setPalette(palette);
+    QPalette fontcolor;
+    fontcolor.setColor(QPalette::WindowText,Qt::white);
+    ui->PhoNumLabel->setPalette(fontcolor);
+    ui->zrGridLabel->setPalette(fontcolor);
+    ui->No_zra_Label->setPalette(fontcolor);
+    ui->MedLabel->setPalette(fontcolor);
+    ui->label->setPalette(fontcolor);
+
     ui->Instructor->setAutoFillBackground(true);
     ui->Instructor->setAlignment(Qt::AlignCenter);
     setInstructor();

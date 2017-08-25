@@ -14,11 +14,7 @@ class RunResults : public QWidget
 {
     Q_OBJECT
 public:
-    static RunResults* getInstance()
-    {
-        static RunResults theRunResults;
-        return &theRunResults;
-    }
+
     explicit RunResults(QWidget *parent = 0);
     RunResults(const RunResults&)=delete;
     RunResults& operator =(const RunResults&)=delete;

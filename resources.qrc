@@ -3,5 +3,6 @@
         <file alias="logo">image/logo.ico</file>
         <file>image/logo.jpg</file>
         <file alias="background">image/photon.jpeg</file>
+        <file>image/Photon.jpg</file>
     </qresource>
 </RCC>

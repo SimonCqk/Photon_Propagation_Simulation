@@ -12,12 +12,6 @@ class About : public QWidget
     Q_OBJECT
 
 public:
-    static About* getInstance()
-    {
-        static About theAbout;
-        return &theAbout;
-    }
-
     explicit About(QWidget *parent = 0);
     About(const About&)=delete;
     About& operator=(const About&)=delete;

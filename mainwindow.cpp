@@ -5,7 +5,7 @@
 #include"mainwidgets/runresults.h"
 #include <QPainter>
 #include <QProxyStyle>
-
+#include<memory>
 class CustomTabStyle : public QProxyStyle
 {
 public:
@@ -86,14 +86,14 @@ MainWindow::~MainWindow()
 void MainWindow::setConfParas()
 {
     //First page: configure parameters
-    ConfParas *confparas=ConfParas::getInstance();
+    ConfParas *confparas=new ConfParas();
     ui->TabWidget->addTab(confparas,"Configure Parameters");
 }
 
 void MainWindow::setRunResults()
 {
     //Second page: show run results
-    RunResults *runresults=RunResults::getInstance();
+    RunResults *runresults=new RunResults();
     ui->TabWidget->addTab(runresults,"Run Results");
 
 }
@@ -103,17 +103,14 @@ void MainWindow::setRunHistory()
     //Third page: show running history
     QWidget *RunHistory=new QWidget();
     ui->TabWidget->addTab(RunHistory,"History");
-
 }
 
 void MainWindow::setAbout()
 {
 
     //Fourth page: show about information
-    About *about=About::getInstance();
-
+    About *about=new About();
     ui->TabWidget->addTab(about,"About");
-
 
 }
 
