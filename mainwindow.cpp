@@ -72,10 +72,23 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->TabWidget->tabBar()->setStyleSheet("background-color: rgb(130, 130, 130);\
                                             font-size: 10pt; font-family: Consolas;");
     //set up tab widgets
-    setConfParas();
-    setRunResults();
-    setRunHistory();
-    setAbout();
+    //First page: configure parameters
+    ConfParas *confparas=ConfParas::getInstance();
+    ui->TabWidget->addTab(confparas,"Configure Parameters");
+    //Second page: show run results
+    RunResults *runresults=RunResults::getInstance();
+    ui->TabWidget->addTab(runresults,"Run Results");
+    //Third page: show running history
+    QWidget *RunHistory=new QWidget();
+    ui->TabWidget->addTab(RunHistory,"History");
+    //Fourth page: show about information
+    About *about=About::getInstance();
+    ui->TabWidget->addTab(about,"About");
+
+    connect(confparas,&ConfParas::isDone,[runresults,this]{
+        ui->TabWidget->setCurrentWidget(runresults);
+    });
+
 }
 
 MainWindow::~MainWindow()
@@ -83,35 +96,5 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setConfParas()
-{
-    //First page: configure parameters
-    ConfParas *confparas=ConfParas::getInstance();
-    ui->TabWidget->addTab(confparas,"Configure Parameters");
-}
-
-void MainWindow::setRunResults()
-{
-    //Second page: show run results
-    RunResults *runresults=RunResults::getInstance();
-    ui->TabWidget->addTab(runresults,"Run Results");
-
-}
-
-void MainWindow::setRunHistory()
-{
-    //Third page: show running history
-    QWidget *RunHistory=new QWidget();
-    ui->TabWidget->addTab(RunHistory,"History");
-}
-
-void MainWindow::setAbout()
-{
-
-    //Fourth page: show about information
-    About *about=About::getInstance();
-    ui->TabWidget->addTab(about,"About");
-
-}
 
 

@@ -13,11 +13,11 @@ About::About(QWidget *parent) :
     ui->setupUi(this);
     ui->textBrowser->setOpenLinks(false);  // Indispensable!!Or Qt will try to open hyperlink locally
     ui->textBrowser->setStyleSheet("font-size: 11px;\
-                                    font-family: Consolas;");  // seems font-set doesn't work
+                                    font-family: Consolas;\
+                                    background-color: rgb(240,255,255);");  // seems font-set doesn't work
 
     ui->plainTextEdit->setReadOnly(true);
     ui->plainTextEdit->document()->setDefaultTextOption(QTextOption(Qt::AlignHCenter));
-
 }
 
 About::~About()

@@ -319,6 +319,8 @@ void ConfParas::doOneRun(InputClass* In_Ptr,OutClass& out_parm)
         QCoreApplication::processEvents();
     }
     ui->progressBar->setValue(idx_photons);
+
+    emit isDone();  // send signal to triggle to open run-results page.
 }
 
 
@@ -330,7 +332,5 @@ void ConfParas::on_RunButton_clicked()
         return;
     readDatas(in_parm);
     doOneRun(&in_parm,out_parm);
-
     OutClass out_temp=out_parm;  //out_temp(extern) is declared in runresults.h
-
 }

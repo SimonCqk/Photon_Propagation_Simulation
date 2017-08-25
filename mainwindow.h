@@ -20,12 +20,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    void setConfParas();
-    void setRunResults();
-    void setRunHistory();
-    void setAbout();
-
-
 };
 
 #endif // MAINWINDOW_H
