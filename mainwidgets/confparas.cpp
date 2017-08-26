@@ -108,6 +108,7 @@ ConfParas::ConfParas(QWidget *parent) :
     ui->progressBar->setFont(QFont("Consolas"));
     ui->progressBar->setWindowTitle(QString("Progress"));
     ui->progressBar->setValue(0);
+    ui->progressBar->setPalette(font_color);
 }
 
 ConfParas::~ConfParas()
