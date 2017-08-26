@@ -14,6 +14,7 @@
 #### How to use
 
 1. Enter the main interface and specify the parameters for a model-running.
+  ![conf](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/ConfigureParas.jpg?raw=true)
   + The parameters include:
   + Number of Photons
   + z/r Grid Speparation of two-dimensional homogeneous grid system
