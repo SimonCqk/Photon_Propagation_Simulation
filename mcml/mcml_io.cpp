@@ -36,7 +36,7 @@ void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr)
 Compute the critical angles for total internal reflection according to the relative refractive index of the layer.
 All layers are processed.
 */
-void CriticalAngle(size_t Layer_num, QVector<LayerClass>& layerspecs)
+void CriticalAngle(const size_t& Layer_num, QVector<LayerClass>& layerspecs)
 {
     double n1, n2;
     for (int i = 1; i <= Layer_num; ++i) {
@@ -85,7 +85,7 @@ void Sum2D_DiffReflect(const InputClass& In,OutClass& Out)
  * to the grid line system in z direction (Iz).
  * Use the center of box.
  */
-size_t IndexToLayer(size_t Index, const InputClass& In_Parm)
+size_t IndexToLayer(const size_t& Index, const InputClass& In_Parm)
 {
     size_t i = 1; /* index to layer. */
     size_t num_layers = In_Parm.input->num_layers;

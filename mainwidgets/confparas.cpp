@@ -6,7 +6,7 @@
 #include<QDoubleValidator>
 #include<QDialog>
 #include<QVBoxLayout>
-//#include<QDebug>
+#include<QDebug>
 #include"../mcml/utility_fwd.h"
 #include"../mcml/mcml.h"
 #include"runresults.h"
@@ -93,13 +93,13 @@ ConfParas::ConfParas(QWidget *parent) :
                                                                            Qt::IgnoreAspectRatio,
                                                                            Qt::SmoothTransformation)));
     this->setPalette(palette);
-    QPalette fontcolor;
-    fontcolor.setColor(QPalette::WindowText,Qt::white);
-    ui->PhoNumLabel->setPalette(fontcolor);
-    ui->zrGridLabel->setPalette(fontcolor);
-    ui->No_zra_Label->setPalette(fontcolor);
-    ui->MedLabel->setPalette(fontcolor);
-    ui->label->setPalette(fontcolor);
+    QPalette font_color;
+    font_color.setColor(QPalette::WindowText,Qt::white);
+    ui->PhoNumLabel->setPalette(font_color);
+    ui->zrGridLabel->setPalette(font_color);
+    ui->No_zra_Label->setPalette(font_color);
+    ui->MedLabel->setPalette(font_color);
+    ui->label->setPalette(font_color);
 
     ui->Instructor->setAutoFillBackground(true);
     ui->Instructor->setAlignment(Qt::AlignCenter);
@@ -284,7 +284,7 @@ void ConfParas::readDatas(InputClass& In_Ptr)
         lay.layer->scat_coef=data[2].toDouble();
         lay.layer->anisotropy=data[3].toDouble();
         lay.layer->z0=z;
-        z+=data[4].toDouble();
+        z+=data[4].toDouble();  //data[4] is thickness
         lay.layer->z1=z;
         layerspecs.push_back(lay);
     }
@@ -293,33 +293,33 @@ void ConfParas::readDatas(InputClass& In_Ptr)
     layerspecs.push_back(bottom);
     In_Ptr.input->layerspecs=layerspecs;
     CriticalAngle(In_Ptr.input->num_layers,In_Ptr.input->layerspecs);
-
 }
 
 /*
  * main running-control function
  */
-void ConfParas::doOneRun(InputClass* In_Ptr,OutClass& out_parm)
+void ConfParas::doOneRun(InputClass& In_Ptr)
 {
+    OutClass out_parm;
     //index to each photon . register for speed.
-    register long int idx_photons=In_Ptr->input->num_photons;
-    InitOutputData(*In_Ptr,out_parm);
+    register long int idx_photons=In_Ptr.input->num_photons;
+    InitOutputData(In_Ptr,out_parm);
     PhotonClass photon;
-    out_parm.out->spec_reflect=Rspecular(In_Ptr->input->layerspecs);
+    out_parm.out->spec_reflect=Rspecular(In_Ptr.input->layerspecs);
     for(size_t i=0;i<idx_photons;++i)
     {
-        photon.launch(out_parm.out->spec_reflect,In_Ptr->input->layerspecs);
+        photon.launch(out_parm.out->spec_reflect,In_Ptr.input->layerspecs);
         do
         {
-            photon.hopDropSpin(*In_Ptr,out_parm);
+            photon.hopDropSpin(In_Ptr,out_parm);
         }
         while(!photon.photon->dead);
-
         ui->progressBar->setValue(i);
         QCoreApplication::processEvents();
     }
     ui->progressBar->setValue(idx_photons);
-
+    SumScaleResult(In_Ptr,out_parm);  // do not forget to call this indispensable function.
+    out_temp=out_parm;  //out_temp(extern) is declared in runresults.h
     emit isDone();  // send signal to triggle to open run-results page.
 }
 
@@ -327,10 +327,9 @@ void ConfParas::doOneRun(InputClass* In_Ptr,OutClass& out_parm)
 void ConfParas::on_RunButton_clicked()
 {
     InputClass in_parm;
-    OutClass out_parm;
+
     if(!judgeParamsNotEmpty())
         return;
     readDatas(in_parm);
-    doOneRun(&in_parm,out_parm);
-    OutClass out_temp=out_parm;  //out_temp(extern) is declared in runresults.h
+    doOneRun(in_parm);
 }

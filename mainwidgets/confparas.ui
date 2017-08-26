@@ -105,7 +105,7 @@
        </font>
       </property>
       <property name="text">
-       <string>z/r Grid Separation:</string>
+       <string>delta z/delta r :</string>
       </property>
      </widget>
     </item>
@@ -162,7 +162,7 @@
        </font>
       </property>
       <property name="text">
-       <string>No. of z/r/alpha Grid Separation:</string>
+       <string>No. of z/r/alpha Grid Elements:</string>
       </property>
      </widget>
     </item>

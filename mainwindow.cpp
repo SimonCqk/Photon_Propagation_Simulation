@@ -87,6 +87,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(confparas,&ConfParas::isDone,[runresults,this]{
         ui->TabWidget->setCurrentWidget(runresults);
+        runresults->getOutputData();
+        runresults->showAllTheResults();
     });
 
 }

@@ -20,7 +20,7 @@ const double CHANCE = 0.1; /* Chance of roulette survival. */
 const double PI = 3.1415926;
 
 //The specific declaration of mem-function in PhotonClass
-void PhotonClass::launch(double Rspecular, QVector<LayerClass>& LayerVec)
+void PhotonClass::launch(const double& Rspecular,const QVector<LayerClass>& LayerVec)
 {
 	photon->weight = 1.0 - Rspecular;
 	photon->dead = false;
@@ -48,7 +48,7 @@ void PhotonClass::launch(double Rspecular, QVector<LayerClass>& LayerVec)
  * for pi-2pi sin(psi) is -
 */
 
-void PhotonClass::spin(double g) {
+void PhotonClass::spin(const double& g) {
 	double cost = SpinTheta(g);
 	double sint = sqrt(1.0 - cost*cost); /* cosine and sine of the */
 					   /* polar deflection angle theta. */
@@ -234,7 +234,7 @@ void PhotonClass::roulette()
  *
  * Update the photon weight as well.
  */
-void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
+void PhotonClass::recordWeightFirstLayer(const double& Refl, /* reflectance. */
 							   const InputClass& In,
 							   OutClass& Out)
 {
@@ -260,7 +260,7 @@ void PhotonClass::recordWeightFirstLayer(double Refl, /* reflectance. */
  *
  * Update the photon weight as well.
  */
-void PhotonClass::recordWeightLastLayer(double Refl, const InputClass& In, OutClass& Out)
+void PhotonClass::recordWeightLastLayer(const double& Refl, const InputClass& In, OutClass& Out)
 {
 	double x = photon->x;
 	double y = photon->y;

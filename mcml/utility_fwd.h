@@ -12,9 +12,9 @@ double SpinTheta(double g);
 double RFresnel(double n1, double n2, double ca1, double& ca2_Ptr);
 
 void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
-void CriticalAngle(size_t Layer_num,QVector<LayerClass>& layerspecs);
+void CriticalAngle(const size_t& Layer_num,QVector<LayerClass>& layerspecs);
 void Sum2D_DiffReflect(const InputClass& In,OutClass& Out);
-size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
+size_t IndexToLayer(const size_t &Iz, const InputClass& In_Parm);
 void Sum2D_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
 void Sum2D_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
 void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);

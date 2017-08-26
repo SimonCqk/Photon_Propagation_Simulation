@@ -31,16 +31,16 @@ public:
     PhotonClass& operator=(const PhotonClass&) = delete;
     ~PhotonClass() = default;
 
-    void launch(double Rspecular, QVector<LayerClass>& LayerVec); //Initialize a photon packet.
-    void spin(double g);  //Choose a new direction for photon propagation
+    void launch(const double& Rspecular,const QVector<LayerClass>& LayerVec); //Initialize a photon packet.
+    void spin(const double& g);  //Choose a new direction for photon propagation
     void hop();  //Move the photon s away in the current layer of medium.
     void stepSizeInGlass(const InputClass& In);  // return the photon step size in glass
     void stepSizeInTissue(const InputClass& In);  //Pick a step size for a photon packet when it is in tissue.
     bool hitBoundary(const InputClass& In);  //Check if the step will hit the boundary.
     void drop(const InputClass& In, OutClass& Out);  //Drop photon(assumed not dead) weight inside the tissue (not glass).
     void roulette();  //tries to survive a roulette.
-    void recordWeightFirstLayer(double Refl, const InputClass& In, OutClass& Out); //Record the photon weight exiting the first layer(dcos_z<0)
-    void recordWeightLastLayer(double Refl, const InputClass& In, OutClass& Out); //Record the photon weight exiting the first layer(dcos_z>0)
+    void recordWeightFirstLayer(const double& Refl, const InputClass& In, OutClass& Out); //Record the photon weight exiting the first layer(dcos_z<0)
+    void recordWeightLastLayer(const double& Refl, const InputClass& In, OutClass& Out); //Record the photon weight exiting the first layer(dcos_z>0)
     void crossUpOrNot(const InputClass& In, OutClass& Out);  //Decide whether the photon will be transmitted or reflected on the upper boundary(dcos_z<0) of the current layer.
     void crossDownOrNot(const InputClass& In, OutClass& Out);  //Decide whether the photon will be transmitted or reflected on the bottom boundary(dcos_z>0) of the current layer.
     void crossOrNot(const InputClass& In, OutClass& Out);
@@ -53,12 +53,12 @@ private:
 };
 
 
-void CriticalAngle(size_t Layer_num, QVector<LayerClass>& layerspecs);
+void CriticalAngle(const size_t& Layer_num, QVector<LayerClass>& layerspecs);
 
 class LayerClass {
     friend double Rspecular(const QVector<LayerClass>& LayerVec);
-    friend void CriticalAngle(size_t Layer_num,QVector<LayerClass>& layerspecs);
-    friend size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
+    friend void CriticalAngle(const size_t& Layer_num,QVector<LayerClass>& layerspecs);
+    friend size_t IndexToLayer(const size_t& Iz, const InputClass& In_Parm);
     friend class PhotonClass;
     friend class ConfParas;
 
@@ -79,7 +79,7 @@ class InputClass {
     friend class PhotonClass;
 
     friend void Sum2D_DiffReflect(const InputClass& In, OutClass& Out);
-    friend size_t IndexToLayer(size_t Iz, const InputClass& In_Parm);
+    friend size_t IndexToLayer(const size_t& Iz, const InputClass& In_Parm);
     friend void Sum2D_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Sum2D_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
@@ -108,6 +108,7 @@ class OutClass
 {
     friend class PhotonClass;
     friend class ConfParas;
+    friend class RunResults;
     friend void Sum2D_DiffReflect(const InputClass& In, OutClass& Out);
     friend void Sum2D_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
     friend void Sum2D_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);

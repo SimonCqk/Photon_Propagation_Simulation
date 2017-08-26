@@ -2,7 +2,9 @@
 #define RUNRESULTS_H
 
 #include <QWidget>
+#include<sstream>
 #include"mcml/mcml.h"
+
 
 extern OutClass out_temp;
 
@@ -25,12 +27,22 @@ public:
     RunResults& operator =(const RunResults&)=delete;
 
     ~RunResults();
-    inline void getOutputData();
+    void getOutputData();
+    void showAllTheResults();
+
 private:
     Ui::RunResults *ui;
     OutClass out_param;
     static RunResults* theRunResults;
+    void setRAT();
 };
 
+template<typename T>
+QString Convert2String(const T& t)
+{
+    std::stringstream temp;
+    temp<<t;
+    return QString::fromStdString(temp.str());
+}
 
 #endif // RUNRESULTS_H
