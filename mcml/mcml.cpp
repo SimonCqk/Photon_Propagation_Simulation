@@ -6,19 +6,6 @@
 
 auto SIGN = [](int x) {return (x >= 0) ? 1 : -1; };
 
-const int STANDARDTEST = 0;
-/* testing program using fixed rnd seed. */
-
-const double COSZERO = (1.0 - 1.0E-12);
-/* cosine of about 1e-6 rad. */
-
-const double  COS90D = 1.0E-6;
-/* cosine of about 1.57 - 1e-6 rad. */
-
-//const double WEIGHT = 1E-4;/* Critical weight for roulette. */
-const double CHANCE = 0.1; /* Chance of roulette survival. */
-const double PI = 3.1415926;
-
 //The specific declaration of mem-function in PhotonClass
 void PhotonClass::launch(const double& Rspecular,const QVector<LayerClass>& LayerVec)
 {

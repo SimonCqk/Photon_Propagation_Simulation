@@ -2,16 +2,6 @@
 #include"mcml.h"
 
 
-const int STANDARDTEST = 0;
-/* testing program using fixed rnd seed. */
-
-const double COSZERO = (1.0 - 1.0E-12);
-/* cosine of about 1e-6 rad. */
-
-const double  COS90D = 1.0E-6;
-/* cosine of about 1.57 - 1e-6 rad. */
-
-
 //use Mersenne twister to generate a random number
 double RandomNum() {
     //set `static` to avoid generating same results

@@ -269,6 +269,8 @@ void ConfParas::readDatas(InputClass& In_Ptr)
     In_Ptr.input->nr=ui->No_rGridEdit->text().toInt(&ok,10);
     In_Ptr.input->na=ui->No_aGridEdit->text().toInt(&ok,10);
 
+    In_Ptr.input->da=0.5*PI/In_Ptr.input->na;
+
     In_Ptr.input->num_layers=LayerDatas->size();
     QVector<LayerClass> layerspecs;
     //Read the refractive index of the ambient and parameters of layers.
@@ -336,7 +338,7 @@ void ConfParas::on_RunButton_clicked()
 
 void ConfParas::SetSampleOneDatas()
 {
-    ui->PhoNumSpinBox->setValue(10000);
+    ui->PhoNumSpinBox->setValue(5000);
     ui->zGridEdit->setText(QString("0.02"));
     ui->rGridEdit->setText(QString("0.002"));
     ui->No_zGridEdit->setText(QString("10"));

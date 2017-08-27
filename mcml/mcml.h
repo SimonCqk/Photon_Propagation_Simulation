@@ -15,7 +15,20 @@ using std::shared_ptr;
 using std::weak_ptr;
 using std::make_shared;
 
-const double WEIGHT = 1E-4;/* Critical weight for roulette. [Specify when read Datas] */
+/* Critical weight for roulette. [Specify when read Datas] */
+const double WEIGHT = 1E-4;
+
+const int STANDARDTEST = 0;
+/* testing program using fixed rnd seed. */
+
+const double COSZERO = (1.0 - 1.0E-12);
+/* cosine of about 1e-6 rad. */
+
+const double  COS90D = 1.0E-6;
+/* cosine of about 1.57 - 1e-6 rad. */
+
+const double CHANCE = 0.1; /* Chance of roulette survival. */
+const double PI = 3.1415926;
 
 // Class used to describe a photon packet.
 

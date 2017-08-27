@@ -2,8 +2,6 @@
 #include"mcml.h"
 #include<QDebug>
 
-const double PI = 3.1415926;
-
 
 void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr)
 {
@@ -169,8 +167,7 @@ void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr)
     double scale1, scale2;
 
     scale1 = 4.0*PI*PI*dr*sin(da / 2)*dr*In_Parm.input->num_photons;
-    /* The factor (ir+0.5)*sin(2a) to be added. */
-
+    /* The factor (ir+0.5)*sin(2a) to be added. */   
     for (ir = 0; ir < nr; ir++)
         for (ia = 0; ia < na; ia++) {
             scale2 = 1.0 / ((ir + 0.5)*sin(2.0*(ia + 0.5)*da)*scale1);
