@@ -17,7 +17,7 @@ QString LinkDataFromVector(const QVector<double> &vec)
     {
         str+= (QString::number(v,'f',4)+" ");
     }
-    str+="\n";
+    str+="\n \n";
     return str;
 }
 
@@ -85,21 +85,110 @@ void RunResults::setRAT()
     ui->TransEdit->setText(Convert2String<double>(out_param.out->total_trans));
 }
 
+
 void RunResults::on_View_diff_reflect_2d_Button_clicked()
 {
     QDialog *viewer=new QDialog();
-    //viewer->setWindowTitle("Viewer for 2D distribution of diffuse reflectance. [1/(cm2 sr)] ");
-    viewer->setFixedSize(QSize(300,200));
-    viewer->setFont(QFont("Consolas"));
-    viewer->setWindowModality(Qt::WindowModal);
-    viewer->setWindowIcon(QIcon(":/image/logo"));
+    QString plain_text="# Viewer for 2D distribution of diffuse reflectance. [1/(cm2 sr)] #\n   \n";
+    SetDialog_2D(viewer,out_param.out->diff_reflect_2d,plain_text);
+}
 
+
+
+void RunResults::on_View_Abs_prob_layer_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for absorption probability of each layer #\n   \n";
+    SetDialog_1D(viewer,out_param.out->abs_prob_layer,plain_text);
+
+}
+
+void RunResults::on_View_diff_reflect_rdl_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for 1D radial distribution of diffuse reflectance. [1/cm2] #\n   \n";
+    SetDialog_1D(viewer,out_param.out->diff_reflect_rdl,plain_text);
+}
+
+void RunResults::on_View_diff_reflect_agl_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for 1D angular distribution of diffuse reflectance. [1/sr] #\n   \n";
+    SetDialog_1D(viewer,out_param.out->diff_reflect_agl,plain_text);
+}
+
+void RunResults::on_View_1D_Prob_z_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for 1D probability density over z. [1/cm] */ #\n   \n";
+    SetDialog_1D(viewer,out_param.out->abs_prob_z,plain_text);
+}
+
+
+
+void RunResults::on_View_2D_Prob_rz_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for 2D probability density in turbid media over r & z. [1/cm3] #\n   \n";
+    SetDialog_2D(viewer,out_param.out->abs_prob_rz,plain_text);
+}
+
+void RunResults::on_View_total_trans_2d_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for 2D distribution of total transmittance. [1/(cm2 sr)] #\n   \n";
+    SetDialog_2D(viewer,out_param.out->total_trans_2d,plain_text);
+}
+
+void RunResults::on_View_total_trans_agl_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for 1D angular distribution of transmittance. [1/sr] */ #\n   \n";
+    SetDialog_1D(viewer,out_param.out->total_trans_agl,plain_text);
+}
+
+void RunResults::on_View_total_trans_rdl_Button_clicked()
+{
+    QDialog *viewer=new QDialog();
+    QString plain_text="# Viewer for 1D radial distribution of transmittance. [1/cm2] */ #\n   \n";
+    SetDialog_1D(viewer,out_param.out->total_trans_rdl,plain_text);
+}
+
+void SetDialog_1D(QDialog *dlg, const QVector<double> &vec, QString &plain_text)
+{
+    dlg->setFixedSize(QSize(300,200));
+    dlg->setFont(QFont("Consolas"));
+    dlg->setWindowModality(Qt::WindowModal);
+    dlg->setWindowIcon(QIcon(":/image/logo"));
     QPlainTextEdit *view_data=new QPlainTextEdit();
     view_data->setFont(QFont("Consolas"));
     view_data->setReadOnly(true);
-    QString plain_text;
-    plain_text="# Viewer for 2D distribution of diffuse reflectance. [1/(cm2 sr)] #\n   \n";
-    for(const auto& item:out_param.out->diff_reflect_2d)
+    plain_text+=LinkDataFromVector(vec);
+    view_data->setPlainText(plain_text);
+
+    QPushButton *Close=new QPushButton("Close");
+    Close->setFont(QFont("Consolas"));
+
+    QVBoxLayout *layout=new QVBoxLayout();
+    layout->addWidget(view_data);
+    layout->addWidget(Close);
+
+    dlg->setLayout(layout);
+    dlg->show();
+
+    QCoreApplication::connect(Close,&QPushButton::clicked,dlg,&QDialog::close);
+}
+
+void SetDialog_2D(QDialog *dlg, const QVector<QVector<double> > &vec, QString &plain_text)
+{
+    dlg->setFixedSize(QSize(300,200));
+    dlg->setFont(QFont("Consolas"));
+    dlg->setWindowModality(Qt::WindowModal);
+    dlg->setWindowIcon(QIcon(":/image/logo"));
+    QPlainTextEdit *view_data=new QPlainTextEdit();
+    view_data->setFont(QFont("Consolas"));
+    view_data->setReadOnly(true);
+    for(const auto& item:vec)
     {
         plain_text+=LinkDataFromVector(item);
     }
@@ -112,40 +201,8 @@ void RunResults::on_View_diff_reflect_2d_Button_clicked()
     layout->addWidget(view_data);
     layout->addWidget(Close);
 
-    viewer->setLayout(layout);
-    viewer->show();
+    dlg->setLayout(layout);
+    dlg->show();
 
-    connect(Close,&QPushButton::clicked,viewer,&QDialog::close);
-}
-
-
-
-void RunResults::on_View_Abs_prob_layer_Button_clicked()
-{
-    QDialog *viewer=new QDialog();
-    //viewer->setWindowTitle("Viewer for 2D distribution of diffuse reflectance. [1/(cm2 sr)] ");
-    viewer->setFixedSize(QSize(300,200));
-    viewer->setFont(QFont("Consolas"));
-    viewer->setWindowModality(Qt::WindowModal);
-    viewer->setWindowIcon(QIcon(":/image/logo"));
-
-    QPlainTextEdit *view_data=new QPlainTextEdit();
-    view_data->setFont(QFont("Consolas"));
-    view_data->setReadOnly(true);
-    QString plain_text;
-    plain_text="# Viewer for absorption probability of each layer #\n   \n";
-    plain_text+=LinkDataFromVector(out_param.out->abs_prob_layer);
-    view_data->setPlainText(plain_text);
-
-    QPushButton *Close=new QPushButton("Close");
-    Close->setFont(QFont("Consolas"));
-
-    QVBoxLayout *layout=new QVBoxLayout();
-    layout->addWidget(view_data);
-    layout->addWidget(Close);
-
-    viewer->setLayout(layout);
-    viewer->show();
-
-    connect(Close,&QPushButton::clicked,viewer,&QDialog::close);
+    QCoreApplication::connect(Close,&QPushButton::clicked,dlg,&QDialog::close);
 }

@@ -269,7 +269,7 @@ void ConfParas::readDatas(InputClass& In_Ptr)
     In_Ptr.input->nr=ui->No_rGridEdit->text().toInt(&ok,10);
     In_Ptr.input->na=ui->No_aGridEdit->text().toInt(&ok,10);
 
-    In_Ptr.input->da=0.5*PI/In_Ptr.input->na;
+    In_Ptr.input->da=0.5*PI/In_Ptr.input->na;  // indispensable.
 
     In_Ptr.input->num_layers=LayerDatas->size();
     QVector<LayerClass> layerspecs;
