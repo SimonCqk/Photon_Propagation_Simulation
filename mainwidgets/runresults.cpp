@@ -29,10 +29,20 @@ RunResults::RunResults(QWidget *parent) :
     ui->label_3->setPalette(font_color);
     ui->label_4->setPalette(font_color);
     ui->label_5->setPalette(font_color);
+    ui->label_6->setPalette(font_color);
+    ui->label_7->setPalette(font_color);
+    ui->label_8->setPalette(font_color);
+    ui->label_9->setPalette(font_color);
+    ui->label_10->setPalette(font_color);
+    ui->label_11->setPalette(font_color);
+    ui->label_12->setPalette(font_color);
+    ui->label_13->setPalette(font_color);
+    ui->label_14->setPalette(font_color);
     ui->SpecRefEdit->setReadOnly(true);
     ui->AbsFracEdit->setReadOnly(true);
     ui->DiffRefEdit->setReadOnly(true);
     ui->TransEdit->setReadOnly(true);
+
 }
 
 RunResults::~RunResults()
