@@ -248,7 +248,13 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="MedAboveEdit"/>
+     <widget class="QLineEdit" name="MedAboveEdit">
+      <property name="font">
+       <font>
+        <family>Consolas</family>
+       </font>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QLabel" name="label_5">
@@ -266,7 +272,13 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="MedBelowEdit"/>
+     <widget class="QLineEdit" name="MedBelowEdit">
+      <property name="font">
+       <font>
+        <family>Consolas</family>
+       </font>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

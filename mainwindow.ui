@@ -67,7 +67,14 @@
     <addaction name="action"/>
     <addaction name="actionOpen_Input_Sample"/>
    </widget>
+   <widget class="QMenu" name="menuTests">
+    <property name="title">
+     <string>Tests</string>
+    </property>
+    <addaction name="actionSample_One"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menuTests"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action">
@@ -78,6 +85,11 @@
   <action name="actionOpen_Input_Sample">
    <property name="text">
     <string>Open Input Sample</string>
+   </property>
+  </action>
+  <action name="actionSample_One">
+   <property name="text">
+    <string>Sample One</string>
    </property>
   </action>
  </widget>

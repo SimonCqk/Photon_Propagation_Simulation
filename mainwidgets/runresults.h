@@ -30,6 +30,11 @@ public:
     void getOutputData();
     void showAllTheResults();
 
+private slots:
+    void on_View_diff_reflect_2d_Button_clicked();
+
+    void on_View_Abs_prob_layer_Button_clicked();
+
 private:
     Ui::RunResults *ui;
     OutClass out_param;
@@ -44,5 +49,7 @@ QString Convert2String(const T& t)
     temp<<t;
     return QString::fromStdString(temp.str());
 }
+
+QString LinkDataFromVector(const QVector<double>& vec);
 
 #endif // RUNRESULTS_H

@@ -18,8 +18,8 @@ ConfParas::ConfParas(QWidget *parent) :
     ui(new Ui::ConfParas)
 {
     ui->setupUi(this);
-    ui->PhoNumSpinBox->setMaximum(99999);
-    ui->PhoNumSlider->setMaximum(99999);
+    ui->PhoNumSpinBox->setMaximum(50000);
+    ui->PhoNumSlider->setMaximum(50000);
     ui->PhoNumSlider->setStyleSheet("QSlider::groove:horizontal {  \
                                     border: 1px solid #bbb;  \
                                     background: white;  \
@@ -324,7 +324,6 @@ void ConfParas::doOneRun(InputClass& In_Ptr)
     emit isDone();  // send signal to triggle to open run-results page.
 }
 
-
 void ConfParas::on_RunButton_clicked()
 {
     InputClass in_parm;
@@ -334,3 +333,18 @@ void ConfParas::on_RunButton_clicked()
     readDatas(in_parm);
     doOneRun(in_parm);
 }
+
+void ConfParas::SetSampleOneDatas()
+{
+    ui->PhoNumSpinBox->setValue(10000);
+    ui->zGridEdit->setText(QString("0.02"));
+    ui->rGridEdit->setText(QString("0.002"));
+    ui->No_zGridEdit->setText(QString("10"));
+    ui->No_rGridEdit->setText(QString("20"));
+    ui->No_aGridEdit->setText(QString("30"));
+    ui->MedAboveEdit->setText(QString("1"));
+    ui->MedBelowEdit->setText(QString("1"));
+    LayerDatas->push_back(QString("1.3 20 200 0.7 0.01"));
+    LayerDatas->push_back(QString("1.4 10 200 0.9 100000000"));
+}
+

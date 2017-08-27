@@ -26,7 +26,7 @@ void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
 template<typename Type>
 inline void AllocVector(QVector<Type>& vec,const size_t& row)
 {
-    vec.resize(row+1);
+    vec.resize(row);
     vec.fill(0.0);
 }
 
@@ -34,10 +34,10 @@ inline void AllocVector(QVector<Type>& vec,const size_t& row)
 template<typename Type>
 inline void AllocMatrix(QVector<QVector<Type>>& mat,const size_t& row,const size_t& col)
 {
-    mat.resize(row+1);
+    mat.resize(row);
     for(auto &m : mat)
     {
-        m.resize(col+1);
+        m.resize(col);
         m.fill(0.0);
     }
 }

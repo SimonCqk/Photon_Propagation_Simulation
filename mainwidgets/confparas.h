@@ -29,6 +29,7 @@ public:
     ~ConfParas();
     void readDatas(InputClass& In_Ptr);
     void doOneRun(InputClass &In_Ptr);
+    void SetSampleOneDatas();
 protected:
     void paintEvent(QPaintEvent *);  // ready for style sheet setting
 private slots:
