@@ -248,7 +248,7 @@ void PhotonClass::recordWeightLastLayer(const double& Refl, const InputClass& In
 	ia = static_cast<size_t>(acos(photon->dcos_z) / In.input->da);
 	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the transmittance array element. */
-	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
+    Out.out->total_trans_2d[ir][ia] += photon->weight*(1.0 - Refl);
     photon->weight *= Refl;
 }
 
@@ -298,15 +298,12 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 		photon->dcos_z = -uz;
 #else
 	if (RandomNum() > r) { /* transmitted to layer-1. */
-        qDebug()<<layer;
 		if (layer == 1) {
-            qDebug()<<"1111111111111";
 			photon->dcos_z = -uz1;
 			recordWeightFirstLayer(0.0, In,Out);
 			photon->dead = true;
 		}
 		else {
-            qDebug()<<"22222222222";
 			photon->layer--;
 			photon->dcos_x *= ni / nt;
 			photon->dcos_y *= ni / nt;
@@ -360,16 +357,13 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 		photon->dcos_z = -uz;
 #else
 	if (RandomNum() > r) { /* transmitted to layer+1. */
-        qDebug()<<layer<<"......";
 		if (layer == In.input->num_layers) {
-            qDebug()<<"3333333333333333";
 			photon->dcos_z = uz1;
 			recordWeightLastLayer(0.0, In,Out);
 			photon->dead = true;
 
 		}
 		else {
-            qDebug()<<"44444444444444";
 			photon->layer++;
 			photon->dcos_x *= ni / nt;
 			photon->dcos_y *= ni / nt;
