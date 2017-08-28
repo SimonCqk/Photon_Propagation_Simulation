@@ -105,10 +105,8 @@ double RFresnel(double n1, /* incident refractive index.*/
 
 		}
 		else {
-			double cap, cam; /* cosines of the sum ap or */
-							 /* difference am of the two */
-							 /* angles. ap = a1+a2 */
-							 /* am = a1 - a2. */
+            double cap, cam; /* cosines of the sum ap or difference am of the two angles.*/
+                             /* ap = a1+a2 , am = a1 - a2. */
 			double sap, sam; /* sines. */
 			ca2_Ptr = ca2 = sqrt(1 - sa2*sa2);
 			cap = ca1*ca2 - sa1*sa2; /* c+ = cc - ss. */
