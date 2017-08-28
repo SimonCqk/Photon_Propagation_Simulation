@@ -18,8 +18,8 @@ ConfParas::ConfParas(QWidget *parent) :
     ui(new Ui::ConfParas)
 {
     ui->setupUi(this);
-    ui->PhoNumSpinBox->setMaximum(50000);
-    ui->PhoNumSlider->setMaximum(50000);
+    ui->PhoNumSpinBox->setMaximum(999999);
+    ui->PhoNumSlider->setMaximum(999999);
     ui->PhoNumSlider->setStyleSheet("QSlider::groove:horizontal {  \
                                     border: 1px solid #bbb;  \
                                     background: white;  \
@@ -258,6 +258,7 @@ bool ConfParas::judgeParamsNotEmpty()
 void ConfParas::readDatas(InputClass& In_Ptr)
 {
     In_Ptr.input->Wth=WEIGHT;
+
     In_Ptr.input->num_photons=ui->PhoNumSpinBox->value();
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(In_Ptr.input->num_photons);
@@ -268,33 +269,26 @@ void ConfParas::readDatas(InputClass& In_Ptr)
     In_Ptr.input->nz=ui->No_zGridEdit->text().toInt(&ok,10);
     In_Ptr.input->nr=ui->No_rGridEdit->text().toInt(&ok,10);
     In_Ptr.input->na=ui->No_aGridEdit->text().toInt(&ok,10);
-
     In_Ptr.input->da=0.5*PI/In_Ptr.input->na;  // indispensable.
 
     In_Ptr.input->num_layers=LayerDatas->size();
-    QVector<LayerClass> layerspecs;
+
+    In_Ptr.input->layerspecs.resize(In_Ptr.input->num_layers+2);
     //Read the refractive index of the ambient and parameters of layers.
-    LayerClass top;
-    top.layer->rfct_index=ui->MedAboveEdit->text().toDouble();
-    layerspecs.push_back(top);
+    In_Ptr.input->layerspecs[0].layer->rfct_index=ui->MedAboveEdit->text().toDouble();
     double z = 0.0; /* z coordinate of the current layer. */
-    for(size_t i=0;i<In_Ptr.input->num_layers;++i)
+    for(size_t i=1;i<=In_Ptr.input->num_layers;++i)
     {
-        LayerClass lay;
-        QStringList data=LayerDatas->at(i).split(" ");
-        lay.layer->rfct_index=data[0].toDouble();
-        lay.layer->abs_coef=data[1].toDouble();
-        lay.layer->scat_coef=data[2].toDouble();
-        lay.layer->anisotropy=data[3].toDouble();
-        lay.layer->z0=z;
+        QStringList data=LayerDatas->at(i-1).split(" ");
+        In_Ptr.input->layerspecs[i].layer->rfct_index=data[0].toDouble();
+        In_Ptr.input->layerspecs[i].layer->abs_coef=data[1].toDouble();
+        In_Ptr.input->layerspecs[i].layer->scat_coef=data[2].toDouble();
+        In_Ptr.input->layerspecs[i].layer->anisotropy=data[3].toDouble();
+        In_Ptr.input->layerspecs[i].layer->z0=z;
         z+=data[4].toDouble();  //data[4] is thickness
-        lay.layer->z1=z;
-        layerspecs.push_back(lay);
+        In_Ptr.input->layerspecs[i].layer->z1=z;
     }
-    LayerClass bottom;
-    bottom.layer->rfct_index=ui->MedBelowEdit->text().toDouble();
-    layerspecs.push_back(bottom);
-    In_Ptr.input->layerspecs=layerspecs;
+    In_Ptr.input->layerspecs[In_Ptr.input->num_layers+1].layer->rfct_index=ui->MedBelowEdit->text().toDouble();
     CriticalAngle(In_Ptr.input->num_layers,In_Ptr.input->layerspecs);
 }
 
@@ -317,11 +311,12 @@ void ConfParas::doOneRun(InputClass& In_Ptr)
             photon.hopDropSpin(In_Ptr,out_parm);
         }
         while(!photon.photon->dead);
+
         ui->progressBar->setValue(i);
         QCoreApplication::processEvents();
     }
     ui->progressBar->setValue(idx_photons);
-    SumScaleResult(In_Ptr,out_parm);  // do not forget to call this indispensable function.
+    SumScaleResult(In_Ptr,out_parm);  //indispensable.
     out_temp=out_parm;  //out_temp(extern) is declared in runresults.h
     emit isDone();  // send signal to triggle to open run-results page.
 }
@@ -336,17 +331,18 @@ void ConfParas::on_RunButton_clicked()
     doOneRun(in_parm);
 }
 
+
 void ConfParas::SetSampleOneDatas()
 {
-    ui->PhoNumSpinBox->setValue(5000);
+    ui->PhoNumSpinBox->setValue(20000);
     ui->zGridEdit->setText(QString("0.02"));
-    ui->rGridEdit->setText(QString("0.002"));
-    ui->No_zGridEdit->setText(QString("10"));
-    ui->No_rGridEdit->setText(QString("20"));
-    ui->No_aGridEdit->setText(QString("30"));
+    ui->rGridEdit->setText(QString("0.02"));
+    ui->No_zGridEdit->setText(QString("200"));
+    ui->No_rGridEdit->setText(QString("300"));
+    ui->No_aGridEdit->setText(QString("400"));
     ui->MedAboveEdit->setText(QString("1"));
     ui->MedBelowEdit->setText(QString("1"));
-    LayerDatas->push_back(QString("1.3 20 200 0.7 0.01"));
-    LayerDatas->push_back(QString("1.4 10 200 0.9 100000000"));
+    LayerDatas->push_back(QString("1.3 20 200 0.7 0.1"));
+    LayerDatas->push_back(QString("1.4 5 180 0.9 0.08"));
+    setInstructor();
 }
-

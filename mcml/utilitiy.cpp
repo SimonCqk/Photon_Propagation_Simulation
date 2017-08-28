@@ -53,6 +53,10 @@ double SpinTheta(double g)
 	else {
 		double temp = (1 - g*g) / (1 - g + 2 * g*RandomNum());
 		cost = (1 + g*g - temp*temp) / (2 * g);
+        if(cost<-1)
+            cost=-1;
+        else if(cost>1)
+            cost=1;
 	}
 	return cost;
 }

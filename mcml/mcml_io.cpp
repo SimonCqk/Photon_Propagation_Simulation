@@ -171,8 +171,10 @@ void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr)
     for (ir = 0; ir < nr; ir++)
         for (ia = 0; ia < na; ia++) {
             scale2 = 1.0 / ((ir + 0.5)*sin(2.0*(ia + 0.5)*da)*scale1);
+            //qDebug()<<scale1<<scale2;
             Out_Ptr.out->diff_reflect_2d[ir][ia] *= scale2;
             Out_Ptr.out->total_trans_2d[ir][ia] *= scale2;
+            //qDebug()<<Out_Ptr.out->diff_reflect_2d[ir][ia]<<Out_Ptr.out->total_trans_2d[ir][ia];
         }
 
     scale1 = 2.0*PI*dr*dr*In_Parm.input->num_photons;

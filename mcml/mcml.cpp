@@ -1,5 +1,6 @@
 //The implementation of Monte Carlo Model
 #include"mcml.h"
+#include<QDebug>
 
 #define  PARTIALREFLECTION  0
 /* 1=split photon, 0=statistical reflection. */
@@ -20,7 +21,6 @@ void PhotonClass::launch(const double& Rspecular,const QVector<LayerClass>& Laye
 		photon->layer = 2;
 		photon->z = LayerVec[2].layer->z0;
     }
-    //qDebug()<<"<<<<<<<<launch complete";
 }
 
 /*
@@ -42,6 +42,10 @@ void PhotonClass::spin(const double& g) {
 	double psi = 2.0*PI*RandomNum(); /* spin psi 0-2pi. */
 	double cosp = cos(psi), sinp; /* cosine and sine of the */
 					   /* azimuthal angle psi. */
+    double dcos_x=photon->dcos_x;
+    double dcos_y=photon->dcos_y;
+    double dcos_z=photon->dcos_z;
+
 	if (psi < PI)
 		sinp = sqrt(1.0 - cosp*cosp);
 	/* sqrt() is faster than sin(). */
@@ -50,18 +54,17 @@ void PhotonClass::spin(const double& g) {
 	if (fabs(photon->dcos_z) > COSZERO) { /* normal incident. */
 		photon->dcos_x = sint*cosp;
 		photon->dcos_y = sint*sinp;
-        photon->dcos_z = cost*(SIGN(photon->dcos_z));
+        photon->dcos_z = cost*(SIGN(dcos_z));
 		/* SIGN() is faster than division. */
 	}
 	else { /* regular incident. */
-		double temp = sqrt(1.0 - photon->dcos_z*photon->dcos_z);
-		photon->dcos_x = sint*(photon->dcos_x*photon->dcos_z*cosp - photon->dcos_y*sinp)
-			/ temp + photon->dcos_x*cost;
-		photon->dcos_y = sint*(photon->dcos_y*photon->dcos_z*cosp + photon->dcos_x*sinp)
-			/ temp + photon->dcos_y*cost;
-		photon->dcos_z = -sint*cosp*temp + photon->dcos_z*cost;
+        double temp = sqrt(1.0 - dcos_z*dcos_z);
+        photon->dcos_x = sint*(dcos_x*dcos_z*cosp - dcos_y*sinp)
+            / temp + dcos_x*cost;
+        photon->dcos_y = sint*(dcos_y*dcos_z*cosp + dcos_x*sinp)
+            / temp + dcos_y*cost;
+        photon->dcos_z = -sint*cosp*temp + dcos_z*cost;
     }
-    //qDebug()<<"<<<<<<<<spin complete";
 }
 
 /*
@@ -72,7 +75,6 @@ void PhotonClass::hop() {
 	photon->x += s*photon->dcos_x;
 	photon->y += s*photon->dcos_y;
 	photon->z += s*photon->dcos_z;
-    //qDebug()<<"<<<<<<<<hop complete";
 }
 
 /*
@@ -98,7 +100,6 @@ void PhotonClass::stepSizeInGlass(const InputClass& In) {
 	else
 		dl_b = 0.0;
     photon->cur_step = dl_b;
-    //qDebug()<<"<<<<<<<<step size in glass complete";
 }
 
 /*
@@ -117,17 +118,13 @@ void PhotonClass::stepSizeInTissue(const InputClass& In)
 	double mua = In.input->layerspecs[layer].layer->abs_coef;
 	double mus = In.input->layerspecs[layer].layer->scat_coef;
 	if (photon->step_left == 0.0) { /* make a new step. */
-        double rnd;
-        do
-            rnd= RandomNum();
-        while(rnd<=0.0);  // avoid zero
+        double rnd= RandomNum();
 		photon->cur_step = -log(rnd) / (mua + mus);
 	}
 	else { /* take the leftover. */
 		photon->cur_step = photon->step_left / (mua + mus);
 		photon->step_left = 0.0;
     }
-    //qDebug()<<"<<<<<<<<step size in tissue complete";
 }
 
 /*
@@ -149,7 +146,7 @@ bool PhotonClass::hitBoundary(const InputClass& In)
 	else if (uz < 0.0)
 		dl_b = (In.input->layerspecs[layer].layer->z0 - photon->z) / uz; /* dl_b>0. */
 
-	if (uz != 0.0 && photon->cur_step > dl_b) {
+    if (uz != 0.0 && (photon->cur_step > dl_b)) {
 		/* not horizontal & crossing. */
 		double mut = In.input->layerspecs[layer].layer->abs_coef
 			+ In.input->layerspecs[layer].layer->scat_coef;
@@ -159,7 +156,6 @@ bool PhotonClass::hitBoundary(const InputClass& In)
 	}
 	else
         hit = false;
-    //qDebug()<<"<<<<<<<<hit boundary complete";
 	return hit;
 }
 
@@ -196,7 +192,6 @@ void PhotonClass::drop(const InputClass& In , OutClass& Out)
 	photon->weight -= dwa;
 	/* assign dwa to the absorption array element. */
     Out.out->abs_prob_rz[ir][iz] += dwa;
-    //qDebug()<<"<<<<<<<<drop complete";
 }
 
 /*
@@ -211,8 +206,6 @@ void PhotonClass::roulette()
 		photon->weight /= CHANCE;
 	else
 		photon->dead = true;
-    //qDebug()<<"<<<<<<<<roulette complete";
-    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 /*
@@ -235,9 +228,7 @@ void PhotonClass::recordWeightFirstLayer(const double& Refl, /* reflectance. */
 	if (ia > In.input->na - 1) ia = In.input->na - 1;
 	/* assign photon to the reflection array element. */
 	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
-
     photon->weight *= Refl;
-    //qDebug()<<"<<<<<<<<record weight first layer complete";
 }
 
 /*
@@ -259,7 +250,6 @@ void PhotonClass::recordWeightLastLayer(const double& Refl, const InputClass& In
 	/* assign photon to the transmittance array element. */
 	Out.out->diff_reflect_2d[ir][ia] += photon->weight*(1.0 - Refl);
     photon->weight *= Refl;
-    //qDebug()<<"<<<<<<<<record weight last layer complete";
 }
 
 /*
@@ -308,12 +298,15 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 		photon->dcos_z = -uz;
 #else
 	if (RandomNum() > r) { /* transmitted to layer-1. */
+        qDebug()<<layer;
 		if (layer == 1) {
+            qDebug()<<"1111111111111";
 			photon->dcos_z = -uz1;
 			recordWeightFirstLayer(0.0, In,Out);
 			photon->dead = true;
 		}
 		else {
+            qDebug()<<"22222222222";
 			photon->layer--;
 			photon->dcos_x *= ni / nt;
 			photon->dcos_y *= ni / nt;
@@ -324,8 +317,6 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 	else /* reflected. */
 		photon->dcos_z = -uz;
 #endif
-    //qDebug()<<"<<<<<<<<cross up or not complete";
-    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 
@@ -369,13 +360,16 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 		photon->dcos_z = -uz;
 #else
 	if (RandomNum() > r) { /* transmitted to layer+1. */
+        qDebug()<<layer<<"......";
 		if (layer == In.input->num_layers) {
+            qDebug()<<"3333333333333333";
 			photon->dcos_z = uz1;
 			recordWeightLastLayer(0.0, In,Out);
 			photon->dead = true;
 
 		}
 		else {
+            qDebug()<<"44444444444444";
 			photon->layer++;
 			photon->dcos_x *= ni / nt;
 			photon->dcos_y *= ni / nt;
@@ -386,8 +380,6 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 	else /* reflected. */
 		photon->dcos_z = -uz;
 #endif
-    //qDebug()<<"<<<<<<<<cross down or not complete";
-    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 
@@ -417,7 +409,6 @@ void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
 		hop();
 		crossOrNot(In, Out);
 	}
-    //qDebug()<<"==========photon is dead:"<<photon->dead;
 }
 
 /*
@@ -430,9 +421,11 @@ void PhotonClass::hopInGlass(const InputClass& In, OutClass& Out) {
  * Then move the photon in the current or transmission medium with the unfinished stepsize to interaction
  * site. If the unfinished stepsize is still too long, repeat the above process.
  */
-void PhotonClass::hopDropSpinInTissue(const InputClass& In, OutClass& Out) {
+void PhotonClass::hopDropSpinInTissue(const InputClass& In, OutClass& Out)
+{
 	stepSizeInTissue( In);
-	if (hitBoundary( In)) {
+
+    if (hitBoundary( In)) {
 		hop(); /* move to boundary plane. */
 		crossOrNot(In, Out);
 	}
@@ -441,7 +434,6 @@ void PhotonClass::hopDropSpinInTissue(const InputClass& In, OutClass& Out) {
 		drop(In, Out);
 		spin(In.input->layerspecs[photon->layer].layer->anisotropy);
 	}
-    //qDebug()<<"<<<<<<<<hop drop spin in tissue complete";
 }
 
 void PhotonClass::hopDropSpin(const InputClass& In, OutClass& Out) {
@@ -455,6 +447,5 @@ void PhotonClass::hopDropSpin(const InputClass& In, OutClass& Out) {
 
 	if (photon->weight < In.input->Wth && !photon->dead)
 		roulette();
-    //qDebug()<<"<<<<<<<<hop drop spin complete";
 }
 

@@ -12,10 +12,14 @@ OutClass out_temp;
 QString LinkDataFromVector(const QVector<double> &vec)
 {
     QString str="";
-
-    for(const auto& v:vec)
+    size_t size=vec.size();
+    for(size_t i=0;i<size;++i)
     {
-        str+= (QString::number(v,'f',4)+" ");
+        if(!i%5)  // 5 number each line.
+            str+= ("\n"+QString::number(vec[i],'f',4)+" ");
+        else
+            str+= (QString::number(vec[i],'f',4)+" ");
+
     }
     str+="\n \n";
     return str;
@@ -156,7 +160,7 @@ void RunResults::on_View_total_trans_rdl_Button_clicked()
 
 void SetDialog_1D(QDialog *dlg, const QVector<double> &vec, QString &plain_text)
 {
-    dlg->setFixedSize(QSize(300,200));
+    dlg->setFixedSize(QSize(350,200));
     dlg->setFont(QFont("Consolas"));
     dlg->setWindowModality(Qt::WindowModal);
     dlg->setWindowIcon(QIcon(":/image/logo"));
@@ -181,7 +185,7 @@ void SetDialog_1D(QDialog *dlg, const QVector<double> &vec, QString &plain_text)
 
 void SetDialog_2D(QDialog *dlg, const QVector<QVector<double> > &vec, QString &plain_text)
 {
-    dlg->setFixedSize(QSize(300,200));
+    dlg->setFixedSize(QSize(350,200));
     dlg->setFont(QFont("Consolas"));
     dlg->setWindowModality(Qt::WindowModal);
     dlg->setWindowIcon(QIcon(":/image/logo"));
