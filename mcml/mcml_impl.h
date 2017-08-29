@@ -56,10 +56,6 @@ struct LayerStruct
 
 struct InputStruct
 {
-    string out_fname; /* output file name. */
-    char out_fformat; /* output file format. */
-                      /* 'A' for ASCII, */
-                      /* 'B' for binary. */
     long int num_photons; /* to be traced. */
     double Wth; /* play roulette if photon */
                 /* weight < Wth.*/
