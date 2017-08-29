@@ -7,7 +7,7 @@
 
 auto SIGN = [](int x) {return (x >= 0) ? 1 : -1; };
 
-//The specific declaration of mem-function in PhotonClass
+// initialize a photon packet.
 void PhotonClass::launch(const double& Rspecular,const QVector<LayerClass>& LayerVec)
 {
 	photon->weight = 1.0 - Rspecular;
@@ -86,20 +86,20 @@ void PhotonClass::hop() {
 
 */
 void PhotonClass::stepSizeInGlass(const InputClass& In) {
-	double dl_b; /* step size to boundary. */
+    double step_size; /* step size to boundary. */
 	size_t layer = photon->layer;
-	double uz = photon->dcos_z;
+    double dcos_z = photon->dcos_z;
 
 	/* Stepsize to the boundary. */
-	if (uz > 0.0)
-		dl_b = (In.input->layerspecs[layer].layer->z1 - photon->z)
-		/ uz;
-	else if (uz < 0.0)
-		dl_b = (In.input->layerspecs[layer].layer->z0 - photon->z)
-		/ uz;
+    if (dcos_z > 0.0)
+        step_size = (In.input->layerspecs[layer].layer->z1 - photon->z)
+        / dcos_z;
+    else if (dcos_z < 0.0)
+        step_size = (In.input->layerspecs[layer].layer->z0 - photon->z)
+        / dcos_z;
 	else
-		dl_b = 0.0;
-    photon->cur_step = dl_b;
+        step_size = 0.0;
+    photon->cur_step = step_size;
 }
 
 /*
@@ -115,48 +115,46 @@ void PhotonClass::stepSizeInGlass(const InputClass& In) {
 void PhotonClass::stepSizeInTissue(const InputClass& In)
 {
 	size_t layer = photon->layer;
-	double mua = In.input->layerspecs[layer].layer->abs_coef;
-	double mus = In.input->layerspecs[layer].layer->scat_coef;
+    double abs_coef = In.input->layerspecs[layer].layer->abs_coef;
+    double scat_coef = In.input->layerspecs[layer].layer->scat_coef;
 	if (photon->step_left == 0.0) { /* make a new step. */
         double rnd= RandomNum();
-		photon->cur_step = -log(rnd) / (mua + mus);
+        photon->cur_step = -log(rnd) / (abs_coef + scat_coef);
 	}
 	else { /* take the leftover. */
-		photon->cur_step = photon->step_left / (mua + mus);
+        photon->cur_step = photon->step_left / (abs_coef + scat_coef);
 		photon->step_left = 0.0;
     }
 }
 
 /*
  * Check if the step will hit the boundary.
- * Return true if hit boundary.
- * Return false otherwise.
  *
  * If the projected step hits the boundary, the members cur_step and step_left of Photon are updated.
 */
 bool PhotonClass::hitBoundary(const InputClass& In)
 {
-	double dl_b; /* length to boundary. */
+    double step_size; /* length to boundary. */
 	size_t layer = photon->layer;
-	double uz = photon->dcos_z;
-	bool hit;
+    double dcos_z = photon->dcos_z;
+    bool hitted;
 	/* Distance to the boundary. */
-	if (uz > 0.0)
-		dl_b = (In.input->layerspecs[layer].layer->z1 - photon->z) / uz; /* dl_b>0. */
-	else if (uz < 0.0)
-		dl_b = (In.input->layerspecs[layer].layer->z0 - photon->z) / uz; /* dl_b>0. */
+    if (dcos_z > 0.0)
+        step_size = (In.input->layerspecs[layer].layer->z1 - photon->z) / dcos_z; /* dl_b>0. */
+    else if (dcos_z < 0.0)
+        step_size = (In.input->layerspecs[layer].layer->z0 - photon->z) / dcos_z; /* dl_b>0. */
 
-    if (uz != 0.0 && (photon->cur_step > dl_b)) {
+    if (dcos_z != 0.0 && (photon->cur_step > step_size)) {
 		/* not horizontal & crossing. */
 		double mut = In.input->layerspecs[layer].layer->abs_coef
 			+ In.input->layerspecs[layer].layer->scat_coef;
-		photon->step_left = (photon->cur_step - dl_b)*mut;
-		photon->cur_step = dl_b;
-		hit = true;
+        photon->step_left = (photon->cur_step - step_size)*mut;
+        photon->cur_step = step_size;
+        hitted = true;
 	}
 	else
-        hit = false;
-	return hit;
+        hitted = false;
+    return hitted;
 }
 
 
@@ -165,7 +163,7 @@ bool PhotonClass::hitBoundary(const InputClass& In)
  *
  * The photon is assumed not dead.
  *
- * The weight drop is dw = w*mua/(mua+mus).
+ * The weight drop is d_weight = weight*abs_coef / (abs_coef + scat_coef).
  *
  * The dropped weight is assigned to the absorption array elements.
 */
@@ -176,7 +174,7 @@ void PhotonClass::drop(const InputClass& In , OutClass& Out)
 	double y = photon->y;
 	size_t iz, ir; /* index to z & r. */
 	size_t layer = photon->layer;
-	double mua, mus;
+    double abs_coef, scat_coef;
 
 	/* compute array indices. */
 	iz = static_cast<size_t>(photon->z / In.input->dz);
@@ -186,9 +184,9 @@ void PhotonClass::drop(const InputClass& In , OutClass& Out)
 	if (ir > In.input->nr - 1) ir = In.input->nr - 1;
 
 	/* update photon weight. */
-	mua = In.input->layerspecs[layer].layer->abs_coef;
-	mus = In.input->layerspecs[layer].layer->scat_coef;
-	dwa = photon->weight * mua / (mua + mus);
+    abs_coef = In.input->layerspecs[layer].layer->abs_coef;
+    scat_coef = In.input->layerspecs[layer].layer->scat_coef;
+    dwa = photon->weight * abs_coef / (abs_coef + scat_coef);
 	photon->weight -= dwa;
 	/* assign dwa to the absorption array element. */
     Out.out->abs_prob_rz[ir][iz] += dwa;
@@ -209,14 +207,14 @@ void PhotonClass::roulette()
 }
 
 /*
- * Record the photon weight exiting the first layer(uz<0),
+ * Record the photon weight exiting the first layer(dcos_z < 0),
  * no matter whether the layer is glass or not, to the reflection array.
  *
  * Update the photon weight as well.
  */
 void PhotonClass::recordWeightFirstLayer(const double& Refl, /* reflectance. */
-							   const InputClass& In,
-							   OutClass& Out)
+                                         const InputClass& In,
+                                         OutClass& Out)
 {
 	double x = photon->x;
 	double y = photon->y;
@@ -232,9 +230,8 @@ void PhotonClass::recordWeightFirstLayer(const double& Refl, /* reflectance. */
 }
 
 /*
- * Record the photon weight exiting the last layer(uz>0),
- * no matter whether the layer is glass or not, to the
- * transmittance array.
+ * Record the photon weight exiting the last layer(dcos_z>0),
+ * no matter whether the layer is glass or not, to the transmittance array.
  *
  * Update the photon weight as well.
  */
@@ -268,17 +265,17 @@ void PhotonClass::recordWeightLastLayer(const double& Refl, const InputClass& In
  */
 void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 {
-	double uz = photon->dcos_z; /* z directional cosine. */
-	double uz1; /* cosines of transmission alpha. always positive. */
+    double dcos_z = photon->dcos_z; /* z directional cosine. */
+    double tcos_a; /* cosines of transmission alpha. always positive. */
 	double r = 0.0; /* reflectance */
 	size_t layer = photon->layer;
 	double ni = In.input->layerspecs[layer].layer->rfct_index;
 	double nt = In.input->layerspecs[layer - 1].layer->rfct_index;
 
 	/* Get r. */
-	if (-uz <= In.input->layerspecs[layer].layer->cos_crit_up)
+    if (-dcos_z <= In.input->layerspecs[layer].layer->cos_crit_up)
 		r = 1.0; /* total internal reflection. */
-	else r = RFresnel(ni, nt, -uz, uz1);
+    else r = RFresnel(ni, nt, -dcos_z, tcos_a);
 
 #if PARTIALREFLECTION
 	if (layer == 1 && r < 1.0) { /* partially transmitted. */
@@ -299,7 +296,7 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 #else
 	if (RandomNum() > r) { /* transmitted to layer-1. */
 		if (layer == 1) {
-			photon->dcos_z = -uz1;
+            photon->dcos_z = -tcos_a;
 			recordWeightFirstLayer(0.0, In,Out);
 			photon->dead = true;
 		}
@@ -307,19 +304,19 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
 			photon->layer--;
 			photon->dcos_x *= ni / nt;
 			photon->dcos_y *= ni / nt;
-			photon->dcos_z = -uz1;
+            photon->dcos_z = -tcos_a;
 		}
 
 	}
 	else /* reflected. */
-		photon->dcos_z = -uz;
+        photon->dcos_z = -dcos_z;
 #endif
 }
 
 
 /*
  * Decide whether the photon will be transmitted or be
- * reflected on the bottom boundary (dcos_z>0) of the current layer.
+ * reflected on the bottom boundary (dcos_z > 0) of the current layer.
  *
  * If the photon is transmitted, move the photon to "layer+1". If "layer" is the last layer, record the
  * transmitted weight as transmittance. See comments for CrossUpOrNot.
@@ -328,16 +325,16 @@ void PhotonClass::crossUpOrNot(const InputClass& In,OutClass& Out)
  */
 void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 {
-	double uz = photon->dcos_z; /* z directional cosine. */
-	double uz1; /* cosines of transmission alpha. */
+    double dcos_z = photon->dcos_z; /* z directional cosine. */
+    double tcos_a; /* cosines of transmission alpha. */
 	double r = 0.0; /* reflectance */
 	size_t layer = photon->layer;
 	double ni = In.input->layerspecs[layer].layer->rfct_index;
 	double nt = In.input->layerspecs[layer + 1].layer->rfct_index;
 	/* Get r. */
-	if (uz <= In.input->layerspecs[layer].layer->cos_crit_down)
+    if (dcos_z <= In.input->layerspecs[layer].layer->cos_crit_down)
 		r = 1.0; /* total internal reflection. */
-	else r = RFresnel(ni, nt, uz, uz1);
+    else r = RFresnel(ni, nt, dcos_z, tcos_a);
 
 #if PARTIALREFLECTION
 	if (layer == In.input->num_layers && r < 1.0) {
@@ -358,7 +355,7 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 #else
 	if (RandomNum() > r) { /* transmitted to layer+1. */
 		if (layer == In.input->num_layers) {
-			photon->dcos_z = uz1;
+            photon->dcos_z = tcos_a;
 			recordWeightLastLayer(0.0, In,Out);
 			photon->dead = true;
 
@@ -367,12 +364,12 @@ void PhotonClass::crossDownOrNot(const InputClass& In, OutClass& Out)
 			photon->layer++;
 			photon->dcos_x *= ni / nt;
 			photon->dcos_y *= ni / nt;
-			photon->dcos_z = uz1;
+            photon->dcos_z = tcos_a;
 
 		}
 	}
 	else /* reflected. */
-		photon->dcos_z = -uz;
+        photon->dcos_z = -dcos_z;
 #endif
 }
 

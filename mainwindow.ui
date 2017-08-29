@@ -72,6 +72,7 @@
      <string>Tests</string>
     </property>
     <addaction name="actionSample_One"/>
+    <addaction name="actionSample_Two"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuTests"/>
@@ -90,6 +91,11 @@
   <action name="actionSample_One">
    <property name="text">
     <string>Sample One</string>
+   </property>
+  </action>
+  <action name="actionSample_Two">
+   <property name="text">
+    <string>Sample Two</string>
    </property>
   </action>
  </widget>

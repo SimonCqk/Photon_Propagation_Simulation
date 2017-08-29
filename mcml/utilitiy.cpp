@@ -2,7 +2,7 @@
 #include"mcml.h"
 
 
-//use Mersenne twister to generate a random number
+//for generating a random number from 0 to 1
 double RandomNum() {
     //set `static` to avoid generating same results
 	static std::random_device Rand;
@@ -39,13 +39,12 @@ double Rspecular(const QVector<LayerClass>& LayerVec)
 /*
 * Choose (sample) a new theta angle for photon propagation according to the anisotropy.
 *
-* If anisotropy g is 0, then cos(theta) = 2*rand-1.
-* otherwise
-* sample according to the Henyey-Greenstein function.
+* If anisotropy is 0, then cos(theta) = 2*rand-1.
+* otherwise,sample according to the Henyey-Greenstein function.
 *
 * Returns the cosine of the polar deflection angle theta.
 */
-double SpinTheta(double g)
+double SpinTheta(const double& g)
 {
 	double cost;
 	if (g == 0.0)
@@ -69,13 +68,10 @@ double SpinTheta(double g)
 *
 * Avoid trigonometric function operations as much as possible, because they are computation-intensive.
 */
-double RFresnel(double n1, /* incident refractive index.*/
-	double n2, /* transmit refractive index.*/
-	double ca1, /* cosine of the incident */
-				/* angle. 0<a1<90 degrees. */
-	double& ca2_Ptr) /* pointer to the */
-					 /* cosine of the transmission */
-					 /* angle. a2>0. */
+double RFresnel(const double& n1,       /* incident refractive index.*/
+                const double& n2,       /* transmit refractive index.*/
+                const double& ca1,      /* cosine of the incident angle. 0<a1<90 degrees. */
+                double& ca2_Ptr) /* pointer to the cosine of the transmission angle. a2>0. */
 {
 	double r;
 	if (n1 == n2) { /** matched boundary. **/

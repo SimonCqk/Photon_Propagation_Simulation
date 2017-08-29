@@ -8,8 +8,8 @@
 
 double RandomNum();
 double Rspecular(const QVector<LayerClass>& LayerVec);
-double SpinTheta(double g);
-double RFresnel(double n1, double n2, double ca1, double& ca2_Ptr);
+double SpinTheta(const double &g);
+double RFresnel(const double &n1, const double &n2, const double &ca1, double& ca2_Ptr);
 
 void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr);
 void CriticalAngle(const size_t& Layer_num,QVector<LayerClass>& layerspecs);
@@ -21,7 +21,6 @@ void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr);
 void Scale_AbsProb(const InputClass& In_Parm, OutClass& Out_Ptr);
 void SumScaleResult(const InputClass& In_Parm, OutClass& Out_Ptr);
 
-//void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);  // main running control function.
 
 template<typename Type>
 inline void AllocVector(QVector<Type>& vec,const size_t& row)

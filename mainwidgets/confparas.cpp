@@ -170,6 +170,7 @@ void ConfParas::on_ClearButton_clicked()
     LayerDatas->clear();
 }
 
+// to check the Layer Datas is valid or not.
 bool ConfParas::checkLayerDatas()
 {
     bool flag;
@@ -193,6 +194,7 @@ bool ConfParas::checkLayerDatas()
     return flag;
 }
 
+//set up the instructor for showing the layer data status.
 void ConfParas::setInstructor()
 {
     QPalette pa;
@@ -332,9 +334,9 @@ void ConfParas::on_RunButton_clicked()
 }
 
 
-void ConfParas::SetSampleOneDatas()
+void ConfParas::setSampleOneDatas()
 {
-    ui->PhoNumSpinBox->setValue(20000);
+    ui->PhoNumSpinBox->setValue(10000);
     ui->zGridEdit->setText(QString("0.02"));
     ui->rGridEdit->setText(QString("0.02"));
     ui->No_zGridEdit->setText(QString("200"));
@@ -344,5 +346,21 @@ void ConfParas::SetSampleOneDatas()
     ui->MedBelowEdit->setText(QString("1"));
     LayerDatas->push_back(QString("1.3 20 200 0.7 0.1"));
     LayerDatas->push_back(QString("1.4 5 180 0.9 0.08"));
+    setInstructor();
+}
+
+void ConfParas::setSampleTwoDatas()
+{
+    ui->PhoNumSpinBox->setValue(10000);
+    ui->zGridEdit->setText(QString("0.01"));
+    ui->rGridEdit->setText(QString("0.01"));
+    ui->No_zGridEdit->setText(QString("400"));
+    ui->No_rGridEdit->setText(QString("500"));
+    ui->No_aGridEdit->setText(QString("1"));
+    ui->MedAboveEdit->setText(QString("1"));
+    ui->MedBelowEdit->setText(QString("1"));
+    LayerDatas->push_back(QString("1.37 1 100 0.9 0.1"));
+    LayerDatas->push_back(QString("1.37 1 10 0 0.1"));
+    LayerDatas->push_back(QString("1.37 2 10 0.7 0.2"));
     setInstructor();
 }

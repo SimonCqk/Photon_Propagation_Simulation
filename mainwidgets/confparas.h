@@ -29,7 +29,8 @@ public:
     ~ConfParas();
     void readDatas(InputClass& In_Ptr);
     void doOneRun(InputClass &In_Ptr);
-    void SetSampleOneDatas();
+    void setSampleOneDatas();
+    void setSampleTwoDatas();
 protected:
     void paintEvent(QPaintEvent *);  // ready for style sheet setting
 private slots:
@@ -40,7 +41,7 @@ private slots:
     void on_RunButton_clicked();
 
 signals:
-    void isDone();
+    void isDone();  // signal for Running-is-done.
 
 private:
     Ui::ConfParas *ui;

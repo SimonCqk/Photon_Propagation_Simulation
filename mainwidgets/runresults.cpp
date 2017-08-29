@@ -16,9 +16,9 @@ QString LinkDataFromVector(const QVector<double> &vec)
     for(size_t i=0;i<size;++i)
     {
         if(!i%5)  // 5 number each line.
-            str+= ("\n"+QString::number(vec[i],'f',4)+" ");
+            str+= ("\n"+QString::number(vec[i],'f',5)+" ");
         else
-            str+= (QString::number(vec[i],'f',4)+" ");
+            str+= (QString::number(vec[i],'f',5)+" ");
 
     }
     str+="\n \n";

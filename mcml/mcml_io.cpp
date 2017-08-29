@@ -31,8 +31,9 @@ void InitOutputData(const InputClass& In_Parm,OutClass& Out_Ptr)
 
 
 /*
-Compute the critical angles for total internal reflection according to the relative refractive index of the layer.
-All layers are processed.
+  Compute the critical angles for total internal reflection according to
+  the relative refractive index of the layer.
+  All layers are processed.
 */
 void CriticalAngle(const size_t& Layer_num, QVector<LayerClass>& layerspecs)
 {
@@ -50,7 +51,7 @@ void CriticalAngle(const size_t& Layer_num, QVector<LayerClass>& layerspecs)
 }
 
 /*
-Get 1D array elements by summing the 2D array elements.
+  Get 1D array elements by summing the 2D array elements.
 */
 void Sum2D_DiffReflect(const InputClass& In,OutClass& Out)
 {
@@ -148,15 +149,15 @@ void Sum2D_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr)
     Out_Ptr.out->total_trans = sum;
 }
 /*
-    * Scale diff_reflect and total_trans properly. "a" stands for angle alpha.
-    *
-    * Scale diff_reflect(r,a) and total_trans(r,a) by (area perpendicular to photon direction)
-    * x(solid angle)x(No. of photons). or [2*PI*r*dr*cos(a)]x[2*PI*sin(a)*da]x[No. of photons]
-    * or [2*PI*PI*dr*da*r*sin(2a)]x[No. of photons]
-    *
-    * Scale diff_reflect(r) and total_trans(r) by (area on the surface)x(No. of photons).
-    * Scale diff_reflect(a) and total_trans(a) by (solid angle)x(No. of photons).
-*/
+ * Scale diff_reflect and total_trans properly. "a" stands for angle alpha.
+ *
+ * Scale diff_reflect(r,a) and total_trans(r,a) by (area perpendicular to photon direction)
+ * x(solid angle)x(No. of photons). or [2*PI*r*dr*cos(a)]x[2*PI*sin(a)*da]x[No. of photons]
+ * or [2*PI*PI*dr*da*r*sin(2a)]x[No. of photons]
+ *
+ * Scale diff_reflect(r) and total_trans(r) by (area on the surface)x(No. of photons).
+ * Scale diff_reflect(a) and total_trans(a) by (solid angle)x(No. of photons).
+ */
 void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr)
 {
     size_t nr = In_Parm.input->nr;
@@ -171,10 +172,8 @@ void Scale_DiffReflect_TotalTrans(const InputClass& In_Parm, OutClass& Out_Ptr)
     for (ir = 0; ir < nr; ir++)
         for (ia = 0; ia < na; ia++) {
             scale2 = 1.0 / ((ir + 0.5)*sin(2.0*(ia + 0.5)*da)*scale1);
-            //qDebug()<<scale1<<scale2;
             Out_Ptr.out->diff_reflect_2d[ir][ia] *= scale2;
             Out_Ptr.out->total_trans_2d[ir][ia] *= scale2;
-            //qDebug()<<Out_Ptr.out->diff_reflect_2d[ir][ia]<<Out_Ptr.out->total_trans_2d[ir][ia];
         }
 
     scale1 = 2.0*PI*dr*dr*In_Parm.input->num_photons;

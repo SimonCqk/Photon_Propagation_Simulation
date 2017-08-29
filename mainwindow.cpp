@@ -102,5 +102,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionSample_One_triggered()
 {
     ConfParas *conf=ConfParas::getInstance();
-    conf->SetSampleOneDatas();
+    conf->setSampleOneDatas();
+}
+
+void MainWindow::on_actionSample_Two_triggered()
+{
+    ConfParas *conf=ConfParas::getInstance();
+    conf->setSampleTwoDatas();
 }
