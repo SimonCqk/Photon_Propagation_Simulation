@@ -38,7 +38,8 @@ SOURCES += \
     start.cpp \
     mainwidgets/about.cpp \
     mainwidgets/confparas.cpp \
-    mainwidgets/runresults.cpp
+    mainwidgets/runresults.cpp \
+    mainwidgets/history.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -55,14 +56,16 @@ HEADERS += \
     start.h \
     mainwidgets/about.h \
     mainwidgets/confparas.h \
-    mainwidgets/runresults.h
+    mainwidgets/runresults.h \
+    mainwidgets/history.h
 
 FORMS += \
         mainwindow.ui \
     start.ui \
     mainwidgets/about.ui \
     mainwidgets/confparas.ui \
-    mainwidgets/runresults.ui
+    mainwidgets/runresults.ui \
+    mainwidgets/history.ui
 
 RESOURCES += \
     resources.qrc

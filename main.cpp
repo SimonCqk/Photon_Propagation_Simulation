@@ -1,22 +1,20 @@
 #include "mainwindow.h"
+#include "mcml/mcml.h"
+#include "start.h"
 #include <QApplication>
-#include"start.h"
-#include"mcml/mcml.h"
-#include<QDialog>
+#include <QDialog>
 
+int main(int argc, char *argv[]) {
+  QApplication app(argc, argv);
 
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
+  MainWindow main_window;
+  main_window.setWindowTitle(
+      QString("Model of Light Transport in Multi-layered Tissues"));
+  main_window.setWindowOpacity(0.85);
+  main_window.show();
 
-    MainWindow main_window;
-    main_window.setWindowTitle(QString("Model of Light Transport in Multi-layered Tissues"));
-    main_window.setWindowOpacity(0.85);
-    main_window.show();
+  // start start_widget;
+  // start_widget.show();
 
-   //start start_widget;
-   //start_widget.show();
-
-
-    return app.exec();
+  return app.exec();
 }

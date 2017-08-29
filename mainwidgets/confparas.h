@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include<QPlainTextEdit>
-#include"../mcml/mcml.h"
+#include"../mcml/mcml_fwd.h"
 #include<QVector>
 
 namespace Ui {

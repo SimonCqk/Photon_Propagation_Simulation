@@ -1,29 +1,30 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mainwidgets/confparas.h"
 #include <QMainWindow>
-#include"mainwidgets/confparas.h"
+
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
-    friend class ConfParas;
+class MainWindow : public QMainWindow {
+  Q_OBJECT
+  friend class ConfParas;
+
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+  explicit MainWindow(QWidget *parent = 0);
+  ~MainWindow();
 
 private slots:
 
-    void on_actionSample_One_triggered();
+  void on_actionSample_One_triggered();
 
-    void on_actionSample_Two_triggered();
+  void on_actionSample_Two_triggered();
 
 private:
-    Ui::MainWindow *ui;
+  Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

@@ -7,19 +7,18 @@ namespace Ui {
 class start;
 }
 
-class start : public QWidget
-{
-    Q_OBJECT
+class start : public QWidget {
+  Q_OBJECT
 
 public:
-    explicit start(QWidget *parent = 0);
-    ~start();
+  explicit start(QWidget *parent = 0);
+  ~start();
 
 private slots:
-    void on_QuitButton_clicked();
+  void on_QuitButton_clicked();
 
 private:
-    Ui::start *ui;
+  Ui::start *ui;
 };
 
 #endif // START_H
