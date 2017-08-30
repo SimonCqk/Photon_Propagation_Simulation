@@ -138,6 +138,7 @@ class OutClass {
   friend class PhotonClass;
   friend class ConfParas;
   friend class RunResults;
+  friend class OutputToString;
   friend void Sum2D_DiffReflect(const InputClass &In, OutClass &Out);
   friend void Sum2D_AbsProb(const InputClass &In_Parm, OutClass &Out_Ptr);
   friend void Sum2D_TotalTrans(const InputClass &In_Parm, OutClass &Out_Ptr);

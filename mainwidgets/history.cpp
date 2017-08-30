@@ -6,7 +6,7 @@
 
 History *History::theHistory = nullptr;
 
-QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE");
+QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE","con_database");
 
 bool DBconnect(const QString& db_name){
     db.setDatabaseName(db_name);
@@ -24,10 +24,52 @@ void CreateTables(){
 History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   ui->setupUi(this);
   if(!DBconnect("database.db"))
-      QMessageBox::critical(nullptr, QObject::tr("Collection"), QObject::tr("Failed to Connect to Database!"));
+      QMessageBox::critical(nullptr, QObject::tr("Connect Error"),
+                            QObject::tr("Failed to Connect to Database!"));
 }
 
 History::~History()
 {
     delete ui;
+}
+
+OutputToString::OutputToString(const OutClass &output)
+{
+    spec_reflect=QString::number(output.out->spec_reflect,'f',5);
+    abs_prob=QString::number(output.out->abs_prob,'f',5);
+    total_trans=QString::number(output.out->total_trans,'f',5);
+
+    diff_reflect_agl=LinkDataFromVector(output.out->diff_reflect_agl);
+    diff_reflect_rdl=LinkDataFromVector(output.out->diff_reflect_rdl);
+    abs_prob_z=LinkDataFromVector(output.out->abs_prob_z);
+    abs_prob_layer=LinkDataFromVector(output.out->abs_prob_layer);
+    total_trans_agl=LinkDataFromVector(output.out->total_trans_agl);
+    total_trans_rdl=LinkDataFromVector(output.out->total_trans_rdl);
+
+    diff_reflect_2d=abs_prob_rz=total_trans_2d="";
+    for(const auto &item:output.out->diff_reflect_2d){
+        diff_reflect_2d+=LinkDataFromVector(item);
+    }
+    for(const auto &item:output.out->abs_prob_rz){
+        abs_prob_rz+=LinkDataFromVector(item);
+    }
+    for(const auto &item:output.out->total_trans_2d){
+        total_trans_2d+=LinkDataFromVector(item);
+    }
+}
+
+void OutputToString::setUpAll()
+{
+    all="specular reflectance:\n"+spec_reflect+"\n\n"
+            +"total absorption probability:\n"+abs_prob+"\n\n"
+            +"total transmittance:\n"+total_trans+"\n\n"
+            +"1D radial distribution of diffuse reflectance:\n"+diff_reflect_rdl+"\n\n"
+            +"1D angular distribution of diffuse reflectance:\n"+diff_reflect_agl+"\n\n"
+            +"1D probability density over z:\n"+abs_prob_z+"\n\n"
+            +"each layer's absorption probability:\n"+abs_prob_layer+"\n\n"
+            +"1D radial distribution of transmittance:\n"+total_trans_rdl+"\n\n"
+            +"1D angular distribution of transmittance:\n"+total_trans_agl+"\n\n"
+            +"2D distribution of diffuse reflectance:\n"+diff_reflect_2d+"\n\n"
+            +"2D probability density in turbid media over r & z:\n"+abs_prob_rz+"\n\n"
+            +"2D distribution of total transmittance"+total_trans_2d;
 }

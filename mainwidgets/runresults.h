@@ -61,6 +61,7 @@ template <typename T> QString Convert2String(const T &t) {
 }
 
 QString LinkDataFromVector(const QVector<double> &vec);
+
 void SetDialog_1D(QDialog *dlg, const QVector<double> &vec,
                   QString &plain_text);
 void SetDialog_2D(QDialog *dlg, const QVector<QVector<double>> &vec,
