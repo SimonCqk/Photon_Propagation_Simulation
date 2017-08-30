@@ -27,7 +27,7 @@ public:
     ConfParas& operator=(const ConfParas&)=delete;
 
     ~ConfParas();
-    void readDatas(InputClass& In_Ptr);
+    void readDatas(InputClass &In_Ptr);
     void doOneRun(InputClass &In_Ptr);
     void setSampleOneDatas();
     void setSampleTwoDatas();

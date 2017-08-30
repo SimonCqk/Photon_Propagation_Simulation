@@ -286,7 +286,8 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   }
   ui->progressBar->setValue(idx_photons);
   SumScaleResult(In_Ptr, out_parm); // indispensable.
-  out_temp = out_parm; // out_temp(extern) is declared in runresults.h
+  out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
+  in_temp=In_Ptr;
   emit isDone();       // send signal to triggle to open run-results page.
 }
 

@@ -8,17 +8,18 @@
 RunResults *RunResults::theRunResults = nullptr;
 
 OutClass out_temp;
+InputClass in_temp;
 
 QString LinkDataFromVector(const QVector<double> &vec) {
   QString str = "";
   size_t size = vec.size();
   for (size_t i = 0; i < size; ++i) {
-    if (!i % 5) // 5 number each line.
-      str += ("\n" + QString::number(vec[i], 'f', 5) + " ");
+    if (!((i+1) % 5)) // 5 number each line.
+      str += (QString::number(vec[i], 'f', 5) + "\n");
     else
-      str += (QString::number(vec[i], 'f', 5) + " ");
+      str += (QString::number(vec[i], 'f', 5) + ",");
   }
-  str += "\n \n";
+  str += "\n";
   return str;
 }
 

@@ -128,9 +128,6 @@ public:
   InputClass() : input(make_shared<InputStruct>(InputStruct())) {}
   explicit InputClass(const InputStruct &item)
       : input(make_shared<InputStruct>(item)) {}
-  // forbid some constructors
-  InputClass(const InputClass &) = delete;
-  InputClass &operator=(const InputClass &) = delete;
   ~InputClass() = default;
 
 private:

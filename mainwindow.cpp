@@ -2,6 +2,7 @@
 #include "mainwidgets/about.h"
 #include "mainwidgets/confparas.h"
 #include "mainwidgets/runresults.h"
+#include"mainwidgets/history.h"
 #include "ui_mainwindow.h"
 #include <QPainter>
 #include <QProxyStyle>
@@ -77,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
   RunResults *runresults = RunResults::getInstance();
   ui->TabWidget->addTab(runresults, "Run Results");
   // Third page: show running history
-  QWidget *RunHistory = new QWidget();
+  History *RunHistory =History::getInstance();
   ui->TabWidget->addTab(RunHistory, "History");
   // Fourth page: show about information
   About *about = About::getInstance();

@@ -11,13 +11,16 @@ class History : public QWidget {
   Q_OBJECT
 
 public:
-  static History *getInstance() {
+  static History *getInstance()
+  {
     if (!theHistory)
       theHistory = new History();
     return theHistory;
   }
 
   explicit History(QWidget *parent = 0);
+  History(const History&)=delete;
+  History& operator=(const History&)=delete;
   ~History();
 
 private:
