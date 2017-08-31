@@ -56,6 +56,8 @@ OutputToString::OutputToString(const OutClass &output)
     for(const auto &item:output.out->total_trans_2d){
         total_trans_2d+=LinkDataFromVector(item);
     }
+
+    setUpAll();
 }
 
 void OutputToString::setUpAll()
@@ -72,4 +74,36 @@ void OutputToString::setUpAll()
             +"2D distribution of diffuse reflectance:\n"+diff_reflect_2d+"\n\n"
             +"2D probability density in turbid media over r & z:\n"+abs_prob_rz+"\n\n"
             +"2D distribution of total transmittance"+total_trans_2d;
+}
+
+InputToString::InputToString(const InputClass &input)
+{
+    num_photon=QString::number(input.input->num_photons);
+    num_layers=QString::number(input.input->num_layers);
+    dz=QString::number(input.input->dz,'f',6);
+    dr=QString::number(input.input->dr,'f',6);
+    da=QString::number(input.input->da,'f',6);
+    nz=QString::number(input.input->nz,'f',6);
+    nr=QString::number(input.input->nr,'f',6);
+    na=QString::number(input.input->na,'f',6);
+    layerspecs="";
+    for(size_t i=1;i<input.input->num_layers-1;++i){
+        layerspecs+=(QString::number(input.input->layerspecs[i].layer->rfct_index,'f',6)+",")
+                +(QString::number(input.input->layerspecs[i].layer->abs_coef,'f',6)+",")
+                +(QString::number(input.input->layerspecs[i].layer->scat_coef,'f',6)+",")
+                +(QString::number(input.input->layerspecs[i].layer->anisotropy,'f',6)+",")
+                +"\n";
+    }
+    setUpAll();
+
+}
+
+void InputToString::setUpAll()
+{
+    all="number of photons:\n"+num_photon+"\n\n"
+            +"delta z/delta r/delta alpha:\n"+dz+","+dr+","+da+"\n\n"
+            +"number of z/r/a grid separation:\n"+nz+","+nr+","+na+"\n\n"
+            +"number of layers:\n"+num_layers+"\n\n"
+            +"refractive index/absorption coefficient/scattering coefficient/anisotropy of each layer:\n"
+            +layerspecs;
 }

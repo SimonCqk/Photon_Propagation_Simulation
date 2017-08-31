@@ -57,5 +57,29 @@ private:
     void setUpAll();
 };
 
+class InputToString final{
+public:
+    explicit InputToString(const InputClass& input);
+    InputToString(const InputToString&)=default;
+    InputToString& operator=(const InputToString&)=default;
+    inline QString getAll(){
+        return all;
+    }
+
+private:
+    QString num_photon;
+    QString dz;
+    QString dr;
+    QString da;
+    QString nz;
+    QString nr;
+    QString na;
+    QString num_layers;
+    QString layerspecs;
+
+    QString all;
+    void setUpAll();
+};
+
 
 #endif // HISTORY_H

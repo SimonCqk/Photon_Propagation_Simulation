@@ -98,7 +98,7 @@ class LayerClass {
   friend size_t IndexToLayer(const size_t &Iz, const InputClass &In_Parm);
   friend class PhotonClass;
   friend class ConfParas;
-
+  friend class InputToString;
 public:
   LayerClass() : layer(make_shared<LayerStruct>(LayerStruct())) {}
   explicit LayerClass(const LayerStruct &item)
@@ -111,7 +111,7 @@ private:
 
 class InputClass {
   friend class PhotonClass;
-
+  friend class InputToString;
   friend void Sum2D_DiffReflect(const InputClass &In, OutClass &Out);
   friend size_t IndexToLayer(const size_t &Iz, const InputClass &In_Parm);
   friend void Sum2D_AbsProb(const InputClass &In_Parm, OutClass &Out_Ptr);
