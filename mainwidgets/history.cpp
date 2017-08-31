@@ -99,6 +99,8 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   font_color.setColor(QPalette::WindowText, Qt::white);
   ui->label->setPalette(font_color);
   ui->label_2->setPalette(font_color);
+  ui->label_3->setPalette(font_color);
+  ui->label_4->setPalette(font_color);
 
   ui->calendarWidget->hide();
   ui->calendarWidget->setSelectionMode(QCalendarWidget::SingleSelection);
@@ -117,7 +119,7 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
       CreateTables();
 
   connect(ui->DateButton,&QPushButton::clicked,ui->calendarWidget,&QCalendarWidget::show);
-  connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this,SLOT(setUpDate()));
+  connect(ui->calendarWidget,SIGNAL(selectionChanged()),this,SLOT(setUpDate()));
   connect(ui->ConfirmButton,&QPushButton::clicked,[this]{
       QueryHistory(ui->InputTextEdit,ui->OutputTextEdit,(date+ui->Num_RunEdit->text()));
       ui->label_3->show();

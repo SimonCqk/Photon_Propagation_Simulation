@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     runresults->getOutputData();
     runresults->showAllTheResults();
     ++no_run;
-    InsertHistory(no_run);
+    //InsertHistory(no_run);
   });
 }
 
