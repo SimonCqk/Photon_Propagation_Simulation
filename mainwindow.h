@@ -3,7 +3,7 @@
 
 #include "mainwidgets/confparas.h"
 #include <QMainWindow>
-
+#include<QFile>
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +25,10 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
+  QFile run_t;
+  size_t run_time;
+  void openAndRead();
+  void writeAndClose();
 };
 
 #endif // MAINWINDOW_H

@@ -6,7 +6,7 @@
 #include "ui_mainwindow.h"
 #include <QPainter>
 #include <QProxyStyle>
-#include <memory>
+#include<QTextStream>
 
 class CustomTabStyle : public QProxyStyle {
 public:
@@ -58,7 +58,9 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  ui->statusBar->showMessage(QString("May it helps you. :)"));
+  openAndRead();
+
+  ui->statusBar->showMessage(QString("May it helps you. :)     # Run Times: %1").arg(QString::number(run_time,10)));
   ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);");
   // let main windows can not scale
   this->setFixedSize(625, 380);
@@ -88,10 +90,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->TabWidget->setCurrentWidget(runresults);
     runresults->getOutputData();
     runresults->showAllTheResults();
+    ++run_time;
   });
 }
 
-MainWindow::~MainWindow() { delete ui; }
+MainWindow::~MainWindow() {
+    delete ui;
+    writeAndClose();
+}
 
 void MainWindow::on_actionSample_One_triggered() {
   ConfParas *conf = ConfParas::getInstance();
@@ -101,4 +107,31 @@ void MainWindow::on_actionSample_One_triggered() {
 void MainWindow::on_actionSample_Two_triggered() {
   ConfParas *conf = ConfParas::getInstance();
   conf->setSampleTwoDatas();
+}
+
+void MainWindow::openAndRead()
+{
+    run_t.setFileName("RunTimes.txt");
+    if(run_t.open(QIODevice::ReadWrite|QIODevice::Truncate)){
+        QTextStream read(&run_t);
+        QString temp;
+        read>>temp;
+        if(temp.isEmpty()){
+            run_time=1;
+            return;
+        }
+        run_time=temp.toInt(nullptr,10);
+    }
+    else
+        QMessageBox::critical(0, QObject::tr("Open File Error"),
+                              "Can not open Run-Time File.");
+}
+
+void MainWindow::writeAndClose()
+{
+    if(!run_t.isOpen())
+        run_t.open(QIODevice::ReadWrite|QIODevice::Truncate);
+    QTextStream write(&run_t);
+    write<<run_time;
+    run_t.close();
 }

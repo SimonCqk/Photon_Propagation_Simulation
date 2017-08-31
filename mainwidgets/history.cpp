@@ -1,31 +1,77 @@
 #include "history.h"
 #include "ui_history.h"
 #include<QtSql/QSqlDatabase>
+#include<QtSql/QSqlQuery>
+#include<QtSql/QSqlError>
 #include<QDebug>
-#include<QMessageBox>
+#include<QDateTime>
 
 History *History::theHistory = nullptr;
 
+// .dll file must be placed under <sqldrivers> in Qt directory.
 QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE","con_database");
+
+QString CreateTable="CREATE TABLE History("
+                        "hist_code VARCHAR(30) PRIMARY KEY,"
+                        "input_data TEXT,"
+                        "output_data TEXT)";
+
+QString InsertIntoTable="INSERT INTO History (hist_code,input_data,output_data) "
+                        "VALUES(:hist_code,:input_data,:output_code)";
+
+QString QueryFromTable="SELECT input_data,output_data FROM History"
+                       "WHERE hist_code = '%1';";
+
+QSqlQuery query(db);
 
 bool DBconnect(const QString& db_name){
     db.setDatabaseName(db_name);
     db.setUserName("ROOT");
     db.setPassword("123456");
-    if(!db.open())
-        return false;
-    return true;
+    db.open();
+    return db.isOpen();
 }
 
 void CreateTables(){
+    bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'")
+                                   .arg("History"));
 
+    if(!isTableExist)
+    {
+        if (!query.exec(CreateTable))
+            QMessageBox::critical(0, QObject::tr("Create Table Error"),
+                                  query.lastError().text());
+    }
+    else
+        return;
 }
+
+void InsertHistory(){
+    query.prepare(InsertIntoTable);
+    InputToString input2str(in_temp);
+    OutputToString output2str(out_temp);
+    QString Time=QDateTime::currentDateTime().toString("yyyy-MM-dd");
+    QVariantList histcode,inputdata,outputdata;
+    histcode<<Time;
+    inputdata<<input2str.getAll();
+    outputdata<<output2str.getAll();
+    query.bindValue(":hist_code",histcode);
+    query.bindValue(":input_data",inputdata);
+    query.bindValue(":output_data",outputdata);
+    if (!query.execBatch())
+            QMessageBox::critical(0, QObject::tr("Insert Error"),
+                                  query.lastError().text());
+}
+
 
 History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   ui->setupUi(this);
   if(!DBconnect("database.db"))
       QMessageBox::critical(nullptr, QObject::tr("Connect Error"),
                             QObject::tr("Failed to Connect to Database!"));
+  else
+      CreateTables();
+
 }
 
 History::~History()

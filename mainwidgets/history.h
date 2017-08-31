@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include"mainwidgets/runresults.h"
+#include<QMessageBox>
 
 namespace Ui {
 class History;
