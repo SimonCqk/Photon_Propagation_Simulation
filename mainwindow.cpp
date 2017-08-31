@@ -60,8 +60,9 @@ MainWindow::MainWindow(QWidget *parent)
 
   openAndRead();
 
-  ui->statusBar->showMessage(QString("May it helps you. :)     # Run Times: %1").arg(QString::number(run_time,10)));
-  ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);");
+  ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(no_run,10)));
+  ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);\
+                                font-family: Consolas;");
   // let main windows can not scale
   this->setFixedSize(625, 380);
   // delete default tabs in Tab Widget
@@ -90,7 +91,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->TabWidget->setCurrentWidget(runresults);
     runresults->getOutputData();
     runresults->showAllTheResults();
-    ++run_time;
+    ++no_run;
+    InsertHistory(no_run);
   });
 }
 
@@ -117,10 +119,10 @@ void MainWindow::openAndRead()
         QString temp;
         read>>temp;
         if(temp.isEmpty()){
-            run_time=1;
+            no_run=1;
             return;
         }
-        run_time=temp.toInt(nullptr,10);
+        no_run=temp.toInt(nullptr,10);
     }
     else
         QMessageBox::critical(0, QObject::tr("Open File Error"),
@@ -132,6 +134,6 @@ void MainWindow::writeAndClose()
     if(!run_t.isOpen())
         run_t.open(QIODevice::ReadWrite|QIODevice::Truncate);
     QTextStream write(&run_t);
-    write<<run_time;
+    write<<no_run;
     run_t.close();
 }

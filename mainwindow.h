@@ -26,7 +26,7 @@ private slots:
 private:
   Ui::MainWindow *ui;
   QFile run_t;
-  size_t run_time;
+  size_t no_run;
   void openAndRead();
   void writeAndClose();
 };

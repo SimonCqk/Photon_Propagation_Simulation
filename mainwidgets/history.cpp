@@ -5,6 +5,7 @@
 #include<QtSql/QSqlError>
 #include<QDebug>
 #include<QDateTime>
+#include<QIntValidator>
 
 History *History::theHistory = nullptr;
 
@@ -33,6 +34,7 @@ bool DBconnect(const QString& db_name){
 }
 
 void CreateTables(){
+    // judge if table 'History' is existed. IMPORTANT.
     bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'")
                                    .arg("History"));
 
@@ -46,11 +48,11 @@ void CreateTables(){
         return;
 }
 
-void InsertHistory(){
+void InsertHistory(const size_t& no_run){
     query.prepare(InsertIntoTable);
     InputToString input2str(in_temp);
     OutputToString output2str(out_temp);
-    QString Time=QDateTime::currentDateTime().toString("yyyy-MM-dd");
+    QString Time=QDateTime::currentDateTime().toString("yyyy-MM-dd")+QString::number(no_run,10);
     QVariantList histcode,inputdata,outputdata;
     histcode<<Time;
     inputdata<<input2str.getAll();
@@ -63,20 +65,81 @@ void InsertHistory(){
                                   query.lastError().text());
 }
 
+void QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
+                  const QString& hist_code){
+    if(db.isOpen()){
+        query.exec(QueryFromTable.arg(hist_code));
+        query.next();
+        QString input=query.value(0).toString();
+        QString output=query.value(1).toString();
+        left_in->setPlainText(input);
+        right_out->setPlainText(output);
+    }
+    else
+        QMessageBox::critical(0, QObject::tr("Insert Error"),
+                              query.lastError().text());
+
+}
+
 
 History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   ui->setupUi(this);
+  //set background.
+  this->setAutoFillBackground(true);
+  QString bground_path = ":/image/image/Photon.jpg";
+  QPixmap bground; // set background image
+  bground.load(bground_path);
+  QPalette palette;
+  // set image scaled
+  palette.setBrush(this->backgroundRole(),
+                   QBrush(bground.scaled(this->size(), Qt::IgnoreAspectRatio,
+                                         Qt::SmoothTransformation)));
+  this->setPalette(palette);
+  QPalette font_color;
+  font_color.setColor(QPalette::WindowText, Qt::white);
+  ui->label->setPalette(font_color);
+  ui->label_2->setPalette(font_color);
+
+  ui->calendarWidget->hide();
+  ui->calendarWidget->setSelectionMode(QCalendarWidget::SingleSelection);
+  ui->label_3->hide();
+  ui->label_4->hide();
+  ui->InputTextEdit->hide();
+  ui->OutputTextEdit->hide();
+
+  QIntValidator *intv=new QIntValidator();
+  ui->Num_RunEdit->setValidator(intv);
+
   if(!DBconnect("database.db"))
       QMessageBox::critical(nullptr, QObject::tr("Connect Error"),
                             QObject::tr("Failed to Connect to Database!"));
   else
       CreateTables();
 
+  connect(ui->DateButton,&QPushButton::clicked,ui->calendarWidget,&QCalendarWidget::show);
+  connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this,SLOT(setUpDate()));
+  connect(ui->ConfirmButton,&QPushButton::clicked,[this]{
+      QueryHistory(ui->InputTextEdit,ui->OutputTextEdit,(date+ui->Num_RunEdit->text()));
+      ui->label_3->show();
+      ui->label_4->show();
+      ui->InputTextEdit->show();
+      ui->OutputTextEdit->show();
+  });
 }
 
 History::~History()
 {
     delete ui;
+    if(query.isActive())
+        query.finish();
+    if(db.isOpen())
+        db.close();
+}
+
+void History::setUpDate()
+{
+    this->date=ui->calendarWidget->selectedDate().toString("yyyy-MM-dd");
+    ui->calendarWidget->hide();
 }
 
 OutputToString::OutputToString(const OutClass &output)

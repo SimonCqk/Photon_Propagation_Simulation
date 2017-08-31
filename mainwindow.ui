@@ -77,7 +77,15 @@
    <addaction name="menu"/>
    <addaction name="menuTests"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+  </widget>
   <action name="action">
    <property name="text">
     <string>Save Run Results</string>

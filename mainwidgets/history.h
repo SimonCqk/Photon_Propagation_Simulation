@@ -1,9 +1,10 @@
 #ifndef HISTORY_H
 #define HISTORY_H
 
-#include <QWidget>
 #include"mainwidgets/runresults.h"
+#include <QWidget>
 #include<QMessageBox>
+#include<QPlainTextEdit>
 
 namespace Ui {
 class History;
@@ -24,10 +25,12 @@ public:
   History(const History&)=delete;
   History& operator=(const History&)=delete;
   ~History();
-
+protected slots:
+  void setUpDate();
 private:
   Ui::History *ui;
   static History *theHistory;
+  QString date;
 };
 
 class OutputToString final{
@@ -82,5 +85,6 @@ private:
     void setUpAll();
 };
 
+void InsertHistory(const size_t& no_run);
 
 #endif // HISTORY_H
