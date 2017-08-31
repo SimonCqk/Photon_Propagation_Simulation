@@ -11,7 +11,6 @@
 #include <QStyleOption>
 #include <QVBoxLayout>
 
-
 ConfParas *ConfParas::theConfParas = nullptr;
 
 ConfParas::ConfParas(QWidget *parent) : QWidget(parent), ui(new Ui::ConfParas) {
@@ -287,8 +286,8 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   ui->progressBar->setValue(idx_photons);
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
-  in_temp=In_Ptr;
-  emit isDone();       // send signal to triggle to open run-results page.
+  in_temp = In_Ptr;
+  emit isDone(); // send signal to triggle to open run-results page.
 }
 
 void ConfParas::on_RunButton_clicked() {

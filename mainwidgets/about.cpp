@@ -12,10 +12,7 @@ About::About(QWidget *parent) : QWidget(parent), ui(new Ui::About) {
       false); // Indispensable!!Or Qt will try to open hyperlink locally
   ui->textBrowser->setStyleSheet("font-size: 11px;\
                                     font-family: Consolas;\
-                                    background-color: rgb(240,255,255);"); // seems
-                                                                           // font-set
-                                                                           // doesn't
-                                                                           // work
+                                    background-color: rgb(240,255,255);"); // seems font-set doesn't work
 
   ui->plainTextEdit->setReadOnly(true);
   ui->plainTextEdit->document()->setDefaultTextOption(

@@ -1,407 +1,407 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConfParas</class>
- <widget class="QWidget" name="ConfParas">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>500</width>
-    <height>330</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>501</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Specify parameters for a run</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>40</y>
-     <width>411</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="PNhorizontalLayout">
-    <item>
-     <widget class="QLabel" name="PhoNumLabel">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Number Of Photons:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QSpinBox" name="PhoNumSpinBox">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="wrapping">
-       <bool>false</bool>
-      </property>
-      <property name="maximum">
-       <number>99999</number>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QSlider" name="PhoNumSlider">
-      <property name="minimum">
-       <number>0</number>
-      </property>
-      <property name="maximum">
-       <number>99999</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>70</y>
-     <width>411</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="GridhorizontalLayout">
-    <item>
-     <widget class="QLabel" name="zrGridLabel">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>delta z/delta r :</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="zGridEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>/</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="rGridEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_3">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>100</y>
-     <width>411</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="NohorizontalLayout">
-    <item>
-     <widget class="QLabel" name="No_zra_Label">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>No. of z/r/alpha Grid Elements:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="No_zGridEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_3">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>/</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="No_rGridEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_4">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>/</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="No_aGridEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_4">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>220</y>
-     <width>411</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="MediumhorizontalLayout">
-    <item>
-     <widget class="QLabel" name="MedLabel">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Refractive Index for medium Above/Below</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="MedAboveEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_5">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>/</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="MedBelowEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>150</y>
-     <width>143</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QPushButton" name="SpeLayerButton">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Clik Here to spcify</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="Instructor">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QPlainTextEdit" name="plainTextEdit">
-   <property name="geometry">
-    <rect>
-     <x>41</x>
-     <y>141</y>
-     <width>262</width>
-     <height>70</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-    </font>
-   </property>
-   <property name="plainText">
-    <string>Specify Refractive Index/Absorption Coefficient/Scattering Coefficient/Anisotropy/Thickness of each layer.
+    <class>ConfParas</class>
+    <widget class="QWidget" name="ConfParas">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>500</width>
+                <height>330</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>Form</string>
+        </property>
+        <widget class="QLabel" name="label">
+            <property name="geometry">
+                <rect>
+                    <x>0</x>
+                    <y>10</y>
+                    <width>501</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="font">
+                <font>
+                    <family>Consolas</family>
+                    <pointsize>10</pointsize>
+                </font>
+            </property>
+            <property name="text">
+                <string>Specify parameters for a run</string>
+            </property>
+            <property name="alignment">
+                <set>Qt::AlignCenter</set>
+            </property>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget">
+            <property name="geometry">
+                <rect>
+                    <x>40</x>
+                    <y>40</y>
+                    <width>411</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <layout class="QHBoxLayout" name="PNhorizontalLayout">
+                <item>
+                    <widget class="QLabel" name="PhoNumLabel">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Number Of Photons:</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QSpinBox" name="PhoNumSpinBox">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                        <property name="wrapping">
+                            <bool>false</bool>
+                        </property>
+                        <property name="maximum">
+                            <number>99999</number>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QSlider" name="PhoNumSlider">
+                        <property name="minimum">
+                            <number>0</number>
+                        </property>
+                        <property name="maximum">
+                            <number>99999</number>
+                        </property>
+                        <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget_2">
+            <property name="geometry">
+                <rect>
+                    <x>40</x>
+                    <y>70</y>
+                    <width>411</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <layout class="QHBoxLayout" name="GridhorizontalLayout">
+                <item>
+                    <widget class="QLabel" name="zrGridLabel">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>delta z/delta r :</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLineEdit" name="zGridEdit">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLabel" name="label_2">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                                <pointsize>10</pointsize>
+                                <weight>75</weight>
+                                <bold>true</bold>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>/</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLineEdit" name="rGridEdit">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget_3">
+            <property name="geometry">
+                <rect>
+                    <x>40</x>
+                    <y>100</y>
+                    <width>411</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <layout class="QHBoxLayout" name="NohorizontalLayout">
+                <item>
+                    <widget class="QLabel" name="No_zra_Label">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>No. of z/r/alpha Grid Elements:</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLineEdit" name="No_zGridEdit">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLabel" name="label_3">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                                <pointsize>10</pointsize>
+                                <weight>75</weight>
+                                <bold>true</bold>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>/</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLineEdit" name="No_rGridEdit">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLabel" name="label_4">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                                <pointsize>10</pointsize>
+                                <weight>75</weight>
+                                <bold>true</bold>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>/</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLineEdit" name="No_aGridEdit">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget_4">
+            <property name="geometry">
+                <rect>
+                    <x>40</x>
+                    <y>220</y>
+                    <width>411</width>
+                    <height>41</height>
+                </rect>
+            </property>
+            <layout class="QHBoxLayout" name="MediumhorizontalLayout">
+                <item>
+                    <widget class="QLabel" name="MedLabel">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Refractive Index for medium Above/Below</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLineEdit" name="MedAboveEdit">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLabel" name="label_5">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                                <pointsize>10</pointsize>
+                                <weight>75</weight>
+                                <bold>true</bold>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>/</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLineEdit" name="MedBelowEdit">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
+        <widget class="QWidget" name="verticalLayoutWidget">
+            <property name="geometry">
+                <rect>
+                    <x>310</x>
+                    <y>150</y>
+                    <width>143</width>
+                    <height>51</height>
+                </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout">
+                <item>
+                    <widget class="QPushButton" name="SpeLayerButton">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Clik Here to spcify</string>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLabel" name="Instructor">
+                        <property name="font">
+                            <font>
+                                <family>Consolas</family>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string/>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
+        <widget class="QPlainTextEdit" name="plainTextEdit">
+            <property name="geometry">
+                <rect>
+                    <x>41</x>
+                    <y>141</y>
+                    <width>262</width>
+                    <height>70</height>
+                </rect>
+            </property>
+            <property name="font">
+                <font>
+                    <family>Consolas</family>
+                </font>
+            </property>
+            <property name="plainText">
+                <string>Specify Refractive Index/Absorption Coefficient/Scattering Coefficient/Anisotropy/Thickness of each layer.
 [One Line for each layer,split by space.]</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>271</y>
-     <width>268</width>
-     <height>52</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="ClearButton">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>Clear All</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="RunButton">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>Start a Run</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QProgressBar" name="progressBar">
-      <property name="value">
-       <number>24</number>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
- </widget>
- <resources/>
- <connections>
-  <connection>
-   <sender>PhoNumSlider</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>PhoNumSpinBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>328</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>223</x>
-     <y>88</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+            </property>
+        </widget>
+        <widget class="QWidget" name="verticalLayoutWidget_2">
+            <property name="geometry">
+                <rect>
+                    <x>110</x>
+                    <y>271</y>
+                    <width>268</width>
+                    <height>52</height>
+                </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                        <item>
+                            <widget class="QPushButton" name="ClearButton">
+                                <property name="font">
+                                    <font>
+                                        <family>Consolas</family>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Clear All</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="RunButton">
+                                <property name="font">
+                                    <font>
+                                        <family>Consolas</family>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Start a Run</string>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </item>
+                <item>
+                    <widget class="QProgressBar" name="progressBar">
+                        <property name="value">
+                            <number>24</number>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
+    </widget>
+    <resources/>
+    <connections>
+        <connection>
+            <sender>PhoNumSlider</sender>
+            <signal>sliderMoved(int)</signal>
+            <receiver>PhoNumSpinBox</receiver>
+            <slot>setValue(int)</slot>
+            <hints>
+                <hint type="sourcelabel">
+                    <x>328</x>
+                    <y>86</y>
+                </hint>
+                <hint type="destinationlabel">
+                    <x>223</x>
+                    <y>88</y>
+                </hint>
+            </hints>
+        </connection>
+    </connections>
 </ui>

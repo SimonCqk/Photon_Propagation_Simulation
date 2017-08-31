@@ -4,6 +4,7 @@
 #include "mcml/mcml.h"
 #include <QWidget>
 #include <sstream>
+#include<QHBoxLayout>
 
 extern OutClass out_temp;
 extern InputClass in_temp;
@@ -66,5 +67,6 @@ void SetDialog_1D(QDialog *dlg, const QVector<double> &vec,
                   QString &plain_text);
 void SetDialog_2D(QDialog *dlg, const QVector<QVector<double>> &vec,
                   QString &plain_text);
+
 
 #endif // RUNRESULTS_H
