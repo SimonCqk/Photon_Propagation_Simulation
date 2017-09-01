@@ -28,7 +28,7 @@
 #### 3. View the Run Results on `Run Results` page.
 ![runresults](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results.jpg?raw=true)
   ##### see more results by clicking `view` button.
-  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results.jpg?raw=true)
+  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_sample.jpg?raw=true)
 #### 4. View Running History on `History` page.
 
 
