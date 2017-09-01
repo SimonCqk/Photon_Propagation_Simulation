@@ -6,7 +6,7 @@
 #include "ui_mainwindow.h"
 #include <QPainter>
 #include <QProxyStyle>
-#include<QTextStream>
+#include<QDebug>
 
 class CustomTabStyle : public QProxyStyle {
 public:
@@ -57,7 +57,7 @@ public:
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-
+  qDebug()<<"<<<<<<<<< main window";
   openAndRead();
 
   ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(no_run,10)));
@@ -117,27 +117,32 @@ void MainWindow::on_actionSample_Two_triggered() {
 
 void MainWindow::openAndRead()
 {
-    run_t.setFileName("RunTimes.txt");
-    if(run_t.open(QIODevice::ReadWrite|QIODevice::Truncate)){
-        QTextStream read(&run_t);
-        QString temp;
-        read>>temp;
-        if(temp.isEmpty()){
-            no_run=1;
-            return;
-        }
-        no_run=temp.toInt(nullptr,10);
+    std::ifstream read;
+    read.open("RunTimes.txt",std::ios::in);
+    qDebug()<<"=========start to read";
+    if(!read){
+        no_run=1;
+        return;
+    }
+    if(read.is_open()){
+        read>>no_run;
     }
     else
         QMessageBox::critical(0, QObject::tr("Open File Error"),
                               "Can not open Run-Time File.");
+    qDebug()<<"========="<<no_run;
+    read.close();
 }
 
 void MainWindow::writeAndClose()
 {
-    if(!run_t.isOpen())
-        run_t.open(QIODevice::ReadWrite|QIODevice::Truncate);
-    QTextStream write(&run_t);
-    write<<no_run;
-    run_t.close();
+    std::ofstream write;
+    write.open("RunTimes.txt",std::ios::out);
+    if(write.is_open()){
+        write<<no_run;
+    }
+    else
+        QMessageBox::critical(0, QObject::tr("Close File Error"),
+                              "Can not open Run-Time File.");
+    write.close();
 }

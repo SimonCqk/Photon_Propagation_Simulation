@@ -3,7 +3,7 @@
 
 #include "mainwidgets/confparas.h"
 #include <QMainWindow>
-#include<QFile>
+#include<fstream>
 
 namespace Ui {
 class MainWindow;
