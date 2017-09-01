@@ -63,6 +63,10 @@ MainWindow::MainWindow(QWidget *parent)
   ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(no_run,10)));
   ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);\
                                 font-family: Consolas;");
+  ui->TabWidget->setStyleSheet("QTabWidget{border:none;\
+                                           margin:0px;\
+                                           outline:none;}");
+
   // let main windows can not scale
   this->setFixedSize(625, 380);
   // delete default tabs in Tab Widget

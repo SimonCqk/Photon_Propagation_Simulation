@@ -6,6 +6,9 @@
 #include<QDebug>
 #include<QDateTime>
 #include<QIntValidator>
+#include <QPainter>
+#include <QStyleOption>
+#include<QCalendarWidget>
 
 History *History::theHistory = nullptr;
 
@@ -76,7 +79,7 @@ void QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
         right_out->setPlainText(output);
     }
     else
-        QMessageBox::critical(0, QObject::tr("Insert Error"),
+        QMessageBox::critical(0, QObject::tr("Query Error"),
                               query.lastError().text());
 
 }
@@ -101,9 +104,13 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   ui->label_2->setPalette(font_color);
   ui->label_3->setPalette(font_color);
   ui->label_4->setPalette(font_color);
+  ui->dateEdit->calendarWidget()->setFont(QFont("Consolas"));
+  ui->dateEdit->calendarWidget()->setStyleSheet("QCalendarWidget QMenu{width:80px;left:10px;}\
+                                                 QCalendarWidget QToolButton {height: 18px; }\
+                                                 QCalendarWidget QToolButton:hover {border-radius:0px;color:green;}\
+                                                 QCalendarWidget QWidget#qt_calendar_calendarview{background-color: #BEBEBE;border:0px;}\
+                                                 QCalendarWidget QAbstractItemView {selection-background-color: rgb(0, 150, 255);}");
 
-  ui->calendarWidget->hide();
-  ui->calendarWidget->setSelectionMode(QCalendarWidget::SingleSelection);
   ui->label_3->hide();
   ui->label_4->hide();
   ui->InputTextEdit->hide();
@@ -118,9 +125,8 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   else
       CreateTables();
 
-  connect(ui->DateButton,&QPushButton::clicked,ui->calendarWidget,&QCalendarWidget::show);
-  connect(ui->calendarWidget,SIGNAL(selectionChanged()),this,SLOT(setUpDate()));
   connect(ui->ConfirmButton,&QPushButton::clicked,[this]{
+      date=ui->dateEdit->date().toString("yyyy-MM-dd");
       QueryHistory(ui->InputTextEdit,ui->OutputTextEdit,(date+ui->Num_RunEdit->text()));
       ui->label_3->show();
       ui->label_4->show();
@@ -138,10 +144,12 @@ History::~History()
         db.close();
 }
 
-void History::setUpDate()
+void History::paintEvent(QPaintEvent *)
 {
-    this->date=ui->calendarWidget->selectedDate().toString("yyyy-MM-dd");
-    ui->calendarWidget->hide();
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 OutputToString::OutputToString(const OutClass &output)

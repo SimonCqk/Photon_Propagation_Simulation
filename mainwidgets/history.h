@@ -25,8 +25,8 @@ public:
   History(const History&)=delete;
   History& operator=(const History&)=delete;
   ~History();
-protected slots:
-  void setUpDate();
+protected:
+  void paintEvent(QPaintEvent *);
 private:
   Ui::History *ui;
   static History *theHistory;

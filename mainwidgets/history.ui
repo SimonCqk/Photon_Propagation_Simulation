@@ -36,21 +36,6 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QCalendarWidget" name="calendarWidget">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>90</y>
-     <width>248</width>
-     <height>170</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-    </font>
-   </property>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -62,14 +47,17 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="DateButton">
+     <widget class="QDateEdit" name="dateEdit">
       <property name="font">
        <font>
         <family>Consolas</family>
        </font>
       </property>
-      <property name="text">
-       <string>Select Date</string>
+      <property name="displayFormat">
+       <string>yyyy/MM/dd</string>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -95,6 +83,12 @@
         <family>Consolas</family>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton[style=&quot;dark_cur&quot;]{background-color:#919192; min-width:50px;min-height:16px;border:1px solid #ccc;border-radius:0px;}
+QPushButton[style=&quot;dark&quot;]{background-color:transparent; min-width:50px;min-height:16px;border:1px solid #7a7b7c;border-radius:0px;}
+QPushButton[style=&quot;dark&quot;]:hover{border:1px solid #eee;}
+QPushButton[style=&quot;dark_cur&quot;]:hover{border:1px solid #eee;background-color:#aaa;}</string>
+      </property>
       <property name="text">
        <string>Confirm</string>
       </property>
@@ -102,7 +96,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>40</x>
