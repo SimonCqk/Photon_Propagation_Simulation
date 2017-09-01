@@ -84,10 +84,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton[style=&quot;dark_cur&quot;]{background-color:#919192; min-width:50px;min-height:16px;border:1px solid #ccc;border-radius:0px;}
-QPushButton[style=&quot;dark&quot;]{background-color:transparent; min-width:50px;min-height:16px;border:1px solid #7a7b7c;border-radius:0px;}
-QPushButton[style=&quot;dark&quot;]:hover{border:1px solid #eee;}
-QPushButton[style=&quot;dark_cur&quot;]:hover{border:1px solid #eee;background-color:#aaa;}</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Confirm</string>

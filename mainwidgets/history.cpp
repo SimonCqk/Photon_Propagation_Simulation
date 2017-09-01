@@ -110,6 +110,8 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
                                                  QCalendarWidget QToolButton:hover {border-radius:0px;color:green;}\
                                                  QCalendarWidget QWidget#qt_calendar_calendarview{background-color: #BEBEBE;border:0px;}\
                                                  QCalendarWidget QAbstractItemView {selection-background-color: rgb(0, 150, 255);}");
+  ui->dateEdit->calendarWidget()->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+  ui->dateEdit->setDateTime(QDateTime::currentDateTime());
 
   ui->label_3->hide();
   ui->label_4->hide();
