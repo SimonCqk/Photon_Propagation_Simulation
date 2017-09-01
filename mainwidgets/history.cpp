@@ -17,16 +17,16 @@ QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE","con_database");
 
 QString CreateTable="CREATE TABLE History("
                         "hist_code VARCHAR(30) PRIMARY KEY,"
-                        "input_data TEXT,"
-                        "output_data TEXT)";
+                        "input_data TEXT NOT NULL,"
+                        "output_data TEXT NOT NULL)";
 
 QString InsertIntoTable="INSERT INTO History (hist_code,input_data,output_data) "
-                        "VALUES(:hist_code,:input_data,:output_code)";
+                        "VALUES ('%1','%2','%3');";
 
 QString QueryFromTable="SELECT input_data,output_data FROM History"
                        "WHERE hist_code = '%1';";
 
-QSqlQuery query(db);
+QSqlQuery query(db);  // do not forget to bind the database
 
 bool DBconnect(const QString& db_name){
     db.setDatabaseName(db_name);
@@ -37,6 +37,8 @@ bool DBconnect(const QString& db_name){
 }
 
 void CreateTables(){
+    if(!db.isOpen())
+        db.open();
     // judge if table 'History' is existed. IMPORTANT.
     bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'")
                                    .arg("History"));
@@ -52,27 +54,26 @@ void CreateTables(){
 }
 
 void InsertHistory(const size_t& no_run){
-    query.prepare(InsertIntoTable);
+    if(!db.isOpen())
+        db.open();
     InputToString input2str(in_temp);
     OutputToString output2str(out_temp);
-    QString Time=QDateTime::currentDateTime().toString("yyyy-MM-dd")+QString::number(no_run,10);
-    QVariantList histcode,inputdata,outputdata;
-    histcode<<Time;
-    inputdata<<input2str.getAll();
-    outputdata<<output2str.getAll();
-    query.bindValue(":hist_code",histcode);
-    query.bindValue(":input_data",inputdata);
-    query.bindValue(":output_data",outputdata);
-    if (!query.execBatch())
+
+    QString histcode=QDateTime::currentDateTime().toString("yyyy-MM-dd")+QString::number(no_run,10);
+    QString inputdata=input2str.getAll();
+    QString outputdata=output2str.getAll();
+
+    if (!query.exec(InsertIntoTable.arg(histcode,inputdata,outputdata)))
             QMessageBox::critical(0, QObject::tr("Insert Error"),
                                   query.lastError().text());
 }
 
 void QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
                   const QString& hist_code){
-    if(db.isOpen()){
-        query.exec(QueryFromTable.arg(hist_code));
-        query.next();
+    if(!db.isOpen())
+        db.open();
+    if(query.exec(QueryFromTable.arg(hist_code))){
+        query.next(); // make the SELECT happen
         QString input=query.value(0).toString();
         QString output=query.value(1).toString();
         left_in->setPlainText(input);
@@ -159,26 +160,27 @@ OutputToString::OutputToString(const OutClass &output)
     spec_reflect=QString::number(output.out->spec_reflect,'f',5);
     abs_prob=QString::number(output.out->abs_prob,'f',5);
     total_trans=QString::number(output.out->total_trans,'f',5);
-
+    qDebug()<<"===========1";
     diff_reflect_agl=LinkDataFromVector(output.out->diff_reflect_agl);
     diff_reflect_rdl=LinkDataFromVector(output.out->diff_reflect_rdl);
     abs_prob_z=LinkDataFromVector(output.out->abs_prob_z);
     abs_prob_layer=LinkDataFromVector(output.out->abs_prob_layer);
     total_trans_agl=LinkDataFromVector(output.out->total_trans_agl);
     total_trans_rdl=LinkDataFromVector(output.out->total_trans_rdl);
-
+    qDebug()<<"===========2";
     diff_reflect_2d=abs_prob_rz=total_trans_2d="";
     for(const auto &item:output.out->diff_reflect_2d){
-        diff_reflect_2d+=LinkDataFromVector(item);
+        diff_reflect_2d += LinkDataFromVector(item);
     }
     for(const auto &item:output.out->abs_prob_rz){
-        abs_prob_rz+=LinkDataFromVector(item);
+        abs_prob_rz += LinkDataFromVector(item);
     }
     for(const auto &item:output.out->total_trans_2d){
-        total_trans_2d+=LinkDataFromVector(item);
+        total_trans_2d += LinkDataFromVector(item);
     }
-
+    qDebug()<<"===========3";
     setUpAll();
+    qDebug()<<"===========4";
 }
 
 void OutputToString::setUpAll()
@@ -208,7 +210,7 @@ InputToString::InputToString(const InputClass &input)
     nr=QString::number(input.input->nr,'f',6);
     na=QString::number(input.input->na,'f',6);
     layerspecs="";
-    for(size_t i=1;i<input.input->num_layers-1;++i){
+    for(size_t i=1;i<=input.input->num_layers;++i){
         layerspecs+=(QString::number(input.input->layerspecs[i].layer->rfct_index,'f',6)+",")
                 +(QString::number(input.input->layerspecs[i].layer->abs_coef,'f',6)+",")
                 +(QString::number(input.input->layerspecs[i].layer->scat_coef,'f',6)+",")
