@@ -16,15 +16,15 @@ History *History::theHistory = nullptr;
 QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE","con_database");
 
 QString CreateTable="CREATE TABLE History("
-                        "hist_code VARCHAR(30) PRIMARY KEY,"
+                        "hist_code VARCHAR(50) PRIMARY KEY,"
                         "input_data TEXT NOT NULL,"
                         "output_data TEXT NOT NULL)";
 
 QString InsertIntoTable="INSERT INTO History (hist_code,input_data,output_data) "
                         "VALUES (:hist_code,:input_data,:output_data);";
 
-QString QueryFromTable="SELECT input_data,output_data FROM History"
-                       "WHERE hist_code = ?;";
+QString QueryFromTable="SELECT input_data,output_data FROM History "
+                       "WHERE hist_code =:hist ";
 
 QSqlQuery query(db);  // do not forget to bind the database
 
@@ -33,7 +33,6 @@ bool DBconnect(const QString& db_name){
     db.setUserName("ROOT");
     db.setPassword("123456");
     db.open();
-    qDebug()<<"open successfully...";
     return db.isOpen();
 }
 
@@ -42,14 +41,11 @@ void CreateTables(){
         db.open();
     // judge if table 'History' is existed. IMPORTANT.
     bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='History';")                                   );
-    qDebug()<<"judge db is exist...";
     if(!isTableExist)
     {
-        qDebug()<<"start to create table...";
         if (!query.exec(CreateTable))
             QMessageBox::critical(0, QObject::tr("Create Table Error"),
                                   query.lastError().text());
-        qDebug()<<"db created successfully...";
     }
     else
         return;
@@ -78,7 +74,7 @@ bool QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
     if(!db.isOpen())
         db.open();
     query.prepare(QueryFromTable);
-    query.addBindValue(hist_code);
+    query.bindValue(":hist",hist_code);
     if(query.exec()){
         query.next(); // make the SELECT happen
         QString input=query.value(0).toString();
@@ -130,6 +126,7 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   ui->OutputTextEdit->hide();
 
   QIntValidator *intv=new QIntValidator();
+  intv->setBottom(0);
   ui->Num_RunEdit->setValidator(intv);
 
   if(!DBconnect("database.db"))

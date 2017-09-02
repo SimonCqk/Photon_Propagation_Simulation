@@ -7,9 +7,9 @@
 
 <br>
 
-|  Platfrom  | IDE  |  Compiler  |
-|:----------:|:--------:|:----------:|
-| Windows 10 | Qt Creator(5.9.1) | VC++2017 |
+|  Platfrom  | IDE  |  Compiler  |   Database   |
+|:----------:|:--------:|:----------:|:----------:|
+| Windows 10 | Qt Creator(5.9.1) | VC++2017 | SQLite |
 
 ### How to use
 
@@ -30,7 +30,11 @@
   ##### see more results by clicking `view` button.
   ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_sample.jpg?raw=true)
 #### 4. View Running History on `History` page.
-
+  ![history](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History.jpg?raw=true)
+  Input `Running Data` and `Number of Running`,and click `Confrim` button to ask for query...
+  (the `Number of Running` is shown in the status bar when launched.)
+  As this sample:
+  ![query](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History_query.jpg?raw=true)
 
 More Feature are being prepared...lol...
 

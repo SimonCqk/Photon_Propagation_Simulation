@@ -57,7 +57,6 @@ public:
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-  qDebug()<<"<<<<<<<<< main window";
   openAndRead();
 
   ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(no_run,10)));
@@ -117,8 +116,7 @@ void MainWindow::on_actionSample_Two_triggered() {
 
 void MainWindow::openAndRead()
 {
-    std::ifstream read;
-    read.open("RunTimes.txt",std::ios::in);
+    std::ifstream read("RunTimes.txt",std::ios::in);
     qDebug()<<"=========start to read";
     if(!read){
         no_run=1;

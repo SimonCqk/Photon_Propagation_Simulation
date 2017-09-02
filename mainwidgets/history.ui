@@ -74,7 +74,13 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="Num_RunEdit"/>
+     <widget class="QLineEdit" name="Num_RunEdit">
+      <property name="font">
+       <font>
+        <family>Consolas</family>
+       </font>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QPushButton" name="ConfirmButton">
