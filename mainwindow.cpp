@@ -117,7 +117,6 @@ void MainWindow::on_actionSample_Two_triggered() {
 void MainWindow::openAndRead()
 {
     std::ifstream read("RunTimes.txt",std::ios::in);
-    qDebug()<<"=========start to read";
     if(!read){
         no_run=1;
         return;
@@ -128,7 +127,6 @@ void MainWindow::openAndRead()
     else
         QMessageBox::critical(0, QObject::tr("Open File Error"),
                               "Can not open Run-Time File.");
-    qDebug()<<"========="<<no_run;
     read.close();
 }
 

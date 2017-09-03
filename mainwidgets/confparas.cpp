@@ -103,7 +103,6 @@ ConfParas::ConfParas(QWidget *parent) : QWidget(parent), ui(new Ui::ConfParas) {
   setInstructor();
 
   ui->progressBar->setFont(QFont("Consolas"));
-  ui->progressBar->setWindowTitle(QString("Progress"));
   ui->progressBar->setValue(0);
   ui->progressBar->setPalette(font_color);
 }
@@ -269,12 +268,12 @@ void ConfParas::readDatas(InputClass &In_Ptr) {
  */
 void ConfParas::doOneRun(InputClass &In_Ptr) {
   OutClass out_parm;
-  // index to each photon . register for speed.
-  register long int idx_photons = In_Ptr.input->num_photons;
+  // total photon packet number.
+  long int photons = In_Ptr.input->num_photons;
   InitOutputData(In_Ptr, out_parm);
   PhotonClass photon;
   out_parm.out->spec_reflect = Rspecular(In_Ptr.input->layerspecs);
-  for (size_t i = 0; i < idx_photons; ++i) {
+  for (register int i = 0; i < photons; ++i) { // register for speed.
     photon.launch(out_parm.out->spec_reflect, In_Ptr.input->layerspecs);
     do {
       photon.hopDropSpin(In_Ptr, out_parm);
@@ -283,7 +282,7 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
     ui->progressBar->setValue(i);
     QCoreApplication::processEvents();
   }
-  ui->progressBar->setValue(idx_photons);
+  ui->progressBar->setValue(photons);
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
   in_temp = In_Ptr;
