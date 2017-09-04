@@ -15,7 +15,7 @@ public:
     QSize s = QProxyStyle::sizeFromContents(type, option, size, widget);
     if (type == QStyle::CT_TabBarTab) {
       s.transpose();
-      s.rwidth() = 135;
+      s.rwidth() = 120;
       s.rheight() = 85;
     }
     return s;
@@ -102,6 +102,11 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {
     delete ui;
     writeAndClose();
+}
+
+void MainWindow::_show()
+{
+    show();
 }
 
 void MainWindow::on_actionSample_One_triggered() {

@@ -11,10 +11,14 @@ int main(int argc, char *argv[]) {
   main_window.setWindowTitle(
       QString("Model of Light Transport in Multi-layered Tissues"));
   main_window.setWindowOpacity(0.85);
-  main_window.show();
+  //main_window.show();
 
-  // start start_widget;
-  // start_widget.show();
+  start start_widget;
+  start_widget.show();
+  QCoreApplication::connect(&start_widget,&start::enter,[&start_widget,&main_window]{
+      start_widget._close();
+      main_window._show();
+  });
 
   return app.exec();
 }

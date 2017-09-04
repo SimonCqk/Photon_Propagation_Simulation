@@ -29,3 +29,13 @@ start::start(QWidget *parent) : QWidget(parent), ui(new Ui::start) {
 start::~start() { delete ui; }
 
 void start::on_QuitButton_clicked() { QCoreApplication::quit(); }
+
+void start::_close()
+{
+    close();
+}
+
+void start::on_EnterButton_clicked()
+{
+    enter();
+}

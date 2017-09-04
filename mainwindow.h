@@ -16,9 +16,9 @@ class MainWindow : public QMainWindow {
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
-
+public slots:
+  void _show();
 private slots:
-
   void on_actionSample_One_triggered();
 
   void on_actionSample_Two_triggered();

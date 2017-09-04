@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>625</width>
-    <height>380</height>
+    <width>635</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -63,7 +63,7 @@ QTabWidget[showHeader='true'] QTabBar::tab:selected{background:#55B023;margin-to
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>625</width>
+     <width>635</width>
      <height>22</height>
     </rect>
    </property>
