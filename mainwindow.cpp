@@ -1,12 +1,13 @@
 #include "mainwindow.h"
 #include "mainwidgets/about.h"
 #include "mainwidgets/confparas.h"
+#include "mainwidgets/history.h"
 #include "mainwidgets/runresults.h"
-#include"mainwidgets/history.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 #include <QPainter>
 #include <QProxyStyle>
-#include<QDebug>
+
 
 class CustomTabStyle : public QProxyStyle {
 public:
@@ -81,32 +82,29 @@ MainWindow::MainWindow(QWidget *parent)
   RunResults *runresults = RunResults::getInstance();
   ui->TabWidget->addTab(runresults, "Run Results");
   // Third page: show running history
-  History *runhistory =History::getInstance();
+  History *runhistory = History::getInstance();
   ui->TabWidget->addTab(runhistory, "History");
   // Fourth page: show about information
   About *about = About::getInstance();
   ui->TabWidget->addTab(about, "About");
 
-  ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(runhistory->getNumberOfRunTimes(),10)));
+  ui->statusBar->showMessage(
+      QString("May it helps you. :)     # Number of Running: %1")
+          .arg(QString::number(runhistory->getNumberOfRunTimes(), 10)));
 
-  connect(confparas, &ConfParas::isDone, [runresults, this,runhistory] {
+  connect(confparas, &ConfParas::isDone, [runresults, this, runhistory] {
     ui->TabWidget->setCurrentWidget(runresults);
     runresults->getOutputData();
     runresults->showAllTheResults();
-    int num=runhistory->getNumberOfRunTimes();
+    int num = runhistory->getNumberOfRunTimes();
     InsertHistory(num);
     runhistory->addNumberOfRunTimes();
   });
 }
 
-MainWindow::~MainWindow() {
-    delete ui;
-}
+MainWindow::~MainWindow() { delete ui; }
 
-void MainWindow::_show()
-{
-    show();
-}
+void MainWindow::_show() { show(); }
 
 void MainWindow::on_actionSample_One_triggered() {
   ConfParas *conf = ConfParas::getInstance();
@@ -117,5 +115,3 @@ void MainWindow::on_actionSample_Two_triggered() {
   ConfParas *conf = ConfParas::getInstance();
   conf->setSampleTwoDatas();
 }
-
-

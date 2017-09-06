@@ -40,7 +40,8 @@
   ![history](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History.jpg?raw=true)
   
   Input `Running Data` and `Number of Running`,and click `Confrim` button to ask for query...
-  (the `Number of Running` is shown in the status bar when launched.)
+  (the `Number of Running` is shown in the status bar when launched.)<br>
+  `You have to add .dll file of SQLite to sqldrivers folder. `<br>
   As this sample:
   
   ![query](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History_query.jpg?raw=true)
