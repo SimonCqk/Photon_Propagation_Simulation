@@ -282,10 +282,10 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
     ui->progressBar->setValue(i);
     QCoreApplication::processEvents();
   }
-  ui->progressBar->setValue(photons);
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
   in_temp = In_Ptr;
+  ui->progressBar->setValue(photons);
   emit isDone(); // send signal to triggle to open run-results page.
 }
 
@@ -313,7 +313,7 @@ void ConfParas::setSampleOneDatas() {
 }
 
 void ConfParas::setSampleTwoDatas() {
-  ui->PhoNumSpinBox->setValue(10000);
+  ui->PhoNumSpinBox->setValue(15000);
   ui->zGridEdit->setText(QString("0.01"));
   ui->rGridEdit->setText(QString("0.01"));
   ui->No_zGridEdit->setText(QString("400"));

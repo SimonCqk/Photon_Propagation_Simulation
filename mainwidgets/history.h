@@ -24,6 +24,10 @@ public:
   explicit History(QWidget *parent = 0);
   History(const History&)=delete;
   History& operator=(const History&)=delete;
+  inline
+  int getNumberOfRunTimes() const { return num_RunTimes; }
+  inline
+  void addNumberOfRunTimes() { ++num_RunTimes; }
   ~History();
 protected:
   void paintEvent(QPaintEvent *);
@@ -31,6 +35,7 @@ private:
   Ui::History *ui;
   static History *theHistory;
   QString date;
+  int num_RunTimes;
 };
 
 class OutputToString final{
@@ -85,8 +90,6 @@ private:
     void setUpAll();
 };
 
-void InsertHistory();
-void UpdateRunTimes();
-int QueryRunTimes();
+void InsertHistory(const int &num);
 
 #endif // HISTORY_H

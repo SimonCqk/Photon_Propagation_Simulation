@@ -57,9 +57,6 @@ public:
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-
-  //ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(QueryRunTimes(),10)));
-  ui->statusBar->showMessage(QString("May it helps you. "));
   ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);\
                                 font-family: Consolas;");
   ui->TabWidget->setStyleSheet("QTabWidget{border:none;\
@@ -84,18 +81,21 @@ MainWindow::MainWindow(QWidget *parent)
   RunResults *runresults = RunResults::getInstance();
   ui->TabWidget->addTab(runresults, "Run Results");
   // Third page: show running history
-  History *RunHistory =History::getInstance();
-  ui->TabWidget->addTab(RunHistory, "History");
+  History *runhistory =History::getInstance();
+  ui->TabWidget->addTab(runhistory, "History");
   // Fourth page: show about information
   About *about = About::getInstance();
   ui->TabWidget->addTab(about, "About");
 
-  connect(confparas, &ConfParas::isDone, [runresults, this] {
+  ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(runhistory->getNumberOfRunTimes(),10)));
+
+  connect(confparas, &ConfParas::isDone, [runresults, this,runhistory] {
     ui->TabWidget->setCurrentWidget(runresults);
     runresults->getOutputData();
     runresults->showAllTheResults();
-    UpdateRunTimes();
-    InsertHistory();
+    int num=runhistory->getNumberOfRunTimes();
+    InsertHistory(num);
+    runhistory->addNumberOfRunTimes();
   });
 }
 
@@ -118,33 +118,4 @@ void MainWindow::on_actionSample_Two_triggered() {
   conf->setSampleTwoDatas();
 }
 
-/*
-void MainWindow::openAndRead()
-{
-    std::ifstream read("RunTimes.txt",std::ios::in);
-    if(!read){
-        no_run=1;
-        return;
-    }
-    if(read.is_open()){
-        read>>no_run;
-    }
-    else
-        QMessageBox::critical(0, QObject::tr("Open File Error"),
-                              "Can not open Run-Time File.");
-    read.close();
-}
 
-void MainWindow::writeAndClose()
-{
-    std::ofstream write;
-    write.open("RunTimes.txt",std::ios::out);
-    if(write.is_open()){
-        write<<no_run;
-    }
-    else
-        QMessageBox::critical(0, QObject::tr("Close File Error"),
-                              "Can not open Run-Time File.");
-    write.close();
-}
-*/

@@ -29,7 +29,7 @@ QString Update_RunTimes="UPDATE RunTimes "
 QString Query_RunTimes="SELECT num_run FROM RunTimes ";
 
 QString Insert_History="INSERT INTO History (hist_code,input_data,output_data) "
-                        "VALUES (:hist_code,:input_data,:output_data);";
+                        "VALUES (:hist_code,:input_data,:output_data) ";
 
 QString Query_History="SELECT input_data,output_data FROM History "
                        "WHERE hist_code =:hist ";
@@ -47,7 +47,7 @@ bool DBconnect(const QString& db_name){
 void CreateRunTimes(){
     if(!db.isOpen())
         db.open();
-    // judge if table 'History' is existed. IMPORTANT.
+    // judge if table 'RunTimes'     is existed. IMPORTANT.
     bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='RunTimes';")                                   );
     if(!isTableExist)
     {
@@ -55,6 +55,7 @@ void CreateRunTimes(){
             QMessageBox::critical(0, QObject::tr("Create RunTimes Table Error"),
                                   query.lastError().text());
         query.exec("INSERT INTO RunTimes (num_run) VALUES (1); ");
+        query.finish();
     }
     else
         return;
@@ -70,6 +71,7 @@ void CreateHistory(){
         if (!query.exec(CreateHistoryTable))
             QMessageBox::critical(0, QObject::tr("Create History Table Error"),
                                   query.lastError().text());
+        query.finish();
     }
     else
         return;
@@ -83,36 +85,40 @@ void CreateTables(){
 int QueryRunTimes(){
     if(!db.isOpen())
         db.open();
-    query.exec(Query_RunTimes);
-    if(query.next()){
+    if(query.exec(Query_RunTimes)){
+        if(query.next()){ //make query points to the first record row. INDISPENSIBLE.
         int num=query.value(0).toInt();
+        query.finish();
         return num;
+        }
+        QMessageBox::critical(0, QObject::tr("Query RunTimes Error"),
+                                  QString("Invalid Query Results"));
     }
     else{
         QMessageBox::critical(0, QObject::tr("Query RunTimes Error"),
                               query.lastError().text());
         QCoreApplication::quit();
+        return -1;
     }
 }
 
-void UpdateRunTimes(){
+void UpdateRunTimes(const int &num){
     if(!db.isOpen())
         db.open();
-    int num=QueryRunTimes();
     query.prepare(Update_RunTimes);
-    query.bindValue(":num",++num);
-    if (!query.exec())
+    query.bindValue(":num",num);
+    if (num<=0 || !query.exec())
             QMessageBox::critical(0, QObject::tr("Update RunTimes Error"),
                                   query.lastError().text());
+    query.finish();
 }
 
-void InsertHistory(){
+void InsertHistory(const int &num){
     if(!db.isOpen())
         db.open();
     query.prepare(Insert_History);
     InputToString input2str(in_temp);
     OutputToString output2str(out_temp);
-    int num=QueryRunTimes();
     QString histcode=QDateTime::currentDateTime().toString("yyyy-MM-dd")+QString::number(num,10);
     query.bindValue(":hist_code",histcode);
     query.bindValue(":input_data",input2str.getAll());
@@ -120,6 +126,8 @@ void InsertHistory(){
     if (!query.exec())
             QMessageBox::critical(0, QObject::tr("Insert History Error"),
                                   query.lastError().text());
+    //db.commit();
+    query.finish();
 }
 
 bool QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
@@ -129,11 +137,18 @@ bool QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
     query.prepare(Query_History);
     query.bindValue(":hist",hist_code);
     if(query.exec()){
-        qDebug()<< query.next();
-        QString input=query.value(0).toString();
-        QString output=query.value(1).toString();
-        left_in->setPlainText(input);
-        right_out->setPlainText(output);
+        if(query.next()){  //make query points to the first record row. INDISPENSIBLE.
+            QString input=query.value(0).toString();
+            QString output=query.value(1).toString();
+            left_in->setPlainText(input);
+            right_out->setPlainText(output);
+            query.finish();
+        }
+        else{
+            left_in->setPlainText(QString("No Running History Found..."));
+            right_out->setPlainText(QString("No Running History Found..."));
+            query.finish();
+        }
         return true;
     }
     else{
@@ -188,7 +203,9 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   else
       CreateTables();
 
-  connect(ui->ConfirmButton,&QPushButton::clicked,[this]{
+  num_RunTimes=QueryRunTimes();
+
+  connect(ui->QueryButton,&QPushButton::clicked,[this]{
       date=ui->dateEdit->date().toString("yyyy-MM-dd");
       if(QueryHistory(ui->InputTextEdit,
                       ui->OutputTextEdit,(date+ui->Num_RunEdit->text()))){
@@ -205,6 +222,7 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
 History::~History()
 {
     delete ui;
+    UpdateRunTimes(num_RunTimes);  // save current Run Times into database.
     if(query.isActive())
         query.finish();
     if(db.isOpen())
@@ -219,6 +237,8 @@ void History::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+
+// stupid methods of splicing strings.
 OutputToString::OutputToString(const OutClass &output)
 {
     spec_reflect=QString::number(output.out->spec_reflect,'f',5);

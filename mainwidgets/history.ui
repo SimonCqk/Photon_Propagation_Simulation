@@ -83,7 +83,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="ConfirmButton">
+     <widget class="QPushButton" name="QueryButton">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -93,7 +93,7 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>Confirm</string>
+       <string>Query</string>
       </property>
      </widget>
     </item>
