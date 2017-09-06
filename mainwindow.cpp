@@ -57,9 +57,9 @@ public:
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-  openAndRead();
 
-  ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(no_run,10)));
+  //ui->statusBar->showMessage(QString("May it helps you. :)     # Number of Running: %1").arg(QString::number(QueryRunTimes(),10)));
+  ui->statusBar->showMessage(QString("May it helps you. "));
   ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);\
                                 font-family: Consolas;");
   ui->TabWidget->setStyleSheet("QTabWidget{border:none;\
@@ -94,14 +94,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->TabWidget->setCurrentWidget(runresults);
     runresults->getOutputData();
     runresults->showAllTheResults();
-    ++no_run;
-    InsertHistory(no_run);
+    UpdateRunTimes();
+    InsertHistory();
   });
 }
 
 MainWindow::~MainWindow() {
     delete ui;
-    writeAndClose();
 }
 
 void MainWindow::_show()
@@ -119,6 +118,7 @@ void MainWindow::on_actionSample_Two_triggered() {
   conf->setSampleTwoDatas();
 }
 
+/*
 void MainWindow::openAndRead()
 {
     std::ifstream read("RunTimes.txt",std::ios::in);
@@ -147,3 +147,4 @@ void MainWindow::writeAndClose()
                               "Can not open Run-Time File.");
     write.close();
 }
+*/

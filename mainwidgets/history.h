@@ -85,6 +85,8 @@ private:
     void setUpAll();
 };
 
-void InsertHistory(const size_t& no_run);
+void InsertHistory();
+void UpdateRunTimes();
+int QueryRunTimes();
 
 #endif // HISTORY_H

@@ -25,9 +25,6 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
-  size_t no_run;
-  void openAndRead();
-  void writeAndClose();
 };
 
 #endif // MAINWINDOW_H

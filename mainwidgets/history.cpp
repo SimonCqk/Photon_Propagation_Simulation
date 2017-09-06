@@ -15,15 +15,23 @@ History *History::theHistory = nullptr;
 // .dll file must be placed under <sqldrivers> in Qt directory.
 QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE","con_database");
 
-QString CreateTable="CREATE TABLE History("
+QString CreateHistoryTable="CREATE TABLE History("
                         "hist_code VARCHAR(50) PRIMARY KEY,"
                         "input_data TEXT NOT NULL,"
                         "output_data TEXT NOT NULL)";
 
-QString InsertIntoTable="INSERT INTO History (hist_code,input_data,output_data) "
+QString CreateRuntimesTable="CREATE TABLE RunTimes("
+                           "num_run INTEGER PRIMARY KEY)";
+
+QString Update_RunTimes="UPDATE RunTimes "
+                        "SET num_run = :num";
+
+QString Query_RunTimes="SELECT num_run FROM RunTimes ";
+
+QString Insert_History="INSERT INTO History (hist_code,input_data,output_data) "
                         "VALUES (:hist_code,:input_data,:output_data);";
 
-QString QueryFromTable="SELECT input_data,output_data FROM History "
+QString Query_History="SELECT input_data,output_data FROM History "
                        "WHERE hist_code =:hist ";
 
 QSqlQuery query(db);  // do not forget to bind the database
@@ -36,36 +44,81 @@ bool DBconnect(const QString& db_name){
     return db.isOpen();
 }
 
-void CreateTables(){
+void CreateRunTimes(){
+    if(!db.isOpen())
+        db.open();
+    // judge if table 'History' is existed. IMPORTANT.
+    bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='RunTimes';")                                   );
+    if(!isTableExist)
+    {
+        if (!query.exec(CreateRuntimesTable))
+            QMessageBox::critical(0, QObject::tr("Create RunTimes Table Error"),
+                                  query.lastError().text());
+        query.exec("INSERT INTO RunTimes (num_run) VALUES (1); ");
+    }
+    else
+        return;
+}
+
+void CreateHistory(){
     if(!db.isOpen())
         db.open();
     // judge if table 'History' is existed. IMPORTANT.
     bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='History';")                                   );
     if(!isTableExist)
     {
-        if (!query.exec(CreateTable))
-            QMessageBox::critical(0, QObject::tr("Create Table Error"),
+        if (!query.exec(CreateHistoryTable))
+            QMessageBox::critical(0, QObject::tr("Create History Table Error"),
                                   query.lastError().text());
     }
     else
         return;
 }
 
-void InsertHistory(const size_t& no_run){
+void CreateTables(){
+    CreateHistory();
+    CreateRunTimes();
+}
+
+int QueryRunTimes(){
     if(!db.isOpen())
         db.open();
-    query.prepare(InsertIntoTable);
+    query.exec(Query_RunTimes);
+    if(query.next()){
+        int num=query.value(0).toInt();
+        return num;
+    }
+    else{
+        QMessageBox::critical(0, QObject::tr("Query RunTimes Error"),
+                              query.lastError().text());
+        QCoreApplication::quit();
+    }
+}
+
+void UpdateRunTimes(){
+    if(!db.isOpen())
+        db.open();
+    int num=QueryRunTimes();
+    query.prepare(Update_RunTimes);
+    query.bindValue(":num",++num);
+    if (!query.exec())
+            QMessageBox::critical(0, QObject::tr("Update RunTimes Error"),
+                                  query.lastError().text());
+}
+
+void InsertHistory(){
+    if(!db.isOpen())
+        db.open();
+    query.prepare(Insert_History);
     InputToString input2str(in_temp);
     OutputToString output2str(out_temp);
-
-    QString histcode=QDateTime::currentDateTime().toString("yyyy-MM-dd")+QString::number(no_run,10);
-    QString inputdata=input2str.getAll();
-    QString outputdata=output2str.getAll();
+    int num=QueryRunTimes();
+    QString histcode=QDateTime::currentDateTime().toString("yyyy-MM-dd")+QString::number(num,10);
     query.bindValue(":hist_code",histcode);
-    query.bindValue(":input_data",inputdata);
-    query.bindValue(":output_data",outputdata);
+    query.bindValue(":input_data",input2str.getAll());
+    query.bindValue(":output_data",output2str.getAll());
     if (!query.exec())
-            QMessageBox::critical(0, QObject::tr("Insert Error"),
+            QMessageBox::critical(0, QObject::tr("Insert History Error"),
                                   query.lastError().text());
 }
 
@@ -73,10 +126,10 @@ bool QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
                   const QString& hist_code){
     if(!db.isOpen())
         db.open();
-    query.prepare(QueryFromTable);
+    query.prepare(Query_History);
     query.bindValue(":hist",hist_code);
     if(query.exec()){
-        query.next(); // make the SELECT happen
+        qDebug()<< query.next();
         QString input=query.value(0).toString();
         QString output=query.value(1).toString();
         left_in->setPlainText(input);
@@ -84,7 +137,7 @@ bool QueryHistory(QPlainTextEdit* left_in,QPlainTextEdit* right_out,
         return true;
     }
     else{
-        QMessageBox::critical(0, QObject::tr("Query Error"),
+        QMessageBox::critical(0, QObject::tr("Query History Error"),
                               query.lastError().text());
         return false;
     }
