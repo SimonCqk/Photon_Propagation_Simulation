@@ -3,7 +3,7 @@
 [![Snap CI branch](https://img.shields.io/snap-ci/ThoughtWorksStudios/eb_deployer/master.svg)]()
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
-> Intro : This a Model of Light Transport Based On Monte Carlo Simulation , with a childish GUI.
+> Intro : This a Model of Light Transport in  Multi-layered Tissues Based On Monte Carlo Simulation , with a childish GUI.
 
 <br>
 
