@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QPlainTextEdit>
 #include <QVBoxLayout>
+#include<QtCharts/QtCharts>
+
+using namespace QtCharts;
 
 RunResults *RunResults::theRunResults = nullptr;
 
@@ -19,8 +22,7 @@ QString LinkDataFromVector(const QVector<double> &vec) {
     else
       str += (QString::number(vec[i], 'f', 5) + ",");
   }
-  str += "\n";
-  return str;
+  return str + "\n";
 }
 
 RunResults::RunResults(QWidget *parent)

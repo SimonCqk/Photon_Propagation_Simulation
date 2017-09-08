@@ -6,137 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
+    <width>565</width>
     <height>340</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>5</y>
-     <width>170</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-    </font>
-   </property>
-   <property name="text">
-    <string>Run Results as Below</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QWidget" name="gridLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>491</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Absorbed Fraction:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Specular Reflectance:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="SpecRefEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLineEdit" name="DiffRefEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="AbsFracEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_4">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Diffuse Reflectance:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_5">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Transmittance:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QLineEdit" name="TransEdit">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-       </font>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="gridLayoutWidget_2">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>90</y>
-     <width>491</width>
+     <width>541</width>
      <height>241</height>
     </rect>
    </property>
@@ -159,19 +41,35 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="View_diff_reflect_rdl_Button">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>View</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QPushButton" name="View_diff_reflect_rdl_Button">
+            <property name="font">
+             <font>
+              <family>Consolas</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Data</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_4">
+            <property name="font">
+             <font>
+              <family>Consolas</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Chart</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item>
          <widget class="QLabel" name="label_11">
           <property name="font">
@@ -188,19 +86,35 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="View_1D_Prob_z_Button">
-          <property name="font">
-           <font>
-            <family>Consolas</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>View</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QPushButton" name="View_1D_Prob_z_Button">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>View</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_5">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Chart</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
           <item>
            <widget class="QLabel" name="label_14">
             <property name="font">
@@ -217,16 +131,32 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="View_total_trans_agl_Button">
-            <property name="font">
-             <font>
-              <family>Consolas</family>
-             </font>
-            </property>
-            <property name="text">
-             <string>View</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QPushButton" name="View_total_trans_agl_Button">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>View</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_6">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Chart</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -252,19 +182,35 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="View_diff_reflect_2d_Button">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>View</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="View_diff_reflect_2d_Button">
+            <property name="font">
+             <font>
+              <family>Consolas</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Data</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="font">
+             <font>
+              <family>Consolas</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Chart</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item>
          <widget class="QLabel" name="label_10">
           <property name="font">
@@ -281,19 +227,35 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="View_2D_Prob_rz_Button">
-          <property name="font">
-           <font>
-            <family>Consolas</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>View</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QPushButton" name="View_2D_Prob_rz_Button">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Data</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Chart</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
           <item>
            <widget class="QLabel" name="label_12">
             <property name="font">
@@ -310,16 +272,32 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="View_total_trans_2d_Button">
-            <property name="font">
-             <font>
-              <family>Consolas</family>
-             </font>
-            </property>
-            <property name="text">
-             <string>View</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QPushButton" name="View_total_trans_2d_Button">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>View</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Chart</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -345,19 +323,35 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="View_diff_reflect_agl_Button">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>View</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QPushButton" name="View_diff_reflect_agl_Button">
+            <property name="font">
+             <font>
+              <family>Consolas</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>View</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_7">
+            <property name="font">
+             <font>
+              <family>Consolas</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Chart</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item>
          <widget class="QLabel" name="label_6">
           <property name="font">
@@ -374,19 +368,35 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="View_Abs_prob_layer_Button">
-          <property name="font">
-           <font>
-            <family>Consolas</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>View</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QPushButton" name="View_Abs_prob_layer_Button">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>View</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_8">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Chart</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
           <item>
            <widget class="QLabel" name="label_13">
             <property name="font">
@@ -403,20 +413,152 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="View_total_trans_rdl_Button">
-            <property name="font">
-             <font>
-              <family>Consolas</family>
-             </font>
-            </property>
-            <property name="text">
-             <string>View</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QPushButton" name="View_total_trans_rdl_Button">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>View</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_9">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Chart</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
        </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>541</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_10">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>Consolas</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>Run Results as Below</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Absorbed Fraction:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Specular Reflectance:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="SpecRefEdit">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLineEdit" name="DiffRefEdit">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="AbsFracEdit">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Diffuse Reflectance:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_5">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Transmittance:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="TransEdit">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

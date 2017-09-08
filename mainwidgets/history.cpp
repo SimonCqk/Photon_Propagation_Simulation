@@ -59,8 +59,7 @@ void CreateRunTimes() {
                             query.lastError().text());
     query.exec("INSERT INTO RunTimes (num_run) VALUES (1); ");
     query.finish();
-  } else
-    return;
+  }
 }
 
 void CreateHistory() {
@@ -75,8 +74,7 @@ void CreateHistory() {
       QMessageBox::critical(0, QObject::tr("Create History Table Error"),
                             query.lastError().text());
     query.finish();
-  } else
-    return;
+  }
 }
 
 void CreateTables() {

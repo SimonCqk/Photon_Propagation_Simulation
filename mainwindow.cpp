@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
                                            outline:none;}");
 
   // let main windows can not scale
-  this->setFixedSize(625, 380);
+  this->setFixedSize(680, 380);
   // delete default tabs in Tab Widget
   delete ui->tab;
   delete ui->tab_2;
@@ -81,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
   // Second page: show run results
   RunResults *runresults = RunResults::getInstance();
   ui->TabWidget->addTab(runresults, "Run Results");
-  // Third page: show running history
+  // Third page: query for running history
   History *runhistory = History::getInstance();
   ui->TabWidget->addTab(runhistory, "History");
   // Fourth page: show about information

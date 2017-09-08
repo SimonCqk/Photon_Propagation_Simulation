@@ -6,6 +6,10 @@
 
 QT       += core gui sql
 
+# Try to add Python path, but seems no effect.
+INCLUDEPATH += C:\Program Files (x86)\Python36-32\include\
+LIBS     +=    C:\Program Files (x86)\Python36-32\libs\python36.lib
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Model_of_LightTransport
