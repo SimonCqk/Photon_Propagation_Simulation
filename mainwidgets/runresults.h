@@ -48,6 +48,9 @@ private slots:
 
   void on_View_total_trans_rdl_Button_clicked();
 
+  void on_View_diff_reflect_rdl_Chart_clicked();
+
+
 private:
   Ui::RunResults *ui;
   OutClass out_param;

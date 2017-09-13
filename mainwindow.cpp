@@ -41,7 +41,7 @@ public:
         if (tab->state & QStyle::State_Selected) {
           painter->setPen(0xf8fcff);
         } else {
-          painter->setPen(0x5d5d5d);
+          painter->setPen(0x3B3B3B);
         }
 
         painter->drawText(allRect, tab->text, option);
@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
   delete ui->tab_2;
   // ui->TabWidget->setTabPosition(QTabWidget::West);
   ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
+  ui->TabWidget->setFixedSize(this->size());
   ui->TabWidget->tabBar()->setStyleSheet(
       "background-color: rgb(130, 130, 130);\
                                             font-size: 10pt; font-family: Consolas;");

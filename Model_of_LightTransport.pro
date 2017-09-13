@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql charts
 
 # Try to add Python path, but seems no effect.
 INCLUDEPATH += C:\Program Files (x86)\Python36-32\include\

@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>90</y>
-     <width>541</width>
+     <width>543</width>
      <height>241</height>
     </rect>
    </property>
@@ -57,7 +57,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="View_diff_reflect_rdl_Chart">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -97,12 +97,12 @@
                </font>
               </property>
               <property name="text">
-               <string>View</string>
+               <string>Data</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="View_1D_Prob_z_Chart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -140,12 +140,12 @@
                </font>
               </property>
               <property name="text">
-               <string>View</string>
+               <string>Data</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_6">
+             <widget class="QPushButton" name="View_total_trans_agl_Chart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -198,7 +198,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="View_diff_reflect_2d_Chart">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -243,7 +243,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="View_2D_Prob_rz_Chart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -281,12 +281,12 @@
                </font>
               </property>
               <property name="text">
-               <string>View</string>
+               <string>Data</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="View_total_trans_2d_Chart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -334,12 +334,12 @@
              </font>
             </property>
             <property name="text">
-             <string>View</string>
+             <string>Data</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_7">
+           <widget class="QPushButton" name="View_diff_reflect_agl_Chart">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -379,12 +379,12 @@
                </font>
               </property>
               <property name="text">
-               <string>View</string>
+               <string>Data</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_8">
+             <widget class="QPushButton" name="View_Abs_prob_layer_Chart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -422,12 +422,12 @@
                </font>
               </property>
               <property name="text">
-               <string>View</string>
+               <string>Data</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_9">
+             <widget class="QPushButton" name="View_total_trans_rdl_Chart">
               <property name="font">
                <font>
                 <family>Consolas</family>

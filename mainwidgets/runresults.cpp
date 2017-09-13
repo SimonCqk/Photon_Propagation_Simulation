@@ -3,8 +3,8 @@
 #include <QDebug>
 #include <QDialog>
 #include <QPlainTextEdit>
-#include <QVBoxLayout>
-#include<QtCharts/QtCharts>
+#include <QVBoxLayout>>
+#include<QtCharts>
 
 using namespace QtCharts;
 
@@ -190,3 +190,29 @@ void SetDialog_2D(QDialog *dlg, const QVector<QVector<double>> &vec,
 
   QCoreApplication::connect(Close, &QPushButton::clicked, dlg, &QDialog::close);
 }
+
+void Draw1DLineChart(const QVector<double>& vec,const QString& name){
+    int mid=vec.size()/2;
+    QChart *chart = new QChart();
+    chart->setTitle(name);
+    QLineSeries *series=new QLineSeries(chart);
+    int index=0;
+    for(const auto& item:vec){
+        series->append((index++)-mid,item);
+    }
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->legend()->hide();
+
+    QChartView *chartView=new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setWindowTitle("Scatter of "+ name);
+    chartView->resize(400, 300);
+    chartView->show();
+}
+
+void RunResults::on_View_diff_reflect_rdl_Chart_clicked()
+{
+    Draw1DLineChart(out_temp.out->diff_reflect_rdl,"xxx");
+}
+
