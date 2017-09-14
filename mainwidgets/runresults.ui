@@ -197,18 +197,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="View_diff_reflect_2d_Chart">
-            <property name="font">
-             <font>
-              <family>Consolas</family>
-             </font>
-            </property>
-            <property name="text">
-             <string>Chart</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item>
@@ -242,18 +230,6 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="View_2D_Prob_rz_Chart">
-              <property name="font">
-               <font>
-                <family>Consolas</family>
-               </font>
-              </property>
-              <property name="text">
-               <string>Chart</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
           <item>
@@ -282,18 +258,6 @@
               </property>
               <property name="text">
                <string>Data</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="View_total_trans_2d_Chart">
-              <property name="font">
-               <font>
-                <family>Consolas</family>
-               </font>
-              </property>
-              <property name="text">
-               <string>Chart</string>
               </property>
              </widget>
             </item>

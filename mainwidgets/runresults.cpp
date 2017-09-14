@@ -1,5 +1,6 @@
 #include "runresults.h"
 #include "ui_runresults.h"
+#include<algorithm>
 #include <QDebug>
 #include <QDialog>
 #include <QPlainTextEdit>
@@ -191,28 +192,195 @@ void SetDialog_2D(QDialog *dlg, const QVector<QVector<double>> &vec,
   QCoreApplication::connect(Close, &QPushButton::clicked, dlg, &QDialog::close);
 }
 
-void Draw1DLineChart(const QVector<double>& vec,const QString& name){
-    int mid=vec.size()/2;
+void Draw1DScatterChart(const QVector<double>& vec,const QString& name
+                        ,const int& type){ // type: 1-radial , 2-angular ,3-single axis z
+    if(type<=0||type>4){                   // 4-each layer
+         QMessageBox::critical(0,QString("Type Error!"),QString("Invalid Input Type of Asix."));
+        return;
+    }
     QChart *chart = new QChart();
     chart->setTitle(name);
-    QLineSeries *series=new QLineSeries(chart);
+    chart->setTitleFont(QFont("Consolas",10));
+    QScatterSeries *series=new QScatterSeries(chart);
+    series->setMarkerSize(qreal(6.0));
+    series->setUseOpenGL(true);
+    QValueAxis *axisX=new QValueAxis();
+    int max_value=static_cast<int>(*std::max(vec.cbegin(),vec.cend()));
     int index=0;
-    for(const auto& item:vec){
-        series->append((index++)-mid,item);
+    switch (type) {
+    case 1:{
+        axisX->setTitleText("1/cm2");
+        axisX->setTitleFont(QFont("Consolas"));
+        axisX->setGridLineVisible(true);
+        axisX->setTitleFont(QFont("Consolas"));
+        const double d_alpha=1/(4*PI*in_temp.input->nr*in_temp.input->nr);
+        for(const auto& item:vec){
+            series->append((d_alpha*index++),item);
+        }
+        axisX->setRange(0,d_alpha*index+1);
+        break;
+    }
+    case 2:{
+        axisX->setTitleText("1/sr");
+        axisX->setTitleFont(QFont("Consolas"));
+        axisX->setGridLineVisible(true);
+        axisX->setTitleFont(QFont("Consolas"));
+        const double d_sr=1/(4*PI);
+        for(const auto& item:vec){
+            series->append((d_sr*index++),item);
+        }
+        axisX->setRange(0,d_sr*index+1);
+        break;
+    }
+    case 3:{
+        axisX->setTitleText("1/cm");
+        axisX->setTitleFont(QFont("Consolas"));
+        axisX->setGridLineVisible(true);
+        axisX->setTitleFont(QFont("Consolas"));
+        const double d_z=1/in_temp.input->nz;
+        for(const auto& item:vec){
+            series->append((d_z*index++),item);
+        }
+        axisX->setRange(0,d_z*index+1);
+        break;
+    }
+    case 4:{
+        axisX->setTitleText("layer");
+        axisX->setTitleFont(QFont("Consolas"));
+        axisX->setGridLineVisible(true);
+        axisX->setRange(0,vec.size()+1);
+        axisX->setTitleFont(QFont("Consolas"));
+        const double num_layer=in_temp.input->num_layers;
+        for(int i=1;i<=num_layer;++i){
+            series->append(i,vec[i]);
+        }
+        break;
+    }
+    default:
+        break;
     }
     chart->addSeries(series);
-    chart->createDefaultAxes();
     chart->legend()->hide();
+    chart->createDefaultAxes();
+    chart->setAxisX(axisX);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
 
     QChartView *chartView=new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setWindowTitle("Scatter of "+ name);
+    chartView->setFont(QFont("Consolas"));
     chartView->resize(400, 300);
     chartView->show();
 }
 
-void RunResults::on_View_diff_reflect_rdl_Chart_clicked()
-{
-    Draw1DLineChart(out_temp.out->diff_reflect_rdl,"xxx");
+void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
+                       ,const int& type){ // type: 1-radial , 2-angular ,3-single axis z
+   if(type<=0||type>4){                   // 4-each layer
+       QMessageBox::critical(0,QString("Type Error!"),QString("Invalid Input Type of Asix."));
+       return;
+   }
+   QChart *chart = new QChart();
+   chart->setTitle(name);
+   chart->setTitleFont(QFont("Consolas",10));
+   QScatterSeries *series=new QScatterSeries(chart);
+   series->setMarkerSize(qreal(6.0));
+   series->setUseOpenGL(true);
+   QValueAxis *axisX=new QValueAxis();
+   int max_value=static_cast<int>(*std::max(vec.cbegin(),vec.cend()));
+   int index=0;
+   switch (type) {
+   case 1:{
+       axisX->setTitleText("1/cm2");
+       axisX->setTitleFont(QFont("Consolas"));
+       axisX->setGridLineVisible(true);
+       axisX->setTitleFont(QFont("Consolas"));
+       const double d_alpha=1/(4*PI*in_temp.input->nr*in_temp.input->nr);
+       for(const auto& item:vec){
+           series->append((d_alpha*index++),item);
+       }
+       axisX->setRange(0,d_alpha*index+1);
+       break;
+   }
+   case 2:{
+       axisX->setTitleText("1/sr");
+       axisX->setTitleFont(QFont("Consolas"));
+       axisX->setGridLineVisible(true);
+       axisX->setTitleFont(QFont("Consolas"));
+       const double d_sr=1/(4*PI);
+       for(const auto& item:vec){
+           series->append((d_sr*index++),item);
+       }
+       axisX->setRange(0,d_sr*index+1);
+       break;
+   }
+   case 3:{
+       axisX->setTitleText("1/cm");
+       axisX->setTitleFont(QFont("Consolas"));
+       axisX->setGridLineVisible(true);
+       axisX->setTitleFont(QFont("Consolas"));
+       const double d_z=1/in_temp.input->nz;
+       for(const auto& item:vec){
+           series->append((d_z*index++),item);
+       }
+       axisX->setRange(0,d_z*index+1);
+       break;
+   }
+   case 4:{
+       axisX->setTitleText("layer");
+       axisX->setTitleFont(QFont("Consolas"));
+       axisX->setGridLineVisible(true);
+       axisX->setRange(0,vec.size()+1);
+       axisX->setTitleFont(QFont("Consolas"));
+       const double num_layer=in_temp.input->num_layers;
+       for(int i=1;i<=num_layer;++i){
+           series->append(i,vec[i]);
+       }
+       break;
+   }
+   default:
+       break;
+   }
+   chart->addSeries(series);
+   chart->legend()->hide();
+   chart->createDefaultAxes();
+   chart->setAxisX(axisX);
+   chart->setAnimationOptions(QChart::SeriesAnimations);
+
+   QChartView *chartView=new QChartView(chart);
+   chartView->setRenderHint(QPainter::Antialiasing);
+   chartView->setWindowTitle("Scatter of "+ name);
+   chartView->setFont(QFont("Consolas"));
+   chartView->resize(400, 300);
+   chartView->show();
 }
 
+void RunResults::on_View_diff_reflect_rdl_Chart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->diff_reflect_rdl,QString("radial distribution of diffuse reflectance"),1);
+}
+
+
+void RunResults::on_View_1D_Prob_z_Chart_clicked()
+{
+    Draw1DScatterChart(out_temp.out->abs_prob_z,QString("probability density over z"),3);
+}
+
+void RunResults::on_View_diff_reflect_agl_Chart_clicked()
+{
+    Draw1DScatterChart(out_temp.out->diff_reflect_agl,QString("angular distribution of diffuse reflectance"),2);
+}
+
+void RunResults::on_View_Abs_prob_layer_Chart_clicked()
+{
+    Draw1DScatterChart(out_temp.out->abs_prob_z,QString("each layer's absorption probability"),4);
+}
+
+void RunResults::on_View_total_trans_agl_Chart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->abs_prob_z,QString("radial distribution of transmittance"),2);
+}
+
+void RunResults::on_View_total_trans_rdl_Chart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->abs_prob_z,QString("angular distribution of transmittance"),1);
+}

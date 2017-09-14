@@ -318,7 +318,7 @@ void ConfParas::setSampleTwoDatas() {
   ui->rGridEdit->setText(QString("0.01"));
   ui->No_zGridEdit->setText(QString("400"));
   ui->No_rGridEdit->setText(QString("500"));
-  ui->No_aGridEdit->setText(QString("1"));
+  ui->No_aGridEdit->setText(QString("100"));
   ui->MedAboveEdit->setText(QString("1"));
   ui->MedBelowEdit->setText(QString("1"));
   LayerDatas->push_back(QString("1.37 1 100 0.9 0.1"));

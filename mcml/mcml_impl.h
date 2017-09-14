@@ -91,7 +91,7 @@ struct OutStruct {
   QVector<double> diff_reflect_rdl; /* 1D radial distribution of diffuse */
                                     /* reflectance. [1/cm2] */
   QVector<double> diff_reflect_agl; /* 1D angular distribution of diffuse */
-                                    /* reflectance. [1/sr] */
+                                    /* reflectance. [1/sr] sr:steradian */
   double diff_reflect;              /* total diffuse reflectance. [-] */
 
   QVector<QVector<double>> abs_prob_rz; /* 2D probability density in turbid */

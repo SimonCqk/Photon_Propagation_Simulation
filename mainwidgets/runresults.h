@@ -51,6 +51,16 @@ private slots:
   void on_View_diff_reflect_rdl_Chart_clicked();
 
 
+  void on_View_1D_Prob_z_Chart_clicked();
+
+  void on_View_diff_reflect_agl_Chart_clicked();
+
+  void on_View_Abs_prob_layer_Chart_clicked();
+
+  void on_View_total_trans_agl_Chart_clicked();
+
+  void on_View_total_trans_rdl_Chart_clicked();
+
 private:
   Ui::RunResults *ui;
   OutClass out_param;
