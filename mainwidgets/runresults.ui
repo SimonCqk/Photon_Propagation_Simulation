@@ -26,26 +26,26 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QLabel" name="label_8">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>1D Radial Distribution of D.R. :</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <widget class="QLabel" name="label_9">
+          <property name="font">
+           <font>
+            <family>Consolas</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>1D angular distribution of D.R. :</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
-           <widget class="QPushButton" name="View_diff_reflect_rdl_Button">
+           <widget class="QPushButton" name="View_diff_reflect_agl_Button">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -57,7 +57,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="View_diff_reflect_rdl_Chart">
+           <widget class="QPushButton" name="View_diff_reflect_agl_Chart">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -272,26 +272,26 @@
     <item row="2" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <widget class="QLabel" name="label_9">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>1D angular distribution of D.R. :</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <widget class="QLabel" name="label_8">
+          <property name="font">
+           <font>
+            <family>Consolas</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>1D Radial Distribution of D.R. :</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QPushButton" name="View_diff_reflect_agl_Button">
+           <widget class="QPushButton" name="View_diff_reflect_rdl_Button">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -303,7 +303,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="View_diff_reflect_agl_Chart">
+           <widget class="QPushButton" name="View_diff_reflect_rdl_Chart">
             <property name="font">
              <font>
               <family>Consolas</family>

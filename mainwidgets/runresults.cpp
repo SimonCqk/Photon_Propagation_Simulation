@@ -205,15 +205,14 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
     series->setMarkerSize(qreal(6.0));
     series->setUseOpenGL(true);
     QValueAxis *axisX=new QValueAxis();
-    int max_value=static_cast<int>(*std::max(vec.cbegin(),vec.cend()));
     int index=0;
     switch (type) {
     case 1:{
         axisX->setTitleText("1/cm2");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
-        axisX->setTitleFont(QFont("Consolas"));
-        const double d_alpha=1/(4*PI*in_temp.input->nr*in_temp.input->nr);
+        //const double d_alpha=1/(4*PI*in_temp.input->nr*in_temp.input->nr);
+        const double d_alpha=in_temp.input->da;
         for(const auto& item:vec){
             series->append((d_alpha*index++),item);
         }
@@ -224,7 +223,6 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         axisX->setTitleText("1/sr");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
-        axisX->setTitleFont(QFont("Consolas"));
         const double d_sr=1/(4*PI);
         for(const auto& item:vec){
             series->append((d_sr*index++),item);
@@ -236,8 +234,7 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         axisX->setTitleText("1/cm");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
-        axisX->setTitleFont(QFont("Consolas"));
-        const double d_z=1/in_temp.input->nz;
+        const double d_z=in_temp.input->dz;
         for(const auto& item:vec){
             series->append((d_z*index++),item);
         }
@@ -248,12 +245,11 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         axisX->setTitleText("layer");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
-        axisX->setRange(0,vec.size()+1);
-        axisX->setTitleFont(QFont("Consolas"));
-        const double num_layer=in_temp.input->num_layers;
-        for(int i=1;i<=num_layer;++i){
-            series->append(i,vec[i]);
+        for(const auto& item:vec){
+            series->append(index++,item);
         }
+        axisX->setRange(0,vec.size());
+        series->setMarkerSize(qreal(10.0));
         break;
     }
     default:
@@ -275,26 +271,24 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
 
 void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
                        ,const int& type){ // type: 1-radial , 2-angular ,3-single axis z
-   if(type<=0||type>4){                   // 4-each layer
+   if(type<=0||type>3){
        QMessageBox::critical(0,QString("Type Error!"),QString("Invalid Input Type of Asix."));
        return;
    }
    QChart *chart = new QChart();
    chart->setTitle(name);
    chart->setTitleFont(QFont("Consolas",10));
-   QScatterSeries *series=new QScatterSeries(chart);
-   series->setMarkerSize(qreal(6.0));
+   QSplineSeries *series=new QSplineSeries(chart);
    series->setUseOpenGL(true);
    QValueAxis *axisX=new QValueAxis();
-   int max_value=static_cast<int>(*std::max(vec.cbegin(),vec.cend()));
    int index=0;
    switch (type) {
    case 1:{
        axisX->setTitleText("1/cm2");
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
-       axisX->setTitleFont(QFont("Consolas"));
-       const double d_alpha=1/(4*PI*in_temp.input->nr*in_temp.input->nr);
+       //const double d_alpha=1/(4*PI*in_temp.input->nr*in_temp.input->nr);
+       const double d_alpha=in_temp.input->da;
        for(const auto& item:vec){
            series->append((d_alpha*index++),item);
        }
@@ -305,7 +299,6 @@ void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
        axisX->setTitleText("1/sr");
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
-       axisX->setTitleFont(QFont("Consolas"));
        const double d_sr=1/(4*PI);
        for(const auto& item:vec){
            series->append((d_sr*index++),item);
@@ -317,24 +310,11 @@ void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
        axisX->setTitleText("1/cm");
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
-       axisX->setTitleFont(QFont("Consolas"));
-       const double d_z=1/in_temp.input->nz;
+       const double d_z=in_temp.input->dz;
        for(const auto& item:vec){
            series->append((d_z*index++),item);
        }
        axisX->setRange(0,d_z*index+1);
-       break;
-   }
-   case 4:{
-       axisX->setTitleText("layer");
-       axisX->setTitleFont(QFont("Consolas"));
-       axisX->setGridLineVisible(true);
-       axisX->setRange(0,vec.size()+1);
-       axisX->setTitleFont(QFont("Consolas"));
-       const double num_layer=in_temp.input->num_layers;
-       for(int i=1;i<=num_layer;++i){
-           series->append(i,vec[i]);
-       }
        break;
    }
    default:
@@ -362,7 +342,7 @@ void RunResults::on_View_diff_reflect_rdl_Chart_clicked()
 
 void RunResults::on_View_1D_Prob_z_Chart_clicked()
 {
-    Draw1DScatterChart(out_temp.out->abs_prob_z,QString("probability density over z"),3);
+    Draw1DSpLineChart(out_temp.out->abs_prob_z,QString("probability density over z"),3);
 }
 
 void RunResults::on_View_diff_reflect_agl_Chart_clicked()
@@ -372,15 +352,15 @@ void RunResults::on_View_diff_reflect_agl_Chart_clicked()
 
 void RunResults::on_View_Abs_prob_layer_Chart_clicked()
 {
-    Draw1DScatterChart(out_temp.out->abs_prob_z,QString("each layer's absorption probability"),4);
+    Draw1DScatterChart(out_temp.out->abs_prob_layer,QString("each layer's absorption probability"),4);
 }
 
 void RunResults::on_View_total_trans_agl_Chart_clicked()
 {
-    Draw1DSpLineChart(out_temp.out->abs_prob_z,QString("radial distribution of transmittance"),2);
+    Draw1DSpLineChart(out_temp.out->total_trans_agl,QString("angular distribution of transmittance"),2);
 }
 
 void RunResults::on_View_total_trans_rdl_Chart_clicked()
 {
-    Draw1DSpLineChart(out_temp.out->abs_prob_z,QString("angular distribution of transmittance"),1);
+    Draw1DSpLineChart(out_temp.out->total_trans_rdl,QString("radial distribution of transmittance"),1);
 }
