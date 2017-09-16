@@ -326,3 +326,30 @@ void ConfParas::setSampleTwoDatas() {
   LayerDatas->push_back(QString("1.37 2 10 0.7 0.2"));
   setInstructor();
 }
+
+/*
+0.01	0.01		# dz, dr [cm]
+40	50	1	# No. of dz, dr, da.
+
+3					# Number of layers
+#n	mua	mus	g	d	# One line for each layer
+1					# n for medium above
+1.37	1	100	0.9	0.1	# layer 1
+1.37	1	10	0	0.1	# layer 2
+1.37	2	10	0.7	0.2	# layer 3
+1					# n for medium below
+
+
+0.01	0.02		# dz, dr [cm]
+200	500	100	# No. of dz, dr, da.
+
+5					# Number of layers
+#n	mua	mus	g	d	# One line for each layer
+1					# n for medium above
+1.5	4.3	107	0.79	0.01	# layer 1
+1.4	2.7	187	0.82	0.02	# layer 2
+1.4	3.3	192	0.82	0.02	# layer 3
+1.4	2.7	187	0.82	0.09	# layer 4
+1.4	2.4	194	0.82	0.06	# layer 5
+1					# n for medium below
+ */

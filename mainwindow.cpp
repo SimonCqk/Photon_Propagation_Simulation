@@ -17,7 +17,7 @@ public:
     if (type == QStyle::CT_TabBarTab) {
       s.transpose();
       s.rwidth() = 120;
-      s.rheight() = 85;
+      s.rheight() = 90;
     }
     return s;
   }
@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
                                            outline:none;}");
 
   // let main windows can not scale
-  this->setFixedSize(710, 390);
+  this->setFixedSize(715, 390);
   // delete default tabs in Tab Widget
   delete ui->tab;
   delete ui->tab_2;

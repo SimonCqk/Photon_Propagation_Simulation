@@ -184,17 +184,18 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
     series->setMarkerSize(qreal(6.0));
     series->setUseOpenGL(true);
     QValueAxis *axisX=new QValueAxis();
-    int index=0;
     switch (type) {
     case Types::radial:{
         axisX->setTitleText("1/cm2");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
         const double d_alpha=in_temp.input->da;
+        double xvalue=d_alpha;
         for(const auto& item:vec){
-            series->append((d_alpha*index++),item);
+            series->append(xvalue,item);
+            xvalue+=d_alpha;
         }
-        axisX->setRange(0,d_alpha*index+1);
+        axisX->setRange(0,xvalue*1.1);
         break;
     }
     case Types::angular:{
@@ -202,10 +203,12 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
         const double d_sr=1/(4*PI);
+        double xvalue=0;
         for(const auto& item:vec){
-            series->append((d_sr*index++),item);
+            series->append(xvalue,item);
+            xvalue+=d_sr;
         }
-        axisX->setRange(0,d_sr*index+1);
+        axisX->setRange(0,xvalue*1.1);
         break;
     }
     case Types::axis_z:{
@@ -213,16 +216,19 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
         const double d_z=1/in_temp.input->nz;
+        double xvalue=0;
         for(const auto& item:vec){
-            series->append((d_z*index++),item);
+            series->append(xvalue,item);
+            xvalue+=d_z;
         }
-        axisX->setRange(0,d_z*index+1);
+        axisX->setRange(0,xvalue*1.1);
         break;
     }
     case Types::layer:{
         axisX->setTitleText("layer");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
+        int index=0;
         for(const auto& item:vec){
             series->append(index++,item);
         }
@@ -255,17 +261,18 @@ void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
    QSplineSeries *series=new QSplineSeries(chart);
    series->setUseOpenGL(true);
    QValueAxis *axisX=new QValueAxis();
-   int index=0;
    switch (type) {
    case Types::radial:{
        axisX->setTitleText("1/cm2");
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
        const double d_alpha=in_temp.input->da;
+       double xvalue=d_alpha;
        for(const auto& item:vec){
-           series->append((d_alpha*index++),item);
+           series->append(xvalue,item);
+           xvalue+=d_alpha;
        }
-       axisX->setRange(0,d_alpha*index+1);
+       axisX->setRange(0,xvalue*1.1);
        break;
    }
    case Types::angular:{
@@ -273,10 +280,12 @@ void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
        const double d_sr=1/(4*PI);
+       double xvalue=0;
        for(const auto& item:vec){
-           series->append((d_sr*index++),item);
+           series->append(xvalue,item);
+           xvalue+=d_sr;
        }
-       axisX->setRange(0,d_sr*index+1);
+       axisX->setRange(0,xvalue*1.1);
        break;
    }
    case Types::axis_z:{
@@ -284,16 +293,19 @@ void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
        const double d_z=1/in_temp.input->nz;
+       double xvalue=0;
        for(const auto& item:vec){
-           series->append((d_z*index++),item);
+           series->append(xvalue,item);
+           xvalue+=d_z;
        }
-       axisX->setRange(0,d_z*index+1);
+       axisX->setRange(0,xvalue*1.1);
        break;
    }
    case Types::layer:{
        axisX->setTitleText("layer");
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
+       int index=0;
        for(const auto& item:vec){
            series->append(index++,item);
        }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>595</width>
+    <width>600</width>
     <height>350</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>90</y>
-     <width>561</width>
+     <width>571</width>
      <height>241</height>
     </rect>
    </property>
@@ -64,7 +64,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Chart</string>
+             <string>Scatter Chart</string>
             </property>
            </widget>
           </item>
@@ -121,7 +121,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Chart</string>
+               <string>Scatter Chart</string>
               </property>
              </widget>
             </item>
@@ -176,7 +176,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Chart</string>
+               <string>Scatter Chart</string>
               </property>
              </widget>
             </item>
@@ -298,7 +298,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Chart</string>
+               <string>Scatter Chart</string>
               </property>
              </widget>
             </item>
@@ -353,7 +353,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Chart</string>
+               <string>Scatter Chart</string>
               </property>
              </widget>
             </item>
@@ -384,7 +384,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>561</width>
+     <width>571</width>
      <height>80</height>
     </rect>
    </property>
