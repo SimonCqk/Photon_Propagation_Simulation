@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
                                            outline:none;}");
 
   // let main windows can not scale
-  this->setFixedSize(680, 380);
+  this->setFixedSize(710, 390);
   // delete default tabs in Tab Widget
   delete ui->tab;
   delete ui->tab_2;

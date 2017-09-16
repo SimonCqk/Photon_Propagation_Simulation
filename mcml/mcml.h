@@ -109,6 +109,7 @@ private:
   shared_ptr<LayerStruct> layer;
 };
 
+enum class Types;
 class InputClass {
   friend class PhotonClass;
   friend class InputToString;
@@ -123,9 +124,9 @@ class InputClass {
   // friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
   friend void InitOutputData(const InputClass &In_Parm, OutClass &Out_Ptr);
   friend void Draw1DScatterChart(const QVector<double>& vec,const QString& name
-                                 ,const int& type);
+                                 ,const Types& type);
   friend void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
-                                 ,const int& type);
+                                 ,const Types& type);
   friend class ConfParas;
 
 public:

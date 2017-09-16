@@ -30,8 +30,6 @@ public:
   void showAllTheResults();
 
 private slots:
-  void on_View_diff_reflect_2d_Button_clicked();
-
   void on_View_Abs_prob_layer_Button_clicked();
 
   void on_View_diff_reflect_rdl_Button_clicked();
@@ -40,26 +38,22 @@ private slots:
 
   void on_View_1D_Prob_z_Button_clicked();
 
-  void on_View_2D_Prob_rz_Button_clicked();
-
-  void on_View_total_trans_2d_Button_clicked();
-
   void on_View_total_trans_agl_Button_clicked();
 
   void on_View_total_trans_rdl_Button_clicked();
 
-  void on_View_diff_reflect_rdl_Chart_clicked();
+  void on_View_diff_reflect_rdl_ScatterChart_clicked();
 
 
-  void on_View_1D_Prob_z_Chart_clicked();
+  void on_View_1D_Prob_z_ScatterChart_clicked();
 
-  void on_View_diff_reflect_agl_Chart_clicked();
+  void on_View_diff_reflect_agl_ScatterChart_clicked();
 
-  void on_View_Abs_prob_layer_Chart_clicked();
+  void on_View_Abs_prob_layer_ScatterChart_clicked();
 
-  void on_View_total_trans_agl_Chart_clicked();
+  void on_View_total_trans_agl_ScatterChart_clicked();
 
-  void on_View_total_trans_rdl_Chart_clicked();
+  void on_View_total_trans_rdl_ScatterChart_clicked();
 
 private:
   Ui::RunResults *ui;
