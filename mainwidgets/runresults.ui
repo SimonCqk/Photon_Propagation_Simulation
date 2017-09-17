@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>90</y>
-     <width>571</width>
+     <width>586</width>
      <height>241</height>
     </rect>
    </property>
@@ -69,7 +69,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="View_diff_reflect_rdl_SplineChart">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -126,7 +126,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="View_Abs_prob_layer_SplineChart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -181,7 +181,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_6">
+             <widget class="QPushButton" name="View_total_trans_rdl_SplineChart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -246,7 +246,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="View_diff_reflect_agl_SplineChart">
             <property name="font">
              <font>
               <family>Consolas</family>
@@ -303,7 +303,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="View_1D_Prob_z_SplineChart">
               <property name="font">
                <font>
                 <family>Consolas</family>
@@ -358,7 +358,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="View_total_trans_agl_SplineChart">
               <property name="font">
                <font>
                 <family>Consolas</family>

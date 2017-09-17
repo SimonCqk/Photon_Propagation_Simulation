@@ -109,10 +109,12 @@ void MainWindow::_show() { show(); }
 
 void MainWindow::on_actionSample_One_triggered() {
   ConfParas *conf = ConfParas::getInstance();
+  ui->TabWidget->setCurrentWidget(conf);
   conf->setSampleOneDatas();
 }
 
 void MainWindow::on_actionSample_Two_triggered() {
   ConfParas *conf = ConfParas::getInstance();
+  ui->TabWidget->setCurrentWidget(conf);
   conf->setSampleTwoDatas();
 }

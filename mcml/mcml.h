@@ -37,7 +37,7 @@ class PhotonClass {
   friend class ConfParas;
 
 public:
-  PhotonClass() : photon(make_shared<PhotonStruct>(PhotonStruct())) {}
+  PhotonClass() : photon(new PhotonStruct) {}
   explicit PhotonClass(const PhotonStruct &item)
       : photon(make_shared<PhotonStruct>(item)) {}
   // forbid some constructors
@@ -100,7 +100,7 @@ class LayerClass {
   friend class ConfParas;
   friend class InputToString;
 public:
-  LayerClass() : layer(make_shared<LayerStruct>(LayerStruct())) {}
+  LayerClass() : layer(new LayerStruct) {}
   explicit LayerClass(const LayerStruct &item)
       : layer(make_shared<LayerStruct>(item)) {}
   ~LayerClass() = default;
@@ -130,11 +130,11 @@ class InputClass {
   friend class ConfParas;
 
 public:
-  InputClass() : input(make_shared<InputStruct>(InputStruct())) {}
+  InputClass() : input(new InputStruct) {}
   explicit InputClass(const InputStruct &item)
       : input(make_shared<InputStruct>(item)) {}
   ~InputClass() = default;
-
+  void resetData();
 private:
   shared_ptr<InputStruct> input;
 };
@@ -155,7 +155,7 @@ class OutClass {
   friend void InitOutputData(const InputClass &In_Parm, OutClass &Out_Ptr);
 
 public:
-  OutClass() : out(make_shared<OutStruct>(OutStruct())) {}
+  OutClass() : out(new OutStruct) {}
   explicit OutClass(const OutStruct &item)
       : out(make_shared<OutStruct>(item)) {}
 

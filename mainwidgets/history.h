@@ -47,15 +47,12 @@ public:
 
 private:
   QString spec_reflect;
-  QString diff_reflect_2d;
   QString diff_reflect_rdl;
   QString diff_reflect_agl;
   QString diff_reflect;
-  QString abs_prob_rz;
   QString abs_prob_z;
   QString abs_prob_layer;
   QString abs_prob;
-  QString total_trans_2d;
   QString total_trans_agl;
   QString total_trans_rdl;
   QString total_trans;

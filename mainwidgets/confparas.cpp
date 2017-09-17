@@ -299,57 +299,38 @@ void ConfParas::on_RunButton_clicked() {
 }
 
 void ConfParas::setSampleOneDatas() {
+  on_ClearButton_clicked();
   ui->PhoNumSpinBox->setValue(10000);
-  ui->zGridEdit->setText(QString("0.02"));
-  ui->rGridEdit->setText(QString("0.02"));
-  ui->No_zGridEdit->setText(QString("200"));
-  ui->No_rGridEdit->setText(QString("300"));
-  ui->No_aGridEdit->setText(QString("400"));
+  ui->zGridEdit->setText(QString("0.01"));
+  ui->rGridEdit->setText(QString("0.01"));
+  ui->No_zGridEdit->setText(QString("40"));
+  ui->No_rGridEdit->setText(QString("50"));
+  ui->No_aGridEdit->setText(QString("10"));
   ui->MedAboveEdit->setText(QString("1"));
   ui->MedBelowEdit->setText(QString("1"));
-  LayerDatas->push_back(QString("1.3 20 200 0.7 0.1"));
-  LayerDatas->push_back(QString("1.4 5 180 0.9 0.08"));
+  LayerDatas->push_back(QString("2 3.10 100 0.90 0.1"));
+  LayerDatas->push_back(QString("1.27 2.3 200 0.25 0.01"));
+  LayerDatas->push_back(QString("1.15 1.8 150 0.58 0.02"));
   setInstructor();
+  ui->progressBar->setValue(0);
 }
 
 void ConfParas::setSampleTwoDatas() {
-  ui->PhoNumSpinBox->setValue(15000);
+  on_ClearButton_clicked();
+  ui->PhoNumSpinBox->setValue(10000);
   ui->zGridEdit->setText(QString("0.01"));
-  ui->rGridEdit->setText(QString("0.01"));
-  ui->No_zGridEdit->setText(QString("400"));
+  ui->rGridEdit->setText(QString("0.02"));
+  ui->No_zGridEdit->setText(QString("200"));
   ui->No_rGridEdit->setText(QString("500"));
   ui->No_aGridEdit->setText(QString("100"));
   ui->MedAboveEdit->setText(QString("1"));
   ui->MedBelowEdit->setText(QString("1"));
-  LayerDatas->push_back(QString("1.37 1 100 0.9 0.1"));
-  LayerDatas->push_back(QString("1.37 1 10 0 0.1"));
-  LayerDatas->push_back(QString("1.37 2 10 0.7 0.2"));
+  LayerDatas->push_back(QString("1.5 4.3 107 0.79 0.01"));
+  LayerDatas->push_back(QString("1.4 2.7 187 0.82 0.02"));
+  LayerDatas->push_back(QString("1.4 3.3 192 0.82 0.02"));
+  LayerDatas->push_back(QString("1.4 2.7 187 0.82 0.09"));
+  LayerDatas->push_back(QString("1.4 2.4 194 0.82 0.06"));
   setInstructor();
+  ui->progressBar->setValue(0);
 }
 
-/*
-0.01	0.01		# dz, dr [cm]
-40	50	1	# No. of dz, dr, da.
-
-3					# Number of layers
-#n	mua	mus	g	d	# One line for each layer
-1					# n for medium above
-1.37	1	100	0.9	0.1	# layer 1
-1.37	1	10	0	0.1	# layer 2
-1.37	2	10	0.7	0.2	# layer 3
-1					# n for medium below
-
-
-0.01	0.02		# dz, dr [cm]
-200	500	100	# No. of dz, dr, da.
-
-5					# Number of layers
-#n	mua	mus	g	d	# One line for each layer
-1					# n for medium above
-1.5	4.3	107	0.79	0.01	# layer 1
-1.4	2.7	187	0.82	0.02	# layer 2
-1.4	3.3	192	0.82	0.02	# layer 3
-1.4	2.7	187	0.82	0.09	# layer 4
-1.4	2.4	194	0.82	0.06	# layer 5
-1					# n for medium below
- */

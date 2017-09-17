@@ -434,3 +434,8 @@ void PhotonClass::hopDropSpin(const InputClass &In, OutClass &Out) {
   if (photon->weight < In.input->Wth && !photon->dead)
     roulette();
 }
+
+void InputClass::resetData()
+{
+    input.reset(new InputStruct);
+}

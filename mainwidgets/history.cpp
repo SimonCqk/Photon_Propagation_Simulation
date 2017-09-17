@@ -245,16 +245,6 @@ OutputToString::OutputToString(const OutClass &output) {
   abs_prob_layer = LinkDataFromVector(output.out->abs_prob_layer);
   total_trans_agl = LinkDataFromVector(output.out->total_trans_agl);
   total_trans_rdl = LinkDataFromVector(output.out->total_trans_rdl);
-  diff_reflect_2d = abs_prob_rz = total_trans_2d = "";
-  for (const auto &item : output.out->diff_reflect_2d) {
-    diff_reflect_2d += LinkDataFromVector(item);
-  }
-  for (const auto &item : output.out->abs_prob_rz) {
-    abs_prob_rz += LinkDataFromVector(item);
-  }
-  for (const auto &item : output.out->total_trans_2d) {
-    total_trans_2d += LinkDataFromVector(item);
-  }
   setUpAll();
 }
 
@@ -270,10 +260,7 @@ void OutputToString::setUpAll() {
         abs_prob_layer + "\n\n" + "1D radial distribution of transmittance:\n" +
         total_trans_rdl + "\n\n" +
         "1D angular distribution of transmittance:\n" + total_trans_agl +
-        "\n\n" + "2D distribution of diffuse reflectance:\n" + diff_reflect_2d +
-        "\n\n" + "2D probability density in turbid media over r & z:\n" +
-        abs_prob_rz + "\n\n" + "2D distribution of total transmittance" +
-        total_trans_2d;
+        "\n\n";
 }
 
 InputToString::InputToString(const InputClass &input) {

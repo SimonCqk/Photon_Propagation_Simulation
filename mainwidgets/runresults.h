@@ -55,6 +55,18 @@ private slots:
 
   void on_View_total_trans_rdl_ScatterChart_clicked();
 
+  void on_View_diff_reflect_agl_SplineChart_clicked();
+
+  void on_View_1D_Prob_z_SplineChart_clicked();
+
+  void on_View_total_trans_agl_SplineChart_clicked();
+
+  void on_View_diff_reflect_rdl_SplineChart_clicked();
+
+  void on_View_Abs_prob_layer_SplineChart_clicked();
+
+  void on_View_total_trans_rdl_SplineChart_clicked();
+
 private:
   Ui::RunResults *ui;
   OutClass out_param;

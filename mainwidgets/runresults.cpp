@@ -202,11 +202,18 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         axisX->setTitleText("1/sr");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
-        const double d_sr=1/(4*PI);
+        //const double d_sr=1/(4*PI);
+        double d_alpha=in_temp.input->da;
+        double alpha=0.5*d_alpha; // alpha = (i_a + 0.5) * d_alpha
+        double sin_alpha=sin(alpha);
+        double d_sr=4*PI*sin(0.5*d_alpha)*(in_temp.input->na);
         double xvalue=0;
         for(const auto& item:vec){
-            series->append(xvalue,item);
+            d_sr*=sin_alpha;
+            series->append(xvalue+d_sr,item);
             xvalue+=d_sr;
+            alpha+=d_alpha;
+            sin_alpha=sin(alpha);
         }
         axisX->setRange(0,xvalue*1.1);
         break;
@@ -215,7 +222,7 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         axisX->setTitleText("1/cm");
         axisX->setTitleFont(QFont("Consolas"));
         axisX->setGridLineVisible(true);
-        const double d_z=1/in_temp.input->nz;
+        const double d_z=in_temp.input->dz;
         double xvalue=0;
         for(const auto& item:vec){
             series->append(xvalue,item);
@@ -292,7 +299,7 @@ void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
        axisX->setTitleText("1/cm");
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
-       const double d_z=1/in_temp.input->nz;
+       const double d_z=in_temp.input->dz;
        double xvalue=0;
        for(const auto& item:vec){
            series->append(xvalue,item);
@@ -360,3 +367,33 @@ void RunResults::on_View_total_trans_rdl_ScatterChart_clicked()
     Draw1DScatterChart(out_temp.out->total_trans_rdl,QString("radial distribution of transmittance"),Types::radial);
 }
 
+
+void RunResults::on_View_diff_reflect_agl_SplineChart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->diff_reflect_agl,QString("angular distribution of diffuse reflectance"),Types::angular);
+}
+
+void RunResults::on_View_1D_Prob_z_SplineChart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->abs_prob_z,QString("probability density over z"),Types::axis_z);
+}
+
+void RunResults::on_View_total_trans_agl_SplineChart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->total_trans_agl,QString("angular distribution of transmittance"),Types::angular);
+}
+
+void RunResults::on_View_diff_reflect_rdl_SplineChart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->diff_reflect_rdl,QString("radial distribution of diffuse reflectance"),Types::radial);
+}
+
+void RunResults::on_View_Abs_prob_layer_SplineChart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->abs_prob_layer,QString("each layer's absorption probability"),Types::layer);
+}
+
+void RunResults::on_View_total_trans_rdl_SplineChart_clicked()
+{
+    Draw1DSpLineChart(out_temp.out->total_trans_rdl,QString("radial distribution of transmittance"),Types::radial);
+}
