@@ -99,6 +99,7 @@ class LayerClass {
   friend class PhotonClass;
   friend class ConfParas;
   friend class InputToString;
+
 public:
   LayerClass() : layer(new LayerStruct) {}
   explicit LayerClass(const LayerStruct &item)
@@ -123,10 +124,10 @@ class InputClass {
   friend void SumScaleResult(const InputClass &In_Parm, OutClass &Out_Ptr);
   // friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
   friend void InitOutputData(const InputClass &In_Parm, OutClass &Out_Ptr);
-  friend void Draw1DScatterChart(const QVector<double>& vec,const QString& name
-                                 ,const Types& type);
-  friend void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
-                                 ,const Types& type);
+  friend void Draw1DScatterChart(const QVector<double> &vec,
+                                 const QString &name, const Types &type);
+  friend void Draw1DSpLineChart(const QVector<double> &vec, const QString &name,
+                                const Types &type);
   friend class ConfParas;
 
 public:
@@ -135,6 +136,7 @@ public:
       : input(make_shared<InputStruct>(item)) {}
   ~InputClass() = default;
   void resetData();
+
 private:
   shared_ptr<InputStruct> input;
 };

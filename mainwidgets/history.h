@@ -6,7 +6,6 @@
 #include <QPlainTextEdit>
 #include <QWidget>
 
-
 namespace Ui {
 class History;
 }

@@ -2,9 +2,10 @@
 #define RUNRESULTS_H
 
 #include "mcml/mcml.h"
+#include <QHBoxLayout>
 #include <QWidget>
 #include <sstream>
-#include<QHBoxLayout>
+
 
 extern OutClass out_temp;
 extern InputClass in_temp;
@@ -43,7 +44,6 @@ private slots:
   void on_View_total_trans_rdl_Button_clicked();
 
   void on_View_diff_reflect_rdl_ScatterChart_clicked();
-
 
   void on_View_1D_Prob_z_ScatterChart_clicked();
 
@@ -86,6 +86,5 @@ void SetDialog_1D(QDialog *dlg, const QVector<double> &vec,
                   QString &plain_text);
 void SetDialog_2D(QDialog *dlg, const QVector<QVector<double>> &vec,
                   QString &plain_text);
-
 
 #endif // RUNRESULTS_H

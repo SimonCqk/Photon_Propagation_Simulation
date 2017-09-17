@@ -10,7 +10,6 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
 
-
 History *History::theHistory = nullptr;
 
 // .dll file must be placed under <sqldrivers> in Qt directory.
@@ -252,7 +251,7 @@ void OutputToString::setUpAll() {
   all = "specular reflectance:\n" + spec_reflect + "\n\n" +
         "total absorption probability:\n" + abs_prob + "\n\n" +
         "total transmittance:\n" + total_trans + "\n\n" +
-        "total diffuse reflectance"+diff_reflect+ "\n\n" +
+        "total diffuse reflectance" + diff_reflect + "\n\n" +
         "1D radial distribution of diffuse reflectance:\n" + diff_reflect_rdl +
         "\n\n" + "1D angular distribution of diffuse reflectance:\n" +
         diff_reflect_agl + "\n\n" + "1D probability density over z:\n" +

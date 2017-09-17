@@ -334,21 +334,19 @@ void ConfParas::setSampleTwoDatas() {
   ui->progressBar->setValue(0);
 }
 
-void ConfParas::setSampleThreeDatas()
-{
-    on_ClearButton_clicked();
-    ui->PhoNumSpinBox->setValue(5000);
-    ui->zGridEdit->setText(QString("0.01"));
-    ui->rGridEdit->setText(QString("0.02"));
-    ui->No_zGridEdit->setText(QString("200"));
-    ui->No_rGridEdit->setText(QString("300"));
-    ui->No_aGridEdit->setText(QString("100"));
-    ui->MedAboveEdit->setText(QString("1"));
-    ui->MedBelowEdit->setText(QString("1"));
-    LayerDatas->push_back(QString("1.37 0.2 100 0.9 1.5"));
-    LayerDatas->push_back(QString("1.37 0.2 100 0.9 2.0"));
-    LayerDatas->push_back(QString("1.37 0.2 100 0.9 0.5"));
-    setInstructor();
-    ui->progressBar->setValue(0);
+void ConfParas::setSampleThreeDatas() {
+  on_ClearButton_clicked();
+  ui->PhoNumSpinBox->setValue(5000);
+  ui->zGridEdit->setText(QString("0.01"));
+  ui->rGridEdit->setText(QString("0.02"));
+  ui->No_zGridEdit->setText(QString("200"));
+  ui->No_rGridEdit->setText(QString("300"));
+  ui->No_aGridEdit->setText(QString("100"));
+  ui->MedAboveEdit->setText(QString("1"));
+  ui->MedBelowEdit->setText(QString("1"));
+  LayerDatas->push_back(QString("1.37 0.2 100 0.9 1.5"));
+  LayerDatas->push_back(QString("1.37 0.2 100 0.9 2.0"));
+  LayerDatas->push_back(QString("1.37 0.2 100 0.9 0.5"));
+  setInstructor();
+  ui->progressBar->setValue(0);
 }
-

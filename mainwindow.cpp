@@ -8,7 +8,6 @@
 #include <QPainter>
 #include <QProxyStyle>
 
-
 class CustomTabStyle : public QProxyStyle {
 public:
   QSize sizeFromContents(ContentsType type, const QStyleOption *option,
@@ -119,9 +118,8 @@ void MainWindow::on_actionSample_Two_triggered() {
   conf->setSampleTwoDatas();
 }
 
-void MainWindow::on_actionSample_Three_triggered()
-{
-    ConfParas *conf = ConfParas::getInstance();
-    ui->TabWidget->setCurrentWidget(conf);
-    conf->setSampleThreeDatas();
+void MainWindow::on_actionSample_Three_triggered() {
+  ConfParas *conf = ConfParas::getInstance();
+  ui->TabWidget->setCurrentWidget(conf);
+  conf->setSampleThreeDatas();
 }

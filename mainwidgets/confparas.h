@@ -6,7 +6,6 @@
 #include <QVector>
 #include <QWidget>
 
-
 namespace Ui {
 class ConfParas;
 }
@@ -31,6 +30,7 @@ public:
   void setSampleOneDatas();
   void setSampleTwoDatas();
   void setSampleThreeDatas();
+
 protected:
   void paintEvent(QPaintEvent *); // ready for style sheet setting
 private slots:
