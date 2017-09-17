@@ -206,16 +206,16 @@ void Draw1DScatterChart(const QVector<double>& vec,const QString& name
         double d_alpha=in_temp.input->da;
         double alpha=0.5*d_alpha; // alpha = (i_a + 0.5) * d_alpha
         double sin_alpha=sin(alpha);
-        double d_sr=4*PI*sin(0.5*d_alpha)*(in_temp.input->na);
+        const double pre_d_sr=4*PI*sin(0.5*d_alpha)*(in_temp.input->na);
+        double d_sr=pre_d_sr;
         double xvalue=0;
         for(const auto& item:vec){
-            d_sr*=sin_alpha;
-            series->append(xvalue+d_sr,item);
-            xvalue+=d_sr;
+            d_sr=pre_d_sr* sin_alpha;
+            series->append((xvalue+d_sr),item);
             alpha+=d_alpha;
             sin_alpha=sin(alpha);
         }
-        axisX->setRange(0,xvalue*1.1);
+        axisX->setRange(0,1.1*(xvalue+d_sr));
         break;
     }
     case Types::axis_z:{
@@ -286,13 +286,20 @@ void Draw1DSpLineChart(const QVector<double>& vec,const QString& name
        axisX->setTitleText("1/sr");
        axisX->setTitleFont(QFont("Consolas"));
        axisX->setGridLineVisible(true);
-       const double d_sr=1/(4*PI);
+       //const double d_sr=1/(4*PI);
+       double d_alpha=in_temp.input->da;
+       double alpha=0.5*d_alpha; // alpha = (i_a + 0.5) * d_alpha
+       double sin_alpha=sin(alpha);
+       const double pre_d_sr=4*PI*sin(0.5*d_alpha)*(in_temp.input->na);
+       double d_sr=pre_d_sr;
        double xvalue=0;
        for(const auto& item:vec){
-           series->append(xvalue,item);
-           xvalue+=d_sr;
+           d_sr=pre_d_sr* sin_alpha;
+           series->append((xvalue+d_sr),item);
+           alpha+=d_alpha;
+           sin_alpha=sin(alpha);
        }
-       axisX->setRange(0,xvalue*1.1);
+       axisX->setRange(0,1.1*(xvalue+d_sr));
        break;
    }
    case Types::axis_z:{

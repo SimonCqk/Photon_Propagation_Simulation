@@ -30,7 +30,7 @@ public:
   void doOneRun(InputClass &In_Ptr);
   void setSampleOneDatas();
   void setSampleTwoDatas();
-
+  void setSampleThreeDatas();
 protected:
   void paintEvent(QPaintEvent *); // ready for style sheet setting
 private slots:

@@ -23,6 +23,8 @@ private slots:
 
   void on_actionSample_Two_triggered();
 
+  void on_actionSample_Three_triggered();
+
 private:
   Ui::MainWindow *ui;
 };

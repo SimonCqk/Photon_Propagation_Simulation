@@ -118,3 +118,10 @@ void MainWindow::on_actionSample_Two_triggered() {
   ui->TabWidget->setCurrentWidget(conf);
   conf->setSampleTwoDatas();
 }
+
+void MainWindow::on_actionSample_Three_triggered()
+{
+    ConfParas *conf = ConfParas::getInstance();
+    ui->TabWidget->setCurrentWidget(conf);
+    conf->setSampleThreeDatas();
+}

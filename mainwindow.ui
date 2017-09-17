@@ -80,6 +80,7 @@ QTabWidget[showHeader='true'] QTabBar::tab:selected{background:#55B023;margin-to
     </property>
     <addaction name="actionSample_One"/>
     <addaction name="actionSample_Two"/>
+    <addaction name="actionSample_Three"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuTests"/>
@@ -111,6 +112,11 @@ QTabWidget[showHeader='true'] QTabBar::tab:selected{background:#55B023;margin-to
   <action name="actionSample_Two">
    <property name="text">
     <string>Sample Two</string>
+   </property>
+  </action>
+  <action name="actionSample_Three">
+   <property name="text">
+    <string>Sample Three</string>
    </property>
   </action>
  </widget>
