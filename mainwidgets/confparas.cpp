@@ -10,7 +10,6 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QVBoxLayout>
-#include<QTime>
 
 ConfParas *ConfParas::theConfParas = nullptr;
 
@@ -291,10 +290,9 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
 }
 
 void ConfParas::on_RunButton_clicked() {
-  InputClass in_parm;
-
   if (!judgeParamsNotEmpty())
     return;
+  InputClass in_parm;
   readDatas(in_parm);
   doOneRun(in_parm);
 }

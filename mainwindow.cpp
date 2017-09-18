@@ -7,7 +7,6 @@
 #include <QDebug>
 #include <QPainter>
 #include <QProxyStyle>
-#include<QTime>
 
 class CustomTabStyle : public QProxyStyle {
 public:

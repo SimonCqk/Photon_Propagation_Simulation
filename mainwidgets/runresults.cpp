@@ -19,12 +19,12 @@ enum class Types { angular, radial, axis_z, layer };
 
 QString LinkDataFromVector(const QVector<double> &vec) {
   QString str = "";
-  size_t size = vec.size();
-  for (size_t i = 0; i < size; ++i) {
-    if (!((i + 1) % 5)) // 5 number each line.
-      str += (QString::number(vec[i], 'f', 5) + "\n");
+  size_t index=0;
+  for (auto &num : vec){
+    if (!((++index) % 5)) // 5 number each line.
+      str += (QString::number(num, 'f', 5) + "\n");
     else
-      str += (QString::number(vec[i], 'f', 5) + ",");
+      str += (QString::number(num, 'f', 5) + ",");
   }
   return str + "\n";
 }
@@ -71,10 +71,10 @@ void RunResults::getOutputData() { this->out_param = out_temp; }
 void RunResults::showAllTheResults() { setRAT(); }
 
 void RunResults::setRAT() {
-  ui->SpecRefEdit->setText(Convert2String<double>(out_param.out->spec_reflect));
-  ui->DiffRefEdit->setText(Convert2String<double>(out_param.out->diff_reflect));
-  ui->AbsFracEdit->setText(Convert2String<double>(out_param.out->abs_prob));
-  ui->TransEdit->setText(Convert2String<double>(out_param.out->total_trans));
+  ui->SpecRefEdit->setText(QString::number(out_param.out->spec_reflect,'f'));
+  ui->DiffRefEdit->setText(QString::number(out_param.out->diff_reflect,'f'));
+  ui->AbsFracEdit->setText(QString::number(out_param.out->abs_prob,'f'));
+  ui->TransEdit->setText(QString::number(out_param.out->total_trans,'f'));
 }
 
 void RunResults::on_View_Abs_prob_layer_Button_clicked() {
