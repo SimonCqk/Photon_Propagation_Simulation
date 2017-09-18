@@ -15,7 +15,7 @@
 
 #### 1. Enter the main interface and specify the parameters for a model-running.
 
-  ![conf](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/ConfigureParas.jpg?raw=true)
+  ![conf](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/ConfigureParas.png?raw=true)
   
   + The parameters include:
   + Number of Photons
@@ -25,30 +25,30 @@
   + Refractive Index for medium Above/Below
   ##### after specified.
   
-  ![sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Sample.jpg?raw=true)
+  ![sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Sample.png?raw=true)
   
 #### 2. Click the `Run` button to start a run.
 #### 3. View the Run Results on `Run Results` page.
 
-  ![runresults](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results.jpg?raw=true)
+  ![runresults](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results.png?raw=true)
 
   ##### see more raw data by clicking `Data` button.
   
-  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_sample.jpg?raw=true)
+  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_sample.png?raw=true)
 
   ##### you may want to view visualized chart instead of raw data , so click `Scatter Chart` or `Spline chart` to lanuch chart viewer.
-  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_scatterchart.jpg?raw=true)
-  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_splinechart.jpg?raw=true)
+  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_scatterchart.png?raw=true)
+  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_splinechart.png?raw=true)
   
 #### 4. View Running History on `History` page.
-  ![history](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History.jpg?raw=true)
+  ![history](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History.png?raw=true)
   
   Input `Running Data` and `Number of Running`,and click `Query` button to ask for query...
   (the `Number of Running` is shown in the status bar when launched.)<br>
   `You have to add .dll file of SQLite to sqldrivers folder. `<br>
   As this sample:
   
-  ![query](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History_query.jpg?raw=true)
+  ![query](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History_query.png?raw=true)
 
 More Feature are being prepared...lol...
 
