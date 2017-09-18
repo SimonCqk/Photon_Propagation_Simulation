@@ -10,6 +10,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QVBoxLayout>
+#include<QTime>
 
 ConfParas *ConfParas::theConfParas = nullptr;
 

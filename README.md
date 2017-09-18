@@ -32,14 +32,18 @@
 
   ![runresults](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results.jpg?raw=true)
 
-  ##### see more results by clicking `view` button.
+  ##### see more raw data by clicking `Data` button.
   
   ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_sample.jpg?raw=true)
+
+  ##### you may want to view visualized chart instead of raw data , so click `Scatter Chart` or `Spline chart` to lanuch chart viewer.
+  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_scatterchart.jpg?raw=true)
+  ![runresults_sample](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/Results_splinechart.jpg?raw=true)
   
 #### 4. View Running History on `History` page.
   ![history](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History.jpg?raw=true)
   
-  Input `Running Data` and `Number of Running`,and click `Confrim` button to ask for query...
+  Input `Running Data` and `Number of Running`,and click `Query` button to ask for query...
   (the `Number of Running` is shown in the status bar when launched.)<br>
   `You have to add .dll file of SQLite to sqldrivers folder. `<br>
   As this sample:

@@ -238,6 +238,7 @@ OutputToString::OutputToString(const OutClass &output) {
   spec_reflect = QString::number(output.out->spec_reflect, 'f', 5);
   abs_prob = QString::number(output.out->abs_prob, 'f', 5);
   total_trans = QString::number(output.out->total_trans, 'f', 5);
+  diff_reflect=QString::number(output.out->diff_reflect,'f',5);
   diff_reflect_agl = LinkDataFromVector(output.out->diff_reflect_agl);
   diff_reflect_rdl = LinkDataFromVector(output.out->diff_reflect_rdl);
   abs_prob_z = LinkDataFromVector(output.out->abs_prob_z);
