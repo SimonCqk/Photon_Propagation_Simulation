@@ -43,6 +43,18 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <widget class="QPushButton" name="ClearCacheButton">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear Cache</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QDateEdit" name="dateEdit">
         <property name="font">
          <font>
@@ -152,6 +164,24 @@
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>320</y>
+     <width>401</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+    </font>
+   </property>
+   <property name="text">
+    <string>Click 'Clear Cache' button to clear all running history.</string>
+   </property>
   </widget>
  </widget>
  <resources/>

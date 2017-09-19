@@ -7,7 +7,6 @@
 #include <QDebug>
 #include <QPainter>
 #include <QProxyStyle>
-#include<QTime>
 
 class CustomTabStyle : public QProxyStyle {
 public:
@@ -100,6 +99,11 @@ MainWindow::MainWindow(QWidget *parent)
     int num = runhistory->getNumberOfRunTimes();
     InsertHistory(num);
     runhistory->addNumberOfRunTimes();
+  });
+  connect(runhistory,&History::clearCache,[this,runhistory]{
+      ui->statusBar->showMessage(
+          QString("Clear Cache successfully!     # Number of Running Now: %1")
+              .arg(QString::number(runhistory->getNumberOfRunTimes(), 10)));
   });
 }
 

@@ -74,12 +74,6 @@ private:
   void setRAT();
 };
 
-template <typename T> QString Convert2String(const T &t) {
-  std::stringstream temp;
-  temp << t;
-  return QString::fromStdString(temp.str());
-}
-
 QString LinkDataFromVector(const QVector<double> &vec);
 
 void SetDialog_1D(QDialog *dlg, const QVector<double> &vec,

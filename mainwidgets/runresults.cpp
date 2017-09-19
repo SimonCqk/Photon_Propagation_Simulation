@@ -19,12 +19,12 @@ enum class Types { angular, radial, axis_z, layer };
 
 QString LinkDataFromVector(const QVector<double> &vec) {
   QString str = "";
-  size_t size = vec.size();
-  for (size_t i = 0; i < size; ++i) {
-    if (!((i + 1) % 5)) // 5 number each line.
-      str += (QString::number(vec[i], 'f', 5) + "\n");
+  size_t index=0;
+  for (auto &num : vec){
+    if (!((++index) % 5)) // 5 number each line.
+      str += (QString::number(num, 'f', 5) + "\n");
     else
-      str += (QString::number(vec[i], 'f', 5) + ",");
+      str += (QString::number(num, 'f', 5) + ",");
   }
   return str + "\n";
 }
@@ -71,10 +71,10 @@ void RunResults::getOutputData() { this->out_param = out_temp; }
 void RunResults::showAllTheResults() { setRAT(); }
 
 void RunResults::setRAT() {
-  ui->SpecRefEdit->setText(Convert2String<double>(out_param.out->spec_reflect));
-  ui->DiffRefEdit->setText(Convert2String<double>(out_param.out->diff_reflect));
-  ui->AbsFracEdit->setText(Convert2String<double>(out_param.out->abs_prob));
-  ui->TransEdit->setText(Convert2String<double>(out_param.out->total_trans));
+  ui->SpecRefEdit->setText(QString::number(out_param.out->spec_reflect,'f'));
+  ui->DiffRefEdit->setText(QString::number(out_param.out->diff_reflect,'f'));
+  ui->AbsFracEdit->setText(QString::number(out_param.out->abs_prob,'f'));
+  ui->TransEdit->setText(QString::number(out_param.out->total_trans,'f'));
 }
 
 void RunResults::on_View_Abs_prob_layer_Button_clicked() {
@@ -129,33 +129,6 @@ void SetDialog_1D(QDialog *dlg, const QVector<double> &vec,
   view_data->setFont(QFont("Consolas"));
   view_data->setReadOnly(true);
   plain_text += LinkDataFromVector(vec);
-  view_data->setPlainText(plain_text);
-
-  QPushButton *Close = new QPushButton("Close");
-  Close->setFont(QFont("Consolas"));
-
-  QVBoxLayout *layout = new QVBoxLayout();
-  layout->addWidget(view_data);
-  layout->addWidget(Close);
-
-  dlg->setLayout(layout);
-  dlg->show();
-
-  QCoreApplication::connect(Close, &QPushButton::clicked, dlg, &QDialog::close);
-}
-
-void SetDialog_2D(QDialog *dlg, const QVector<QVector<double>> &vec,
-                  QString &plain_text) {
-  dlg->setFixedSize(QSize(350, 200));
-  dlg->setFont(QFont("Consolas"));
-  dlg->setWindowModality(Qt::WindowModal);
-  dlg->setWindowIcon(QIcon(":/image/logo"));
-  QPlainTextEdit *view_data = new QPlainTextEdit();
-  view_data->setFont(QFont("Consolas"));
-  view_data->setReadOnly(true);
-  for (const auto &item : vec) {
-    plain_text += LinkDataFromVector(item);
-  }
   view_data->setPlainText(plain_text);
 
   QPushButton *Close = new QPushButton("Close");
