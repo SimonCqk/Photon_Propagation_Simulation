@@ -30,6 +30,10 @@ public:
 protected:
   void paintEvent(QPaintEvent *);
 
+private slots:
+  void on_ClearCacheButton_clicked();
+signals:
+  void clearCache();
 private:
   Ui::History *ui;
   static History *theHistory;

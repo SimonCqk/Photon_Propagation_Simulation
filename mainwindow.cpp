@@ -100,6 +100,11 @@ MainWindow::MainWindow(QWidget *parent)
     InsertHistory(num);
     runhistory->addNumberOfRunTimes();
   });
+  connect(runhistory,&History::clearCache,[this,runhistory]{
+      ui->statusBar->showMessage(
+          QString("Clear Cache successfully!     # Number of Running Now: %1")
+              .arg(QString::number(runhistory->getNumberOfRunTimes(), 10)));
+  });
 }
 
 MainWindow::~MainWindow() { delete ui; }

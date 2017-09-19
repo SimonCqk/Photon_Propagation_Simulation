@@ -144,33 +144,6 @@ void SetDialog_1D(QDialog *dlg, const QVector<double> &vec,
   QCoreApplication::connect(Close, &QPushButton::clicked, dlg, &QDialog::close);
 }
 
-void SetDialog_2D(QDialog *dlg, const QVector<QVector<double>> &vec,
-                  QString &plain_text) {
-  dlg->setFixedSize(QSize(350, 200));
-  dlg->setFont(QFont("Consolas"));
-  dlg->setWindowModality(Qt::WindowModal);
-  dlg->setWindowIcon(QIcon(":/image/logo"));
-  QPlainTextEdit *view_data = new QPlainTextEdit();
-  view_data->setFont(QFont("Consolas"));
-  view_data->setReadOnly(true);
-  for (const auto &item : vec) {
-    plain_text += LinkDataFromVector(item);
-  }
-  view_data->setPlainText(plain_text);
-
-  QPushButton *Close = new QPushButton("Close");
-  Close->setFont(QFont("Consolas"));
-
-  QVBoxLayout *layout = new QVBoxLayout();
-  layout->addWidget(view_data);
-  layout->addWidget(Close);
-
-  dlg->setLayout(layout);
-  dlg->show();
-
-  QCoreApplication::connect(Close, &QPushButton::clicked, dlg, &QDialog::close);
-}
-
 void Draw1DScatterChart(const QVector<double> &vec, const QString &name,
                         const Types &type) {
   QChart *chart = new QChart();

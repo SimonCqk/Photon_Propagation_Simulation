@@ -53,9 +53,11 @@ void CreateRunTimes() {
       query.exec(QString("select count(*) from sqlite_master where "
                          "type='table' and name='RunTimes';"));
   if (!isTableExist) {
-    if (!query.exec(CreateRuntimesTable))
+    if (!query.exec(CreateRuntimesTable)){
       QMessageBox::critical(0, QObject::tr("Create RunTimes Table Error"),
                             query.lastError().text());
+      QCoreApplication::quit();
+    }
     query.exec("INSERT INTO RunTimes (num_run) VALUES (1); ");
     query.finish();
   }
@@ -69,9 +71,11 @@ void CreateHistory() {
       query.exec(QString("select count(*) from sqlite_master where "
                          "type='table' and name='History';"));
   if (!isTableExist) {
-    if (!query.exec(CreateHistoryTable))
+    if (!query.exec(CreateHistoryTable)){
       QMessageBox::critical(0, QObject::tr("Create History Table Error"),
                             query.lastError().text());
+      QCoreApplication::quit();
+    }
     query.finish();
   }
 }
@@ -93,6 +97,7 @@ int QueryRunTimes() {
     }
     QMessageBox::critical(0, QObject::tr("Query RunTimes Error"),
                           QString("Invalid Query Results"));
+    QCoreApplication::quit();
   } else {
     QMessageBox::critical(0, QObject::tr("Query RunTimes Error"),
                           query.lastError().text());
@@ -106,9 +111,11 @@ void UpdateRunTimes(const int &num) {
     db.open();
   query.prepare(Update_RunTimes);
   query.bindValue(":num", num);
-  if (num <= 0 || !query.exec())
+  if (num <= 0 || !query.exec()){
     QMessageBox::critical(0, QObject::tr("Update RunTimes Error"),
                           query.lastError().text());
+    QCoreApplication::quit();
+  }
   query.finish();
 }
 
@@ -123,9 +130,11 @@ void InsertHistory(const int &num) {
   query.bindValue(":hist_code", histcode);
   query.bindValue(":input_data", input2str.getAll());
   query.bindValue(":output_data", output2str.getAll());
-  if (!query.exec())
+  if (!query.exec()){
     QMessageBox::critical(0, QObject::tr("Insert History Error"),
                           query.lastError().text());
+    QCoreApplication::quit();
+  }
   // db.commit();
   query.finish();
 }
@@ -153,7 +162,8 @@ bool QueryHistory(QPlainTextEdit *left_in, QPlainTextEdit *right_out,
   } else {
     QMessageBox::critical(0, QObject::tr("Query History Error"),
                           query.lastError().text());
-    return false;
+    QCoreApplication::quit();
+    return false; // need???
   }
 }
 
@@ -296,4 +306,23 @@ void InputToString::setUpAll() {
         "refractive index/absorption coefficient/scattering "
         "coefficient/anisotropy of each layer:\n" +
         layerspecs;
+}
+
+void History::on_ClearCacheButton_clicked()
+{
+    if(!db.isOpen())
+        db.open();
+    if (!query.exec("DELETE FROM History")){
+      QMessageBox::critical(0, QObject::tr("Delete Cache Error"),
+                            query.lastError().text());
+      QCoreApplication::quit();
+    }
+    if (!query.exec("UPDATE RunTimes SET num_run = 1")){
+      QMessageBox::critical(0, QObject::tr("Reset Run number Error"),
+                            query.lastError().text());
+      QCoreApplication::quit();
+    }
+    num_RunTimes = 1;
+    emit clearCache();
+    query.finish();
 }
