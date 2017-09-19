@@ -273,7 +273,7 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   InitOutputData(In_Ptr, out_parm);
   PhotonClass photon;
   out_parm.out->spec_reflect = Rspecular(In_Ptr.input->layerspecs);
-  for (register int i = 0; i < photons; ++i) { // register for speed.
+  for (int i = 0; i < photons; ++i) { // register for speed.
     photon.launch(out_parm.out->spec_reflect, In_Ptr.input->layerspecs);
     do {
       photon.hopDropSpin(In_Ptr, out_parm);

@@ -11,16 +11,16 @@ double RandomNum() {
 }
 
 /*
-* Compute the specular reflection.
-*
-* If the first layer is a turbid medium, use the Fresnel reflection from the
-* boundary of the first layer as the
-* specular reflectance.
-*
-* If the first layer is glass, multiple reflections in the first layer is
-* considered to get the specular reflectance.
-*
-* The subroutine assumes the Layerspecs array is correctly initialized.
+  Compute the specular reflection.
+
+  If the first layer is a turbid medium, use the Fresnel reflection from the
+  boundary of the first layer as the
+  specular reflectance.
+
+  If the first layer is glass, multiple reflections in the first layer is
+  considered to get the specular reflectance.
+
+  The subroutine assumes the Layerspecs array is correctly initialized.
 */
 double Rspecular(const QVector<LayerClass> &LayerVec) {
   /* direct reflections from the 1st and 2nd layers. */
@@ -39,13 +39,12 @@ double Rspecular(const QVector<LayerClass> &LayerVec) {
 }
 
 /*
-* Choose (sample) a new theta angle for photon propagation according to the
-* anisotropy.
-*
-* If anisotropy is 0, then cos(theta) = 2*rand-1.
-* otherwise,sample according to the Henyey-Greenstein function.
-*
-* Returns the cosine of the polar deflection angle theta.
+  Choose (sample) a new theta angle for photon propagation according to the anisotropy.
+
+  If anisotropy is 0, then cos(theta) = 2*rand-1.
+  otherwise,sample according to the Henyey-Greenstein function.
+
+  Returns the cosine of the polar deflection angle theta.
 */
 double SpinTheta(const double &g) {
   double cost;
@@ -63,14 +62,14 @@ double SpinTheta(const double &g) {
 }
 
 /*
-* Compute the Fresnel reflectance.
-*
-* Make sure that the cosine of the incident angle a1 is positive, and the case
-* when the angle is greater
-* than the critical angle is ruled out.
-*
-* Avoid trigonometric function operations as much as possible, because they are
-* computation-intensive.
+  Compute the Fresnel reflectance.
+
+  Make sure that the cosine of the incident angle a1 is positive, and the case
+  when the angle is greater
+  than the critical angle is ruled out.
+
+  Avoid trigonometric function operations as much as possible, because they are
+  computation-intensive.
 */
 double RFresnel(
     const double &n1,  /* incident refractive index.*/

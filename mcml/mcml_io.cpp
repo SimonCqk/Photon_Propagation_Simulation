@@ -79,10 +79,10 @@ void Sum2D_DiffReflect(const InputClass &In, OutClass &Out) {
 }
 
 /*
- * Return the index to the layer according to the index
- * to the grid line system in z direction (Iz).
- * Use the center of box.
- */
+  Return the index to the layer according to the index
+  to the grid line system in z direction (Iz).
+  Use the center of box.
+*/
 size_t IndexToLayer(const size_t &Index, const InputClass &In_Parm) {
   size_t i = 1; /* index to layer. */
   size_t num_layers = In_Parm.input->num_layers;
@@ -96,8 +96,8 @@ size_t IndexToLayer(const size_t &Index, const InputClass &In_Parm) {
 }
 
 /*
- * Get 1D array elements by summing the 2D array elements.
- */
+  Get 1D array elements by summing the 2D array elements.
+*/
 void Sum2D_AbsProb(const InputClass &In_Parm, OutClass &Out_Ptr) {
   size_t nz = In_Parm.input->nz;
   size_t nr = In_Parm.input->nr;
@@ -121,8 +121,8 @@ void Sum2D_AbsProb(const InputClass &In_Parm, OutClass &Out_Ptr) {
 }
 
 /*
- * Get 1D array elements by summing the 2D array elements.
- */
+  Get 1D array elements by summing the 2D array elements.
+*/
 void Sum2D_TotalTrans(const InputClass &In_Parm, OutClass &Out_Ptr) {
   size_t nr = In_Parm.input->nr;
   size_t na = In_Parm.input->na;
@@ -148,18 +148,18 @@ void Sum2D_TotalTrans(const InputClass &In_Parm, OutClass &Out_Ptr) {
   Out_Ptr.out->total_trans = sum;
 }
 /*
- * Scale diff_reflect and total_trans properly. "a" stands for angle alpha.
- *
- * Scale diff_reflect(r,a) and total_trans(r,a) by (area perpendicular to photon
- * direction)
- * x(solid angle)x(No. of photons). or [2*PI*r*dr*cos(a)]x[2*PI*sin(a)*da]x[No.
- * of photons]
- * or [2*PI*PI*dr*da*r*sin(2a)]x[No. of photons]
- *
- * Scale diff_reflect(r) and total_trans(r) by (area on the surface)x(No. of
- * photons).
- * Scale diff_reflect(a) and total_trans(a) by (solid angle)x(No. of photons).
- */
+  Scale diff_reflect and total_trans properly. "a" stands for angle alpha.
+
+  Scale diff_reflect(r,a) and total_trans(r,a) by (area perpendicular to photon
+  direction)
+  x(solid angle)x(No. of photons). or [2*PI*r*dr*cos(a)]x[2*PI*sin(a)*da]x[No.
+  of photons]
+  or [2*PI*PI*dr*da*r*sin(2a)]x[No. of photons]
+
+  Scale diff_reflect(r) and total_trans(r) by (area on the surface)x(No. of
+  photons).
+  Scale diff_reflect(a) and total_trans(a) by (solid angle)x(No. of photons).
+*/
 void Scale_DiffReflect_TotalTrans(const InputClass &In_Parm,
                                   OutClass &Out_Ptr) {
   size_t nr = In_Parm.input->nr;
@@ -199,8 +199,8 @@ void Scale_DiffReflect_TotalTrans(const InputClass &In_Parm,
   Out_Ptr.out->total_trans *= scale2;
 }
 /*
- * Scale absorption arrays properly.
- */
+  Scale absorption arrays properly.
+*/
 void Scale_AbsProb(const InputClass &In_Parm, OutClass &Out_Ptr) {
   size_t nz = In_Parm.input->nz;
   size_t nr = In_Parm.input->nr;
