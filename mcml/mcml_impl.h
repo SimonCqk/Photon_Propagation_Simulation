@@ -17,17 +17,15 @@ struct PhotonStruct {
   double step_left; /* step size left. dimensionless [-]. */
 };
 
-/****
-* Structure used to describe the geometry and optical [???¦É??] properties of a
-*layer.
-* z0 and z1 are the z coordinates for the upper boundary  and lower boundary
-*respectively.
-* cos_crit0 and cos_crit1 are the cosines of the critical angle of total
-*internal reflection for the
-* upper boundary and lower boundary respectively.
-* They are set to zero if no total internal reflection exists.
-* They are used for computation speed.
-****/
+/*
+  Structure used to describe the geometry and optical [???¦É??] properties of a layer.
+  z0 and z1 are the z coordinates for the upper boundary  and lower boundary respectively.
+  cos_crit0 and cos_crit1 are the cosines of the critical angle of total
+  internal reflection for the
+  upper boundary and lower boundary respectively.
+  They are set to zero if no total internal reflection exists.
+  They are used for computation speed.
+*/
 
 struct LayerStruct {
   double z0, z1;        /* z coordinates of a layer. [cm]  */
@@ -39,22 +37,22 @@ struct LayerStruct {
   double cos_crit_down; /*  */
 };
 
-/****
-* Input parameters for each independent run.
-*
-* z and r are for the cylindrical coordinate system. [cm]
-* a is for the angle alpha between the photon exiting direction and the surface
-* normal. [radian]
-*
-* The grid line separations in z, r, and alpha directions are dz, dr, and da
-* respectively. The numbers
-* of grid lines in z, r, and alpha directions are nz, nr, and na respectively.
-*
-* The member layerspecs will point to an array of structures which store
-* parameters of each layer.
-* This array has (number_layers + 2) elements. One element is for a layer.
-* The layers 0 and (num_layers + 1) are for top ambient medium and the bottom
-* ambient medium respectively.
+/*
+  Input parameters for each independent run.
+
+  z and r are for the cylindrical coordinate system. [cm]
+  a is for the angle alpha between the photon exiting direction and the surface
+  normal. [radian]
+
+  The grid line separations in z, r, and alpha directions are dz, dr, and da
+  respectively. The numbers
+  of grid lines in z, r, and alpha directions are nz, nr, and na respectively.
+
+  The member layerspecs will point to an array of structures which store
+  parameters of each layer.
+  This array has (number_layers + 2) elements. One element is for a layer.
+  The layers 0 and (num_layers + 1) are for top ambient medium and the bottom
+  ambient medium respectively.
 */
 
 struct InputStruct {
@@ -75,13 +73,12 @@ struct InputStruct {
 };
 
 /*
-* Classes for scoring physical quantities.
-* z and r represent z and r coordinates of the  cylindrical coordinate system.
-* [cm]
-* a is the angle alpha between the photon exiting direction and the normal to
-* the surfaces. [radian]
-* See comments of the InputStruct.
-* See manual for the physcial quantities.
+  Classes for scoring physical quantities.
+  z and r represent z and r coordinates of the  cylindrical coordinate system. [cm]
+  a is the angle alpha between the photon exiting direction and the normal to
+  the surfaces. [radian]
+  See comments of the InputStruct.
+  See manual for the physcial quantities.
 */
 
 struct OutStruct {
