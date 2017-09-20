@@ -264,14 +264,15 @@ void ConfParas::readDatas(InputClass &In_Ptr) {
 }
 
 void ThrowUselessData(QVector<double>& vec){
-    int max_valid_index;
-    int size=vec.size();
-    for(int i = 0 ; i < size ; ++i){
+    size_t max_valid_index{0};
+    size_t size=vec.size();
+    for(size_t i = 0 ; i < size ; ++i){
         if(vec[i] > 0.0001){
-            max_valid_index=i;
+            max_valid_index = i;
         }
     }
-    vec.resize(max_valid_index + 2);
+    if(max_valid_index < (size - 3))
+        vec.resize(max_valid_index + 3);
 }
 
 void ApplyThrowUselessData(OutClass& out){

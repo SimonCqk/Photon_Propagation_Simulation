@@ -73,10 +73,10 @@ void PhotonClass::spin(const double &g) {
   Move the photon s away in the current layer of medium.
 */
 void PhotonClass::hop() {
-  double s = photon->cur_step;
-  photon->x += s * photon->dcos_x;
-  photon->y += s * photon->dcos_y;
-  photon->z += s * photon->dcos_z;
+  double step = photon->cur_step;
+  photon->x += step * photon->dcos_x;
+  photon->y += step * photon->dcos_y;
+  photon->z += step * photon->dcos_z;
 }
 
 /*
@@ -327,15 +327,15 @@ void PhotonClass::crossUpOrNot(const InputClass &In, OutClass &Out) {
 void PhotonClass::crossDownOrNot(const InputClass &In, OutClass &Out) {
   double dcos_z = photon->dcos_z; /* z directional cosine. */
   double tcos_a;                  /* cosines of transmission alpha. */
-  double r = 0.0;                 /* reflectance */
+  double reflect = 0.0;                 /* reflectance */
   size_t layer = photon->layer;
   double ni = In.input->layerspecs[layer].layer->rfct_index;
   double nt = In.input->layerspecs[layer + 1].layer->rfct_index;
   /* Get r. */
   if (dcos_z <= In.input->layerspecs[layer].layer->cos_crit_down)
-    r = 1.0; /* total internal reflection. */
+    reflect = 1.0; /* total internal reflection. */
   else
-    r = RFresnel(ni, nt, dcos_z, tcos_a);
+    reflect = RFresnel(ni, nt, dcos_z, tcos_a);
 
 #if PARTIALREFLECTION
   if (layer == In.input->num_layers && r < 1.0) {
@@ -352,7 +352,7 @@ void PhotonClass::crossDownOrNot(const InputClass &In, OutClass &Out) {
   } else /* reflected. */
     photon->dcos_z = -uz;
 #else
-  if (RandomNum() > r) { /* transmitted to layer+1. */
+  if (RandomNum() > reflect) { /* transmitted to layer+1. */
     if (layer == In.input->num_layers) {
       photon->dcos_z = tcos_a;
       recordWeightLastLayer(0.0, In, Out);
