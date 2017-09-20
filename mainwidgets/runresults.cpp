@@ -144,7 +144,7 @@ void SetDialog_1D(QDialog *dlg, const QVector<double> &vec,
   QCoreApplication::connect(Close, &QPushButton::clicked, dlg, &QDialog::close);
 }
 
-void Draw1DScatterChart(const QVector<double> &vec, const QString &name,
+void Draw1DScatterChart(QVector<double> &vec, const QString &name,
                         const Types &type) {
   QChart *chart = new QChart();
   chart->setTitle(name);
@@ -229,7 +229,7 @@ void Draw1DScatterChart(const QVector<double> &vec, const QString &name,
   chartView->show();
 }
 
-void Draw1DSpLineChart(const QVector<double> &vec, const QString &name,
+void Draw1DSpLineChart(QVector<double> &vec, const QString &name,
                        const Types &type) {
   QChart *chart = new QChart();
   chart->setTitle(name);

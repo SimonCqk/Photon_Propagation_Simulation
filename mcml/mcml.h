@@ -124,9 +124,9 @@ class InputClass {
   friend void SumScaleResult(const InputClass &In_Parm, OutClass &Out_Ptr);
   // friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
   friend void InitOutputData(const InputClass &In_Parm, OutClass &Out_Ptr);
-  friend void Draw1DScatterChart(const QVector<double> &vec,
+  friend void Draw1DScatterChart(QVector<double> &vec,
                                  const QString &name, const Types &type);
-  friend void Draw1DSpLineChart(const QVector<double> &vec, const QString &name,
+  friend void Draw1DSpLineChart(QVector<double> &vec, const QString &name,
                                 const Types &type);
   friend class ConfParas;
 
@@ -155,7 +155,7 @@ class OutClass {
   friend void SumScaleResult(const InputClass &In_Parm, OutClass &Out_Ptr);
   // friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
   friend void InitOutputData(const InputClass &In_Parm, OutClass &Out_Ptr);
-
+  friend void ApplyThrowUselessData(OutClass& out);
 public:
   OutClass() : out(new OutStruct) {}
   explicit OutClass(const OutStruct &item)

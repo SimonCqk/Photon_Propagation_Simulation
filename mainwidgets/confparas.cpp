@@ -224,8 +224,8 @@ bool ConfParas::judgeParamsNotEmpty() {
 }
 
 /*
- * read data from Configure page to Input Class for running
- */
+  read data from Configure page to Input Class for running
+*/
 void ConfParas::readDatas(InputClass &In_Ptr) {
   In_Ptr.input->Wth = WEIGHT;
 
@@ -263,9 +263,28 @@ void ConfParas::readDatas(InputClass &In_Ptr) {
   CriticalAngle(In_Ptr.input->num_layers, In_Ptr.input->layerspecs);
 }
 
+void ThrowUselessData(QVector<double>& vec){
+    int max_valid_index;
+    int size=vec.size();
+    for(int i = 0 ; i < size ; ++i){
+        if(vec[i] > 0.0001){
+            max_valid_index=i;
+        }
+    }
+    vec.resize(max_valid_index + 2);
+}
+
+void ApplyThrowUselessData(OutClass& out){
+    ThrowUselessData(out.out->abs_prob_z);
+    ThrowUselessData(out.out->diff_reflect_agl);
+    ThrowUselessData(out.out->diff_reflect_rdl);
+    ThrowUselessData(out.out->total_trans_agl);
+    ThrowUselessData(out.out->total_trans_rdl);
+}
+
 /*
- * main running-control function
- */
+  main running-control function
+*/
 void ConfParas::doOneRun(InputClass &In_Ptr) {
   OutClass out_parm;
   // total photon packet number.
@@ -284,6 +303,7 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   }
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
+  ApplyThrowUselessData(out_temp);
   in_temp = In_Ptr;
   ui->progressBar->setValue(photons);
   emit isDone(); // send signal to triggle to open run-results page.
