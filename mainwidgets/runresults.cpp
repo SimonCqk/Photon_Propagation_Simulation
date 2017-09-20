@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QDialog>
 #include <QPlainTextEdit>
-#include <QVBoxLayout>>
+#include <QVBoxLayout>
 #include <QtCharts>
 #include <algorithm>
 
