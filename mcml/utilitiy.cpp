@@ -22,7 +22,7 @@ double RandomNum() {
 
   The subroutine assumes the Layerspecs array is correctly initialized.
 */
-double Rspecular(const QVector<LayerClass> &LayerVec) {
+double GetSpecularReflection(const QVector<LayerClass> &LayerVec) {
   /* direct reflections from the 1st and 2nd layers. */
   double temp =
       (LayerVec[0].layer->rfct_index - LayerVec[1].layer->rfct_index) /
@@ -71,7 +71,7 @@ double SpinTheta(const double &g) {
   Avoid trigonometric function operations as much as possible, because they are
   computation-intensive.
 */
-double RFresnel(
+double GetFresnelReflection(
     const double &n1,  /* incident refractive index.*/
     const double &n2,  /* transmit refractive index.*/
     const double &ca1, /* cosine of the incident angle. 0<a1<90 degrees. */

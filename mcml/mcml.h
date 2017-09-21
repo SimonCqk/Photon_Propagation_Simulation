@@ -46,7 +46,7 @@ public:
   ~PhotonClass() = default;
 
   void
-  launch(const double &Rspecular,
+  launch(const double &GetSpecularReflection,
          const QVector<LayerClass> &LayerVec); // Initialize a photon packet.
   void spin(const double &g); // Choose a new direction for photon propagation
   void hop(); // Move the photon s away in the current layer of medium.
@@ -92,7 +92,7 @@ private:
 void CriticalAngle(const size_t &Layer_num, QVector<LayerClass> &layerspecs);
 
 class LayerClass {
-  friend double Rspecular(const QVector<LayerClass> &LayerVec);
+  friend double GetSpecularReflection(const QVector<LayerClass> &LayerVec);
   friend void CriticalAngle(const size_t &Layer_num,
                             QVector<LayerClass> &layerspecs);
   friend size_t IndexToLayer(const size_t &Iz, const InputClass &In_Parm);
@@ -155,7 +155,7 @@ class OutClass {
   friend void SumScaleResult(const InputClass &In_Parm, OutClass &Out_Ptr);
   // friend void DoOneRun(InputClass* In_Ptr,OutClass& out_parm);
   friend void InitOutputData(const InputClass &In_Parm, OutClass &Out_Ptr);
-
+  friend void ApplyThrowUselessData(OutClass& out);
 public:
   OutClass() : out(new OutStruct) {}
   explicit OutClass(const OutStruct &item)

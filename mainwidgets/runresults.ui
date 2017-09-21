@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>90</y>
-     <width>586</width>
+     <width>571</width>
      <height>241</height>
     </rect>
    </property>
@@ -267,7 +267,7 @@
            </font>
           </property>
           <property name="text">
-           <string>1D Probability Density Over z:</string>
+           <string>Absorption Probability Density Over z:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
