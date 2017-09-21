@@ -280,7 +280,7 @@ void PhotonClass::crossUpOrNot(const InputClass &In, OutClass &Out) {
   if (-dcos_z <= In.input->layerspecs[layer].layer->cos_crit_up)
     r = 1.0; /* total internal reflection. */
   else
-    r = RFresnel(ni, nt, -dcos_z, tcos_a);
+    r = GetFresnelReflection(ni, nt, -dcos_z, tcos_a);
 
 #if PARTIALREFLECTION
   if (layer == 1 && r < 1.0) { /* partially transmitted. */
@@ -335,7 +335,7 @@ void PhotonClass::crossDownOrNot(const InputClass &In, OutClass &Out) {
   if (dcos_z <= In.input->layerspecs[layer].layer->cos_crit_down)
     reflect = 1.0; /* total internal reflection. */
   else
-    reflect = RFresnel(ni, nt, dcos_z, tcos_a);
+    reflect = GetFresnelReflection(ni, nt, dcos_z, tcos_a);
 
 #if PARTIALREFLECTION
   if (layer == In.input->num_layers && r < 1.0) {
