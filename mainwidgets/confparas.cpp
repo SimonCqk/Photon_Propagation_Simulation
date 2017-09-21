@@ -10,6 +10,9 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QVBoxLayout>
+#include<thread>
+#include<vector>
+#include<atomic>
 
 ConfParas *ConfParas::theConfParas = nullptr;
 
@@ -289,24 +292,37 @@ void ApplyThrowUselessData(OutClass& out){
 void ConfParas::doOneRun(InputClass &In_Ptr) {
   OutClass out_parm;
   // total photon packet number.
-  long int photons = In_Ptr.input->num_photons;
+  const long int photon_num = In_Ptr.input->num_photons;
   InitOutputData(In_Ptr, out_parm);
-  PhotonClass photon;
   out_parm.out->spec_reflect = GetSpecularReflection(In_Ptr.input->layerspecs);
-  for (int i = 0; i < photons; ++i) { // register for speed.
-    photon.launch(out_parm.out->spec_reflect, In_Ptr.input->layerspecs);
-    do {
-      photon.hopDropSpin(In_Ptr, out_parm);
-    } while (!photon.photon->dead);
-
-    ui->progressBar->setValue(i);
-    QCoreApplication::processEvents();
+  const size_t thread_count=std::thread::hardware_concurrency()-2;
+  std::vector<std::thread> threads;
+  std::atomic<int> flag{0};
+  auto sub_running=[&](const int& from,const int& to){
+      PhotonClass photon;
+      for(int i=from;i<=to;++i){
+          photon.launch(out_parm.out->spec_reflect, In_Ptr.input->layerspecs);
+          do {
+            photon.hopDropSpin(In_Ptr, out_parm);
+          } while (!photon.photon->dead);
+          QCoreApplication::processEvents();
+          ui->progressBar->setValue(flag++);
+      }
+  };
+  int from=0;
+  int each_to=photon_num/thread_count;
+  for(size_t i=0;i<thread_count;++i){
+      threads.emplace_back(sub_running,from,(from+each_to));
+      from+=each_to;
+  }
+  for(auto& cur:threads){
+      cur.join();
   }
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
   ApplyThrowUselessData(out_temp);
   in_temp = In_Ptr;
-  ui->progressBar->setValue(photons);
+  ui->progressBar->setValue(photon_num);
   emit isDone(); // send signal to triggle to open run-results page.
 }
 
