@@ -13,13 +13,14 @@
 #include<thread>
 #include<vector>
 #include<atomic>
+#include<functional>
 
 ConfParas *ConfParas::theConfParas = nullptr;
 
 ConfParas::ConfParas(QWidget *parent) : QWidget(parent), ui(new Ui::ConfParas) {
   ui->setupUi(this);
-  ui->PhoNumSpinBox->setMaximum(999999);
-  ui->PhoNumSlider->setMaximum(999999);
+  ui->PhoNumSpinBox->setMaximum(9999999);
+  ui->PhoNumSlider->setMaximum(9999999);
   ui->PhoNumSlider->setStyleSheet("QSlider::groove:horizontal {  \
                                     border: 1px solid #bbb;  \
                                     background: white;  \
@@ -295,25 +296,27 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   const long int photon_num = In_Ptr.input->num_photons;
   InitOutputData(In_Ptr, out_parm);
   out_parm.out->spec_reflect = GetSpecularReflection(In_Ptr.input->layerspecs);
-  const size_t thread_count=std::thread::hardware_concurrency()-2;
+  const size_t thread_count=std::thread::hardware_concurrency()-1;
   std::vector<std::thread> threads;
   std::atomic<int> flag{0};
-  auto sub_running=[&](const int& from,const int& to){
+  auto sub_running=[&out_parm,&In_Ptr](const int& len,std::atomic<int>& flag){
       PhotonClass photon;
-      for(int i=from;i<=to;++i){
+      for(int i=0;i<len;++i){
           photon.launch(out_parm.out->spec_reflect, In_Ptr.input->layerspecs);
           do {
             photon.hopDropSpin(In_Ptr, out_parm);
           } while (!photon.photon->dead);
           QCoreApplication::processEvents();
-          ui->progressBar->setValue(flag++);
+          ++flag;
       }
   };
-  int from=0;
-  int each_to=photon_num/thread_count;
+  int each_len=photon_num/thread_count;
   for(size_t i=0;i<thread_count;++i){
-      threads.emplace_back(sub_running,from,(from+each_to));
-      from+=each_to;
+      if(i==(thread_count-1)){
+          threads.emplace_back(sub_running,(photon_num-each_len*i),std::ref(flag));
+      }
+      else
+          threads.emplace_back(sub_running,each_len,std::ref(flag));
   }
   for(auto& cur:threads){
       cur.join();

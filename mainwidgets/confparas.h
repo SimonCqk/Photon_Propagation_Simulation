@@ -42,7 +42,6 @@ private slots:
 
 signals:
   void isDone(); // signal for Running-is-done.
-
 private:
   Ui::ConfParas *ui;
   QStringList *LayerDatas = new QStringList();
