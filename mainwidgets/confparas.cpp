@@ -292,6 +292,7 @@ void ApplyThrowUselessData(OutClass& out){
 */
 void ConfParas::doOneRun(InputClass &In_Ptr) {
   OutClass out_parm;
+  Emiter emiter;
   // total photon packet number.
   const long int photon_num = In_Ptr.input->num_photons;
   InitOutputData(In_Ptr, out_parm);
@@ -299,7 +300,7 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   const size_t thread_count=std::thread::hardware_concurrency()-1;
   std::vector<std::thread> threads;
   std::atomic<int> flag{0};
-  auto sub_running=[&out_parm,&In_Ptr](const int& len,std::atomic<int>& flag){
+  auto sub_running=[&out_parm,&In_Ptr,&emiter](const int& len,std::atomic<int>& flag){
       PhotonClass photon;
       for(int i=0;i<len;++i){
           photon.launch(out_parm.out->spec_reflect, In_Ptr.input->layerspecs);
@@ -308,6 +309,7 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
           } while (!photon.photon->dead);
           QCoreApplication::processEvents();
           ++flag;
+          emit emiter.flagChanged();
       }
   };
   int each_len=photon_num/thread_count;
@@ -321,6 +323,9 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   for(auto& cur:threads){
       cur.join();
   }
+  connect(&emiter,&Emiter::flagChanged,[this,&flag]{
+      ui->progressBar->setValue(flag);
+  });
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
   ApplyThrowUselessData(out_temp);

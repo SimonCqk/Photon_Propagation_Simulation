@@ -10,6 +10,12 @@ namespace Ui {
 class ConfParas;
 }
 
+class Emiter : public QObject {
+    Q_OBJECT
+signals:
+    void flagChanged();
+};
+
 class ConfParas : public QWidget {
   Q_OBJECT
 
