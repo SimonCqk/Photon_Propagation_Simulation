@@ -10,7 +10,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QVBoxLayout>
-#include<vector>
+#include <vector>
 //#include<thread>
 //#include<functional>
 
@@ -266,24 +266,24 @@ void ConfParas::readDatas(InputClass &In_Ptr) {
   CriticalAngle(In_Ptr.input->num_layers, In_Ptr.input->layerspecs);
 }
 
-void ThrowUselessData(QVector<double>& vec){
-    size_t max_valid_index{0};
-    size_t size=vec.size();
-    for(size_t i = 0 ; i < size ; ++i){
-        if(vec[i] > 0.0001){
-            max_valid_index = i;
-        }
+void ThrowUselessData(QVector<double> &vec) {
+  size_t max_valid_index{0};
+  size_t size = vec.size();
+  for (size_t i = 0; i < size; ++i) {
+    if (vec[i] > 0.0001) {
+      max_valid_index = i;
     }
-    if(max_valid_index < (size - 3))
-        vec.resize(max_valid_index + 3);
+  }
+  if (max_valid_index < (size - 3))
+    vec.resize(max_valid_index + 3);
 }
 
-void ApplyThrowUselessData(OutClass& out){
-    ThrowUselessData(out.out->abs_prob_z);
-    ThrowUselessData(out.out->diff_reflect_agl);
-    ThrowUselessData(out.out->diff_reflect_rdl);
-    ThrowUselessData(out.out->total_trans_agl);
-    ThrowUselessData(out.out->total_trans_rdl);
+void ApplyThrowUselessData(OutClass &out) {
+  ThrowUselessData(out.out->abs_prob_z);
+  ThrowUselessData(out.out->diff_reflect_agl);
+  ThrowUselessData(out.out->diff_reflect_rdl);
+  ThrowUselessData(out.out->total_trans_agl);
+  ThrowUselessData(out.out->total_trans_rdl);
 }
 
 /*
@@ -295,10 +295,11 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   const long int photon_num = In_Ptr.input->num_photons;
   InitOutputData(In_Ptr, out_parm);
   out_parm.out->spec_reflect = GetSpecularReflection(In_Ptr.input->layerspecs);
-  //const size_t thread_count=std::thread::hardware_concurrency()-1;
-  const size_t thread_count=QThread::idealThreadCount(); // return the ideal number of sub-threads.
+  // const size_t thread_count=std::thread::hardware_concurrency()-1;
+  const size_t thread_count =
+      QThread::idealThreadCount(); // return the ideal number of sub-threads.
   std::atomic<int> flag{0};
-  std::vector<Workers*> threads;
+  std::vector<Workers *> threads;
   /*
   auto sub_running=[&out_parm,&In_Ptr](const int& len,std::atomic<int>& flag){
       PhotonClass photon;
@@ -313,26 +314,30 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
       }
   };
   */
-  size_t each_len=photon_num/thread_count;
+  size_t each_len = photon_num / thread_count;
 
-  for(size_t i=0;i<thread_count;++i){
-      if(i==(thread_count-1)){
-          Workers* one_photon_run=new Workers(out_parm,In_Ptr,flag,(thread_count-i*each_len));
-          connect(one_photon_run,&Workers::flagChanged,this,&ConfParas::setProgressValue);
-          connect(one_photon_run,&Workers::finished,one_photon_run,&Workers::deleteLater);
-          one_photon_run->start();
-          threads.push_back(one_photon_run);
-      }
-      else{
-          Workers* one_photon_run=new Workers(out_parm,In_Ptr,flag,each_len);
-          connect(one_photon_run,&Workers::flagChanged,this,&ConfParas::setProgressValue);
-          connect(one_photon_run,&Workers::finished,one_photon_run,&Workers::deleteLater);
-          one_photon_run->start();
-          threads.push_back(one_photon_run);
-      }
+  for (size_t i = 0; i < thread_count; ++i) {
+    if (i == (thread_count - 1)) {
+      Workers *one_photon_run =
+          new Workers(out_parm, In_Ptr, flag, (thread_count - i * each_len));
+      connect(one_photon_run, &Workers::flagChanged, this,
+              &ConfParas::setProgressValue);
+      connect(one_photon_run, &Workers::finished, one_photon_run,
+              &Workers::deleteLater);
+      one_photon_run->start();
+      threads.push_back(one_photon_run);
+    } else {
+      Workers *one_photon_run = new Workers(out_parm, In_Ptr, flag, each_len);
+      connect(one_photon_run, &Workers::flagChanged, this,
+              &ConfParas::setProgressValue);
+      connect(one_photon_run, &Workers::finished, one_photon_run,
+              &Workers::deleteLater);
+      one_photon_run->start();
+      threads.push_back(one_photon_run);
+    }
   }
-  for(auto thread:threads){
-      thread->wait();  // same as std::thread::join()
+  for (auto thread : threads) {
+    thread->wait(); // same as std::thread::join()
   }
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
@@ -350,9 +355,8 @@ void ConfParas::on_RunButton_clicked() {
   doOneRun(in_parm);
 }
 
-void ConfParas::setProgressValue(const int& flag)
-{
-    ui->progressBar->setValue(flag);
+void ConfParas::setProgressValue(const int &flag) {
+  ui->progressBar->setValue(flag);
 }
 
 void ConfParas::setSampleOneDatas() {
@@ -408,16 +412,15 @@ void ConfParas::setSampleThreeDatas() {
   ui->progressBar->setValue(0);
 }
 
-void Workers::run()
-{
-    PhotonClass photon;
-    for(int i=0;i<len_;++i){
-        photon.launch(out_.out->spec_reflect, in_.input->layerspecs);
-        do {
-          photon.hopDropSpin(in_, out_);
-        } while (!photon.photon->dead);
-        QCoreApplication::processEvents();
-        ++flag_;
-        emit flagChanged(flag_);
-    }
+void Workers::run() {
+  PhotonClass photon;
+  for (int i = 0; i < len_; ++i) {
+    photon.launch(out_.out->spec_reflect, in_.input->layerspecs);
+    do {
+      photon.hopDropSpin(in_, out_);
+    } while (!photon.photon->dead);
+    QCoreApplication::processEvents();
+    ++flag_;
+    emit flagChanged(flag_);
+  }
 }
