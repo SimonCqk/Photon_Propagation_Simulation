@@ -76,7 +76,7 @@ double GetFresnelReflection(
     const double &n2,  /* transmit refractive index.*/
     const double &ca1, /* cosine of the incident angle. 0<a1<90 degrees. */
     double
-        &ca2_Ptr) /* pointer to the cosine of the transmission angle. a2>0. */
+        &ca2_Ptr) /* reference to the cosine of the transmission angle. a2>0. */
 {
   double r;
   if (n1 == n2) { /** matched boundary. **/

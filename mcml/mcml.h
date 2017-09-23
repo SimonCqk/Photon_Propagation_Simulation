@@ -10,8 +10,7 @@
 #include <iostream>
 #include <memory>
 
-// using std::vector;
-// using std::string;
+
 using std::shared_ptr;
 using std::weak_ptr;
 using std::make_shared;
@@ -35,7 +34,7 @@ const double PI = 3.1415926;
 
 class PhotonClass {
   friend class ConfParas;
-
+  friend class Workers;
 public:
   PhotonClass() : photon(new PhotonStruct) {}
   explicit PhotonClass(const PhotonStruct &item)
@@ -129,7 +128,7 @@ class InputClass {
   friend void Draw1DSpLineChart(const QVector<double> &vec, const QString &name,
                                 const Types &type);
   friend class ConfParas;
-
+  friend class Workers;
 public:
   InputClass() : input(new InputStruct) {}
   explicit InputClass(const InputStruct &item)
@@ -146,6 +145,7 @@ class OutClass {
   friend class ConfParas;
   friend class RunResults;
   friend class OutputToString;
+  friend class Workers;
   friend void Sum2D_DiffReflect(const InputClass &In, OutClass &Out);
   friend void Sum2D_AbsProb(const InputClass &In_Parm, OutClass &Out_Ptr);
   friend void Sum2D_TotalTrans(const InputClass &In_Parm, OutClass &Out_Ptr);

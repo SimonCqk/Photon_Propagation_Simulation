@@ -2,7 +2,7 @@
 #include "mcml.h"
 #include <QDebug>
 
-#define PARTIALREFLECTION 0
+const int PARTIALREFLECTION = 0;
 /* 1=split photon, 0=statistical reflection. */
 
 auto SIGN = [](int x) { return (x >= 0) ? 1 : -1; };
