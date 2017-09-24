@@ -233,8 +233,7 @@ void ConfParas::readDatas(InputClass &In_Ptr) {
   In_Ptr.input->Wth = WEIGHT;
 
   In_Ptr.input->num_photons = ui->PhoNumSpinBox->value();
-  ui->progressBar->setMinimum(0);
-  ui->progressBar->setMaximum(In_Ptr.input->num_photons);
+  ui->progressBar->setRange(0,In_Ptr.input->num_photons);
   In_Ptr.input->dz = ui->zGridEdit->text().toDouble();
   In_Ptr.input->dr = ui->rGridEdit->text().toDouble();
 
@@ -318,14 +317,14 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
     if (i == (thread_count - 1)) {
       Workers *one_photon_run =
           new Workers(out_parm, In_Ptr, (thread_count - i * each_len));
-      connect(one_photon_run, SIGNAL(flagChanged()), this,
-              SLOT(setProgressValue()));
+      connect(one_photon_run, &Workers::flagChanged, this,
+              &ConfParas::updateProgressValue);
       one_photon_run->start();
       threads.push_back(one_photon_run);
     } else {
       Workers *one_photon_run = new Workers(out_parm, In_Ptr, each_len);
-      connect(one_photon_run, SIGNAL(flagChanged()), this,
-              SLOT(setProgressValue()));
+      connect(one_photon_run,&Workers::flagChanged, this,
+              &ConfParas::updateProgressValue);
       one_photon_run->start();
       threads.push_back(one_photon_run);
     }
@@ -349,9 +348,9 @@ void ConfParas::on_RunButton_clicked() {
   doOneRun(in_parm);
 }
 
-void ConfParas::setProgressValue() {
-  static int flag=1;
-  ui->progressBar->setValue(flag++);
+void ConfParas::updateProgressValue() {
+  static int flag=0;
+  ui->progressBar->setValue(++flag);
 }
 
 void ConfParas::setSampleOneDatas() {
@@ -392,7 +391,7 @@ void ConfParas::setSampleTwoDatas() {
 
 void ConfParas::setSampleThreeDatas() {
   on_ClearButton_clicked();
-  ui->PhoNumSpinBox->setValue(5000);
+  ui->PhoNumSpinBox->setValue(50000);
   ui->zGridEdit->setText(QString("0.01"));
   ui->rGridEdit->setText(QString("0.02"));
   ui->No_zGridEdit->setText(QString("200"));

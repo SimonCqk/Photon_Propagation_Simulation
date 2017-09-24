@@ -7,7 +7,7 @@
 #include <QThread>
 #include <QVector>
 #include <QWidget>
-#include <atomic>
+//#include <atomic>
 
 
 namespace Ui {
@@ -63,7 +63,7 @@ private slots:
   void on_SpeLayerButton_clicked();
   void on_ClearButton_clicked();
   void on_RunButton_clicked();
-  void setProgressValue();
+  void updateProgressValue();
 signals:
   void isDone(); // signal for Running-is-done.
 private:
