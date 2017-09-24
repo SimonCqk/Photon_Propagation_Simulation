@@ -1,5 +1,6 @@
 #include "history.h"
 #include "ui_history.h"
+#include <mutex>
 #include <QCalendarWidget>
 #include <QDateTime>
 #include <QDebug>
@@ -86,6 +87,8 @@ void CreateTables() {
 }
 
 int QueryRunTimes() {
+  std::mutex mtx;
+  std::lock_guard<std::mutex> lock(mtx);
   if (!db.isOpen())
     db.open();
   if (query.exec(Query_RunTimes)) {
@@ -107,6 +110,8 @@ int QueryRunTimes() {
 }
 
 void UpdateRunTimes(const int &num) {
+  std::mutex mtx;
+  std::lock_guard<std::mutex> lock(mtx);
   if (!db.isOpen())
     db.open();
   query.prepare(Update_RunTimes);
@@ -120,6 +125,8 @@ void UpdateRunTimes(const int &num) {
 }
 
 void InsertHistory(const int &num) {
+  std::mutex mtx;
+  std::lock_guard<std::mutex> lock(mtx);
   if (!db.isOpen())
     db.open();
   query.prepare(Insert_History);
@@ -141,6 +148,8 @@ void InsertHistory(const int &num) {
 
 bool QueryHistory(QPlainTextEdit *left_in, QPlainTextEdit *right_out,
                   const QString &hist_code) {
+  std::mutex mtx;
+  std::lock_guard<std::mutex> lock(mtx);
   if (!db.isOpen())
     db.open();
   query.prepare(Query_History);

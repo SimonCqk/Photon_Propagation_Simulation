@@ -20,12 +20,15 @@ public:
   explicit Workers(OutClass &out_parm, InputClass &in_parm,
                    std::atomic<int> &flag, const int &len,
                    QObject *parent = nullptr)
-      : out_(out_parm), in_(in_parm), flag_(flag), len_(len), QThread(parent) {}
+      : out_(out_parm), in_(in_parm), flag_(flag), len_(len), QThread(parent) {
+        connect(this, &Workers::finished, this,
+                &Workers::deleteLater);
+    }
 
 protected:
   virtual void run() override;
 signals:
-  void flagChanged(const int &flag);
+  void flagChanged(int flag);
 
 private:
   OutClass &out_;
@@ -63,7 +66,7 @@ private slots:
   void on_ClearButton_clicked();
 
   void on_RunButton_clicked();
-  void setProgressValue(const int &flag);
+  void setProgressValue(int flag);
 signals:
   void isDone(); // signal for Running-is-done.
 private:
