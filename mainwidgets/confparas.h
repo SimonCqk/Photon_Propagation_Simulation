@@ -18,9 +18,9 @@ class Workers : public QThread {
   Q_OBJECT
 public:
   explicit Workers(OutClass &out_parm, InputClass &in_parm,
-                   std::atomic<int> &flag, const int &len,
+                   const int &len,
                    QObject *parent = nullptr)
-      : out_(out_parm), in_(in_parm), flag_(flag), len_(len), QThread(parent) {
+      : out_(out_parm), in_(in_parm), len_(len), QThread(parent) {
         connect(this, &Workers::finished, this,
                 &Workers::deleteLater);
     }
@@ -28,12 +28,11 @@ public:
 protected:
   virtual void run() override;
 signals:
-  void flagChanged(int flag);
+  void flagChanged();
 
 private:
   OutClass &out_;
   InputClass &in_;
-  std::atomic<int> &flag_;
   int len_;
 };
 
@@ -62,11 +61,9 @@ protected:
   void paintEvent(QPaintEvent *); // ready for style sheet setting
 private slots:
   void on_SpeLayerButton_clicked();
-
   void on_ClearButton_clicked();
-
   void on_RunButton_clicked();
-  void setProgressValue(int flag);
+  void setProgressValue();
 signals:
   void isDone(); // signal for Running-is-done.
 private:

@@ -298,7 +298,6 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   // const size_t thread_count=std::thread::hardware_concurrency()-1; // c++11 style.
   const size_t thread_count =
       QThread::idealThreadCount(); // return the ideal number of sub-threads.
-  std::atomic<int> flag{0};
   std::vector<Workers *> threads;
   /*
   auto sub_running=[&out_parm,&In_Ptr](const int& len,std::atomic<int>& flag){
@@ -318,21 +317,21 @@ void ConfParas::doOneRun(InputClass &In_Ptr) {
   for (size_t i = 0; i < thread_count; ++i) {
     if (i == (thread_count - 1)) {
       Workers *one_photon_run =
-          new Workers(out_parm, In_Ptr, flag, (thread_count - i * each_len));
-      connect(one_photon_run, SIGNAL(flagChanged(int)), this,
-              SLOT(setProgressValue(int)));
+          new Workers(out_parm, In_Ptr, (thread_count - i * each_len));
+      connect(one_photon_run, SIGNAL(flagChanged()), this,
+              SLOT(setProgressValue()));
       one_photon_run->start();
       threads.push_back(one_photon_run);
     } else {
-      Workers *one_photon_run = new Workers(out_parm, In_Ptr, flag, each_len);
-      connect(one_photon_run, SIGNAL(flagChanged(int)), this,
-              SLOT(setProgressValue(int)));
+      Workers *one_photon_run = new Workers(out_parm, In_Ptr, each_len);
+      connect(one_photon_run, SIGNAL(flagChanged()), this,
+              SLOT(setProgressValue()));
       one_photon_run->start();
       threads.push_back(one_photon_run);
     }
   }
   for (auto thread : threads) {
-    thread->wait(); // same as std::thread::join()
+    thread->wait(); // same as std::thread::join().
   }
   SumScaleResult(In_Ptr, out_parm); // indispensable.
   out_temp = out_parm; // out_temp,in_temp (extern) is declared in runresults.h
@@ -350,8 +349,9 @@ void ConfParas::on_RunButton_clicked() {
   doOneRun(in_parm);
 }
 
-void ConfParas::setProgressValue(int flag) {
-  ui->progressBar->setValue(flag);
+void ConfParas::setProgressValue() {
+  static int flag=1;
+  ui->progressBar->setValue(flag++);
 }
 
 void ConfParas::setSampleOneDatas() {
@@ -414,8 +414,6 @@ void Workers::run() {
     do {
       photon.hopDropSpin(in_, out_);
     } while (!photon.photon->dead);
-    QCoreApplication::processEvents();
-    ++flag_;
-    emit flagChanged(flag_);
+    emit flagChanged();
   }
 }
