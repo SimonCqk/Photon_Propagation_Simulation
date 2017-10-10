@@ -13,13 +13,37 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton#RunButton{
+	   height: 18px;
+       background-color:#778899;
+       border-radius: 5px; 
+       border: 2px groove gray;
+       border-style: outset;
+}
+QPushButton#ClearButton{
+       height: 18px;
+       background-color:#778899;
+       border-radius: 5px; 
+       border: 2px groove gray;
+       border-style: outset;
+}
+QPushButton#SpeLayerButton{
+       height: 18px;
+       background-color:#778899;
+       border-radius: 5px; 
+       border: 2px groove gray;
+       border-style: outset;
+}
+</string>
+  </property>
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>280</y>
+     <y>271</y>
      <width>268</width>
-     <height>52</height>
+     <height>61</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -53,6 +77,22 @@
     </item>
     <item>
      <widget class="QProgressBar" name="progressBar">
+      <property name="styleSheet">
+       <string notr="true">QProgressBar#progressBar{
+      border:none;
+      background:#696969;
+      border-radius:5px;
+      text-align:center;
+      height:15px;
+}
+ 
+QProgressBar::chunk {
+ 
+      background-color:rgb(58, 154, 255);
+      border-radius:4px;
+      
+}</string>
+      </property>
       <property name="value">
        <number>24</number>
       </property>
@@ -77,6 +117,9 @@
         <family>Consolas</family>
         <pointsize>10</pointsize>
        </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
       </property>
       <property name="text">
        <string>Specify parameters for a run</string>
@@ -109,6 +152,9 @@
             <family>Consolas</family>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:#D3D3D3;</string>
+          </property>
           <property name="wrapping">
            <bool>false</bool>
           </property>
@@ -119,6 +165,9 @@
         </item>
         <item>
          <widget class="QSlider" name="PhoNumSlider">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -153,6 +202,11 @@
             <family>Consolas</family>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -176,6 +230,11 @@
            <font>
             <family>Consolas</family>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
           </property>
          </widget>
         </item>
@@ -202,6 +261,11 @@
             <family>Consolas</family>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -226,6 +290,11 @@
             <family>Consolas</family>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -249,6 +318,11 @@
            <font>
             <family>Consolas</family>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
           </property>
          </widget>
         </item>
@@ -320,6 +394,11 @@
             <family>Consolas</family>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -343,6 +422,11 @@
            <font>
             <family>Consolas</family>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
           </property>
          </widget>
         </item>

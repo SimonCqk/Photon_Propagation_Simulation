@@ -18,6 +18,8 @@ public:
   ~MainWindow();
 public slots:
   void _show();
+protected:
+  void paintEvent(QPaintEvent *);
 private slots:
   void on_actionSample_One_triggered();
 
