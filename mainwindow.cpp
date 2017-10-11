@@ -30,8 +30,8 @@ public:
 
         if (tab->state & QStyle::State_Selected) {
           painter->save();
-          painter->setPen(QColor(0,153,214,60));
-          painter->setBrush(QBrush(QColor(0,153,214,80)));
+          painter->setPen(QColor(0, 153, 214, 60));
+          painter->setBrush(QBrush(QColor(0, 153, 214, 80)));
           painter->drawRect(allRect.adjusted(6, 6, -6, -6));
           painter->restore();
         }
@@ -72,8 +72,9 @@ MainWindow::MainWindow(QWidget *parent)
   // ui->TabWidget->setTabPosition(QTabWidget::West);
   ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
   ui->TabWidget->setFixedSize(this->size());
-  ui->TabWidget->tabBar()->setStyleSheet("border-image:url(:/image/image/photon_.jpg);"
-                                         "font-size: 10pt; font-family: Consolas;");
+  ui->TabWidget->tabBar()->setStyleSheet(
+      "border-image:url(:/image/image/photon_.jpg);"
+      "font-size: 10pt; font-family: Consolas;");
   // set up tab widgets
   // First page: configure parameters
   ConfParas *confparas = ConfParas::getInstance();
@@ -100,23 +101,20 @@ MainWindow::MainWindow(QWidget *parent)
     InsertHistory(num);
     runhistory->addNumberOfRunTimes();
   });
-  connect(runhistory,&History::clearCache,[this,runhistory]{
-      ui->statusBar->showMessage(
-          QString("Clear Cache successfully!     # Number of Running Now: %1")
-              .arg(QString::number(runhistory->getNumberOfRunTimes(), 10)));
+  connect(runhistory, &History::clearCache, [this, runhistory] {
+    ui->statusBar->showMessage(
+        QString("Clear Cache successfully!     # Number of Running Now: %1")
+            .arg(QString::number(runhistory->getNumberOfRunTimes(), 10)));
   });
 }
 
 MainWindow::~MainWindow() { delete ui; }
 
-void MainWindow::_show() { show(); }
-
-void MainWindow::paintEvent(QPaintEvent *)
-{
-    QStyleOption opt;
-    opt.init(this);
-    QPainter p(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+void MainWindow::paintEvent(QPaintEvent *) {
+  QStyleOption opt;
+  opt.init(this);
+  QPainter p(this);
+  style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 void MainWindow::on_actionSample_One_triggered() {

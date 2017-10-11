@@ -10,7 +10,8 @@ About::About(QWidget *parent) : QWidget(parent), ui(new Ui::About) {
   ui->setupUi(this);
   ui->textBrowser->setOpenLinks(
       false); // Indispensable!!Or Qt will try to open hyperlink locally
-  ui->textBrowser->setStyleSheet("QTextBrowser{background-image:url(:/image/about);\
+  ui->textBrowser->setStyleSheet(
+      "QTextBrowser{background-image:url(:/image/about);\
                                  font-size: 11px;\
                                  font-family: Consolas;}");
 }

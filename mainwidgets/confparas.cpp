@@ -6,11 +6,12 @@
 #include <QDebug>
 #include <QDialog>
 #include <QDoubleValidator>
+#include <QHBoxLayout>
 #include <QIntValidator>
 #include <QPainter>
 #include <QStyleOption>
 #include <QVBoxLayout>
-#include<QHBoxLayout>
+
 
 ConfParas *ConfParas::theConfParas = nullptr;
 
@@ -104,7 +105,7 @@ ConfParas::ConfParas(QWidget *parent) : QWidget(parent), ui(new Ui::ConfParas) {
   ui->zrGridLabel->setPalette(font_color);
   ui->No_zra_Label->setPalette(font_color);
   ui->MedLabel->setPalette(font_color);
-  font_color.setColor(QPalette::WindowText,QColor(211,215,212));
+  font_color.setColor(QPalette::WindowText, QColor(211, 215, 212));
   ui->label->setPalette(font_color);
 
   ui->progressBar->setFont(QFont("Consolas"));
@@ -124,33 +125,33 @@ void ConfParas::paintEvent(QPaintEvent *) {
 }
 
 void ConfParas::on_SpeLayerButton_clicked() {
-    ui->plainTextEdit->show();
-    // clear items added before.
-    while(ui->LayersParamsLayout->count()>1){
-        ui->LayersParamsLayout->removeItem(ui->LayersParamsLayout->takeAt(1));
+  ui->plainTextEdit->show();
+  // clear items added before.
+  while (ui->LayersParamsLayout->count() > 1) {
+    ui->LayersParamsLayout->removeItem(ui->LayersParamsLayout->takeAt(1));
+  }
+  int num_layers = ui->num_layer_spin->value();
+  QDoubleValidator *doublevalid = new QDoubleValidator();
+  QPalette font_color;
+  font_color.setColor(QPalette::WindowText, Qt::white);
+  for (int i = 1; i <= num_layers; ++i) {
+    QVector<QLineEdit *> one_layer_params;
+    QHBoxLayout *one_layer_lay = new QHBoxLayout;
+    QLabel *layer_i = new QLabel;
+    layer_i->setText(QString("Layer#%1:").arg(i));
+    layer_i->setFont(QFont("Consolas"));
+    layer_i->setPalette(font_color);
+    one_layer_lay->addWidget(layer_i);
+    for (int j = 0; j < 5; ++j) {
+      QLineEdit *param = new QLineEdit;
+      param->setValidator(doublevalid);
+      param->setFont(QFont("Consolas"));
+      one_layer_lay->addWidget(param);
+      one_layer_params.append(param);
     }
-    int num_layers=ui->num_layer_spin->value();
-    QDoubleValidator *doublevalid = new QDoubleValidator();
-    QPalette font_color;
-    font_color.setColor(QPalette::WindowText, Qt::white);
-    for(int i=1;i<=num_layers;++i){
-        QVector<QLineEdit*> one_layer_params;
-        QHBoxLayout* one_layer_lay=new QHBoxLayout;
-        QLabel* layer_i=new QLabel;
-        layer_i->setText(QString("Layer#%1:").arg(i));
-        layer_i->setFont(QFont("Consolas"));
-        layer_i->setPalette(font_color);
-        one_layer_lay->addWidget(layer_i);
-        for(int j=0;j<5;++j){
-            QLineEdit* param=new QLineEdit;
-            param->setValidator(doublevalid);
-            param->setFont(QFont("Consolas"));
-            one_layer_lay->addWidget(param);
-            one_layer_params.append(param);
-        }
-        ui->LayersParamsLayout->addLayout(one_layer_lay);
-        layers_params.append(one_layer_params);
-    }
+    ui->LayersParamsLayout->addLayout(one_layer_lay);
+    layers_params.append(one_layer_params);
+  }
 }
 
 void ConfParas::on_ClearButton_clicked() {
@@ -162,10 +163,10 @@ void ConfParas::on_ClearButton_clicked() {
   ui->No_zGridEdit->clear();
   ui->rGridEdit->clear();
   ui->zGridEdit->clear();
-  for(auto& vec:layers_params){
-      for(auto item:vec){
-          item->clear();
-      }
+  for (auto &vec : layers_params) {
+    for (auto item : vec) {
+      item->clear();
+    }
   }
   layers_params.clear();
 }
@@ -225,12 +226,18 @@ bool ConfParas::readDatas(InputClass &In_Ptr) {
       ui->MedAboveEdit->text().toDouble(&ok);
   double z = 0.0; /* z coordinate of the current layer. */
   for (size_t i = 1; i <= In_Ptr.input->num_layers; ++i) {
-    In_Ptr.input->layerspecs[i].layer->rfct_index = layers_params[i-1][0]->text().toDouble(&ok);
-    In_Ptr.input->layerspecs[i].layer->abs_coef = layers_params[i-1][1]->text().toDouble(&ok);
-    In_Ptr.input->layerspecs[i].layer->scat_coef =layers_params[i-1][2]->text().toDouble(&ok);
-    In_Ptr.input->layerspecs[i].layer->anisotropy = layers_params[i-1][3]->text().toDouble(&ok);
+    In_Ptr.input->layerspecs[i].layer->rfct_index =
+        layers_params[i - 1][0]->text().toDouble(&ok);
+    In_Ptr.input->layerspecs[i].layer->abs_coef =
+        layers_params[i - 1][1]->text().toDouble(&ok);
+    In_Ptr.input->layerspecs[i].layer->scat_coef =
+        layers_params[i - 1][2]->text().toDouble(&ok);
+    In_Ptr.input->layerspecs[i].layer->anisotropy =
+        layers_params[i - 1][3]->text().toDouble(&ok);
     In_Ptr.input->layerspecs[i].layer->z0 = z;
-    z +=layers_params[i-1][4]->text().toDouble(&ok);; ; // thickness
+    z += layers_params[i - 1][4]->text().toDouble(&ok);
+    ;
+    ; // thickness
     In_Ptr.input->layerspecs[i].layer->z1 = z;
   }
   In_Ptr.input->layerspecs[In_Ptr.input->num_layers + 1].layer->rfct_index =
@@ -239,24 +246,24 @@ bool ConfParas::readDatas(InputClass &In_Ptr) {
   return ok;
 }
 
-void ThrowUselessData(QVector<double>& vec){
-    size_t max_valid_index{0};
-    size_t size=vec.size();
-    for(size_t i = 0 ; i < size ; ++i){
-        if(vec[i] > 0.0001){
-            max_valid_index = i;
-        }
+void ThrowUselessData(QVector<double> &vec) {
+  size_t max_valid_index{0};
+  size_t size = vec.size();
+  for (size_t i = 0; i < size; ++i) {
+    if (vec[i] > 0.0001) {
+      max_valid_index = i;
     }
-    if(max_valid_index < (size - 1))
-        vec.resize(max_valid_index + 1);
+  }
+  if (max_valid_index < (size - 1))
+    vec.resize(max_valid_index + 1);
 }
 
-void ApplyThrowUselessData(OutClass& out){
-    ThrowUselessData(out.out->abs_prob_z);
-    ThrowUselessData(out.out->diff_reflect_agl);
-    ThrowUselessData(out.out->diff_reflect_rdl);
-    ThrowUselessData(out.out->total_trans_agl);
-    ThrowUselessData(out.out->total_trans_rdl);
+void ApplyThrowUselessData(OutClass &out) {
+  ThrowUselessData(out.out->abs_prob_z);
+  ThrowUselessData(out.out->diff_reflect_agl);
+  ThrowUselessData(out.out->diff_reflect_rdl);
+  ThrowUselessData(out.out->total_trans_agl);
+  ThrowUselessData(out.out->total_trans_rdl);
 }
 
 /*
@@ -290,40 +297,40 @@ void ConfParas::on_RunButton_clicked() {
   if (!judgeParamsNotEmpty())
     return;
   InputClass in_parm;
-  bool ok=readDatas(in_parm);
-  if(!ok)
-      return;
+  bool ok = readDatas(in_parm);
+  if (!ok)
+    return;
   doOneRun(in_parm);
 }
 
-void ConfParas::setSampleTemplate(const int &num_layer, const std::vector<std::vector<double> > &data)
-{
-    ui->plainTextEdit->show();
-    // clear items added before.
-    while(ui->LayersParamsLayout->count()>1){
-        ui->LayersParamsLayout->removeItem(ui->LayersParamsLayout->takeAt(1));
+void ConfParas::setSampleTemplate(
+    const int &num_layer, const std::vector<std::vector<double>> &data) {
+  ui->plainTextEdit->show();
+  // clear items added before.
+  while (ui->LayersParamsLayout->count() > 1) {
+    ui->LayersParamsLayout->removeItem(ui->LayersParamsLayout->takeAt(1));
+  }
+  ui->num_layer_spin->setValue(num_layer);
+  QPalette font_color;
+  font_color.setColor(QPalette::WindowText, Qt::white);
+  for (int i = 1; i <= num_layer; ++i) {
+    QVector<QLineEdit *> one_layer_params;
+    QHBoxLayout *one_layer_lay = new QHBoxLayout;
+    QLabel *layer_i = new QLabel;
+    layer_i->setText(QString("Layer#%1:").arg(i));
+    layer_i->setFont(QFont("Consolas"));
+    layer_i->setPalette(font_color);
+    one_layer_lay->addWidget(layer_i);
+    for (int j = 0; j < 5; ++j) {
+      QLineEdit *param = new QLineEdit(QString::number(data[i - 1][j]));
+      param->setFont(QFont("Consolas"));
+      one_layer_lay->addWidget(param);
+      one_layer_params.append(param);
     }
-    ui->num_layer_spin->setValue(num_layer);
-    QPalette font_color;
-    font_color.setColor(QPalette::WindowText, Qt::white);
-    for(int i=1;i<=num_layer;++i){
-        QVector<QLineEdit*> one_layer_params;
-        QHBoxLayout* one_layer_lay=new QHBoxLayout;
-        QLabel* layer_i=new QLabel;
-        layer_i->setText(QString("Layer#%1:").arg(i));
-        layer_i->setFont(QFont("Consolas"));
-        layer_i->setPalette(font_color);
-        one_layer_lay->addWidget(layer_i);
-        for(int j=0;j<5;++j){
-            QLineEdit* param=new QLineEdit(QString::number(data[i-1][j]));
-            param->setFont(QFont("Consolas"));
-            one_layer_lay->addWidget(param);
-            one_layer_params.append(param);
-        }
-        ui->LayersParamsLayout->addLayout(one_layer_lay);
-        layers_params.append(one_layer_params);
-    }
-    ui->progressBar->setValue(0);
+    ui->LayersParamsLayout->addLayout(one_layer_lay);
+    layers_params.append(one_layer_params);
+  }
+  ui->progressBar->setValue(0);
 }
 
 void ConfParas::setSampleOneDatas() {
@@ -337,14 +344,11 @@ void ConfParas::setSampleOneDatas() {
   ui->MedAboveEdit->setText(QString("1"));
   ui->MedBelowEdit->setText(QString("1"));
 
-  std::vector<std::vector<double>> data{
-    {1.37 ,1, 100, 0.9, 0.1},
-      {1.37, 1, 10, 0.0, 0.1},
-      {1.37 ,2 ,10, 0.7, 0.2}
-  };
-  setSampleTemplate(3,data);
+  std::vector<std::vector<double>> data{{1.37, 1, 100, 0.9, 0.1},
+                                        {1.37, 1, 10, 0.0, 0.1},
+                                        {1.37, 2, 10, 0.7, 0.2}};
+  setSampleTemplate(3, data);
 }
-
 
 void ConfParas::setSampleTwoDatas() {
   on_ClearButton_clicked();
@@ -357,14 +361,12 @@ void ConfParas::setSampleTwoDatas() {
   ui->MedAboveEdit->setText(QString("1"));
   ui->MedBelowEdit->setText(QString("1"));
 
-  std::vector<std::vector<double>> data{
-    {1.5, 4.3, 107, 0.79, 0.01},
-      {1.4 ,2.7, 187 ,0.82 ,0.02},
-      {1.4, 3.3, 192 ,0.82, 0.02},
-      {1.4 ,2.7 ,187, 0.82 ,0.09},
-      {1.4 ,2.4 ,194 ,0.82, 0.06}
-  };
-  setSampleTemplate(5,data);
+  std::vector<std::vector<double>> data{{1.5, 4.3, 107, 0.79, 0.01},
+                                        {1.4, 2.7, 187, 0.82, 0.02},
+                                        {1.4, 3.3, 192, 0.82, 0.02},
+                                        {1.4, 2.7, 187, 0.82, 0.09},
+                                        {1.4, 2.4, 194, 0.82, 0.06}};
+  setSampleTemplate(5, data);
 }
 
 void ConfParas::setSampleThreeDatas() {
@@ -378,12 +380,8 @@ void ConfParas::setSampleThreeDatas() {
   ui->MedAboveEdit->setText(QString("1"));
   ui->MedBelowEdit->setText(QString("1"));
 
-  std::vector<std::vector<double>> data{
-    {1.37, 0.2 ,100, 0.9 ,1.5},
-      {1.37, 0.2 ,100, 0.9 ,2.0},
-      {1.37 ,0.2, 100 ,0.9, 0.5}
-  };
-  setSampleTemplate(3,data);
+  std::vector<std::vector<double>> data{{1.37, 0.2, 100, 0.9, 1.5},
+                                        {1.37, 0.2, 100, 0.9, 2.0},
+                                        {1.37, 0.2, 100, 0.9, 0.5}};
+  setSampleTemplate(3, data);
 }
-
-

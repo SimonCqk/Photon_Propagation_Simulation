@@ -6,7 +6,6 @@
 #include <QWidget>
 #include <sstream>
 
-
 extern OutClass out_temp;
 extern InputClass in_temp;
 

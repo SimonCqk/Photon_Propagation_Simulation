@@ -7,7 +7,6 @@
 #include <QtCharts>
 #include <algorithm>
 
-
 using namespace QtCharts;
 
 RunResults *RunResults::theRunResults = nullptr;
@@ -19,8 +18,8 @@ enum class Types { angular, radial, axis_z, layer };
 
 QString LinkDataFromVector(const QVector<double> &vec) {
   QString str = "";
-  size_t index=0;
-  for (auto &num : vec){
+  size_t index = 0;
+  for (auto &num : vec) {
     if (!((++index) % 5)) // 5 number each line.
       str += (QString::number(num, 'f', 5) + "\n");
     else
@@ -56,7 +55,7 @@ RunResults::RunResults(QWidget *parent)
   ui->label_11->setPalette(font_color);
   ui->label_13->setPalette(font_color);
   ui->label_14->setPalette(font_color);
-  font_color.setColor(QPalette::WindowText,QColor(211,215,212));
+  font_color.setColor(QPalette::WindowText, QColor(211, 215, 212));
   ui->label->setPalette(font_color);
 
   ui->SpecRefEdit->setReadOnly(true);
@@ -72,10 +71,10 @@ void RunResults::getOutputData() { this->out_param = out_temp; }
 void RunResults::showAllTheResults() { setRAT(); }
 
 void RunResults::setRAT() {
-  ui->SpecRefEdit->setText(QString::number(out_param.out->spec_reflect,'f'));
-  ui->DiffRefEdit->setText(QString::number(out_param.out->diff_reflect,'f'));
-  ui->AbsFracEdit->setText(QString::number(out_param.out->abs_prob,'f'));
-  ui->TransEdit->setText(QString::number(out_param.out->total_trans,'f'));
+  ui->SpecRefEdit->setText(QString::number(out_param.out->spec_reflect, 'f'));
+  ui->DiffRefEdit->setText(QString::number(out_param.out->diff_reflect, 'f'));
+  ui->AbsFracEdit->setText(QString::number(out_param.out->abs_prob, 'f'));
+  ui->TransEdit->setText(QString::number(out_param.out->total_trans, 'f'));
 }
 
 void RunResults::on_View_Abs_prob_layer_Button_clicked() {

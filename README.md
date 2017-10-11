@@ -50,5 +50,8 @@
   
   ![query](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/History_query.png?raw=true)
 
+#### 5. Finally there is a cute `About` page...lol...
+![about](https://github.com/SimonCqk/Model_of_LightTransport/blob/master/image/About.png?raw=true)
+
 More Feature are being prepared...lol...
 

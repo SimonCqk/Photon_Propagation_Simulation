@@ -16,8 +16,7 @@ class MainWindow : public QMainWindow {
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
-public slots:
-  void _show();
+
 protected:
   void paintEvent(QPaintEvent *);
 private slots:

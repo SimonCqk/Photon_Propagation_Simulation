@@ -29,13 +29,11 @@ SOURCES += \
     mcml/mcml.cpp \
     mcml/mcml_io.cpp \
     mcml/utilitiy.cpp \
-    start.cpp \
     mcml/mcml.cpp \
     mcml/mcml_io.cpp \
     mcml/utilitiy.cpp \
     main.cpp \
     mainwindow.cpp \
-    start.cpp \
     mainwidgets/about.cpp \
     mainwidgets/confparas.cpp \
     mainwidgets/runresults.cpp \
@@ -47,13 +45,11 @@ HEADERS += \
     mcml/mcml_fwd.h \
     mcml/mcml_impl.h \
     mcml/utility_fwd.h \
-    start.h \
     mcml/mcml.h \
     mcml/mcml_fwd.h \
     mcml/mcml_impl.h \
     mcml/utility_fwd.h \
     mainwindow.h \
-    start.h \
     mainwidgets/about.h \
     mainwidgets/confparas.h \
     mainwidgets/runresults.h \
@@ -61,7 +57,6 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    start.ui \
     mainwidgets/about.ui \
     mainwidgets/confparas.ui \
     mainwidgets/runresults.ui \

@@ -53,7 +53,7 @@ void CreateRunTimes() {
       query.exec(QString("select count(*) from sqlite_master where "
                          "type='table' and name='RunTimes';"));
   if (!isTableExist) {
-    if (!query.exec(CreateRuntimesTable)){
+    if (!query.exec(CreateRuntimesTable)) {
       QMessageBox::critical(0, QObject::tr("Create RunTimes Table Error"),
                             query.lastError().text());
       QCoreApplication::quit();
@@ -71,7 +71,7 @@ void CreateHistory() {
       query.exec(QString("select count(*) from sqlite_master where "
                          "type='table' and name='History';"));
   if (!isTableExist) {
-    if (!query.exec(CreateHistoryTable)){
+    if (!query.exec(CreateHistoryTable)) {
       QMessageBox::critical(0, QObject::tr("Create History Table Error"),
                             query.lastError().text());
       QCoreApplication::quit();
@@ -111,7 +111,7 @@ void UpdateRunTimes(const int &num) {
     db.open();
   query.prepare(Update_RunTimes);
   query.bindValue(":num", num);
-  if (num <= 0 || !query.exec()){
+  if (num <= 0 || !query.exec()) {
     QMessageBox::critical(0, QObject::tr("Update RunTimes Error"),
                           query.lastError().text());
     QCoreApplication::quit();
@@ -130,7 +130,7 @@ void InsertHistory(const int &num) {
   query.bindValue(":hist_code", histcode);
   query.bindValue(":input_data", input2str.getAll());
   query.bindValue(":output_data", output2str.getAll());
-  if (!query.exec()){
+  if (!query.exec()) {
     QMessageBox::critical(0, QObject::tr("Insert History Error"),
                           query.lastError().text());
     QCoreApplication::quit();
@@ -249,7 +249,7 @@ OutputToString::OutputToString(const OutClass &output) {
   spec_reflect = QString::number(output.out->spec_reflect, 'f', 5);
   abs_prob = QString::number(output.out->abs_prob, 'f', 5);
   total_trans = QString::number(output.out->total_trans, 'f', 5);
-  diff_reflect=QString::number(output.out->diff_reflect,'f',5);
+  diff_reflect = QString::number(output.out->diff_reflect, 'f', 5);
   diff_reflect_agl = LinkDataFromVector(output.out->diff_reflect_agl);
   diff_reflect_rdl = LinkDataFromVector(output.out->diff_reflect_rdl);
   abs_prob_z = LinkDataFromVector(output.out->abs_prob_z);
@@ -309,21 +309,20 @@ void InputToString::setUpAll() {
         layerspecs;
 }
 
-void History::on_ClearCacheButton_clicked()
-{
-    if(!db.isOpen())
-        db.open();
-    if (!query.exec("DELETE FROM History")){
-      QMessageBox::critical(0, QObject::tr("Delete Cache Error"),
-                            query.lastError().text());
-      QCoreApplication::quit();
-    }
-    if (!query.exec("UPDATE RunTimes SET num_run = 1")){
-      QMessageBox::critical(0, QObject::tr("Reset Run number Error"),
-                            query.lastError().text());
-      QCoreApplication::quit();
-    }
-    num_RunTimes = 1;
-    emit clearCache();
-    query.finish();
+void History::on_ClearCacheButton_clicked() {
+  if (!db.isOpen())
+    db.open();
+  if (!query.exec("DELETE FROM History")) {
+    QMessageBox::critical(0, QObject::tr("Delete Cache Error"),
+                          query.lastError().text());
+    QCoreApplication::quit();
+  }
+  if (!query.exec("UPDATE RunTimes SET num_run = 1")) {
+    QMessageBox::critical(0, QObject::tr("Reset Run number Error"),
+                          query.lastError().text());
+    QCoreApplication::quit();
+  }
+  num_RunTimes = 1;
+  emit clearCache();
+  query.finish();
 }
