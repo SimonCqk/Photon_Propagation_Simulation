@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>680</width>
-    <height>380</height>
+    <width>715</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,16 +29,15 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>680</width>
+      <width>701</width>
       <height>360</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QTabWidget{border:none;margin:0px;outline:none;}
-QTabWidget[showHeader='true']::pane{border:1px solid #55B023;border-radius:0px;position: absolute;top: -1px;}
 QTabWidget[showHeader='false']::pane{border:none;position: absolute;margin:0px;}
-QTabWidget[showHeader='true'] QTabBar::tab{alignment:left;color:white;padding:2px 16px;margin-top:3px;margin-left:5px;height:21px;border-top-left-radius: 5px;border-top-right-radius: 5px;background:#C9B084}
-QTabWidget[showHeader='true'] QTabBar::tab:selected{background:#55B023;margin-top:1px;height:23px;}</string>
+ QTabBar::tab{alignment:left;color:white;padding:2px 16px;margin-top:3px;margin-left:5px;height:21px;border-top-left-radius: 5px;border-top-right-radius: 5px;background-color:#C9B084}
+ QTabBar::tab:selected{background:#55B023;margin-top:1px;height:23px;}</string>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::West</enum>
@@ -63,7 +62,7 @@ QTabWidget[showHeader='true'] QTabBar::tab:selected{background:#55B023;margin-to
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>680</width>
+     <width>715</width>
      <height>22</height>
     </rect>
    </property>

@@ -186,6 +186,7 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   ui->label_2->setPalette(font_color);
   ui->label_3->setPalette(font_color);
   ui->label_4->setPalette(font_color);
+  ui->label_5->setPalette(font_color);
   ui->dateEdit->calendarWidget()->setFont(QFont("Consolas"));
   ui->dateEdit->calendarWidget()->setStyleSheet(
       "QCalendarWidget QMenu{width:80px;left:10px;}\

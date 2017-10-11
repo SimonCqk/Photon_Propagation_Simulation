@@ -46,7 +46,6 @@ RunResults::RunResults(QWidget *parent)
   this->setPalette(palette);
   QPalette font_color;
   font_color.setColor(QPalette::WindowText, Qt::white);
-  ui->label->setPalette(font_color);
   ui->label_2->setPalette(font_color);
   ui->label_3->setPalette(font_color);
   ui->label_4->setPalette(font_color);
@@ -57,6 +56,8 @@ RunResults::RunResults(QWidget *parent)
   ui->label_11->setPalette(font_color);
   ui->label_13->setPalette(font_color);
   ui->label_14->setPalette(font_color);
+  font_color.setColor(QPalette::WindowText,QColor(211,215,212));
+  ui->label->setPalette(font_color);
 
   ui->SpecRefEdit->setReadOnly(true);
   ui->AbsFracEdit->setReadOnly(true);

@@ -30,17 +30,17 @@ public:
 
         if (tab->state & QStyle::State_Selected) {
           painter->save();
-          painter->setPen(0x0077dd);
-          painter->setBrush(QBrush(0x0077dd));
+          painter->setPen(QColor(0,153,214,60));
+          painter->setBrush(QBrush(QColor(0,153,214,80)));
           painter->drawRect(allRect.adjusted(6, 6, -6, -6));
           painter->restore();
         }
         QTextOption option;
         option.setAlignment(Qt::AlignCenter);
         if (tab->state & QStyle::State_Selected) {
-          painter->setPen(0xf8fcff);
+          painter->setPen(0xf2eada);
         } else {
-          painter->setPen(0x3B3B3B);
+          painter->setPen(0xd1c7b7);
         }
 
         painter->drawText(allRect, tab->text, option);
@@ -57,23 +57,23 @@ public:
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-  ui->statusBar->setStyleSheet("background-color: rgb(190,190,190);\
-                                font-family: Consolas;");
+  ui->statusBar->setStyleSheet("background: url(:/image/image/WAVES.png);\
+                                font-family: Consolas;\
+                                border-radius: 3px;");
   ui->TabWidget->setStyleSheet("QTabWidget{border:none;\
                                            margin:0px;\
                                            outline:none;}");
 
   // let main windows can not scale
-  this->setFixedSize(715, 390);
+  this->setFixedSize(715, 400);
   // delete default tabs in Tab Widget
   delete ui->tab;
   delete ui->tab_2;
   // ui->TabWidget->setTabPosition(QTabWidget::West);
   ui->TabWidget->tabBar()->setStyle(new CustomTabStyle);
   ui->TabWidget->setFixedSize(this->size());
-  ui->TabWidget->tabBar()->setStyleSheet(
-      "background-color: rgb(130, 130, 130);\
-                                            font-size: 10pt; font-family: Consolas;");
+  ui->TabWidget->tabBar()->setStyleSheet("border-image:url(:/image/image/photon_.jpg);"
+                                         "font-size: 10pt; font-family: Consolas;");
   // set up tab widgets
   // First page: configure parameters
   ConfParas *confparas = ConfParas::getInstance();

@@ -5,6 +5,7 @@
 #include <QPlainTextEdit>
 #include <QVector>
 #include <QWidget>
+#include<QLineEdit>
 
 namespace Ui {
 class ConfParas;
@@ -25,8 +26,7 @@ public:
   ConfParas &operator=(const ConfParas &) = delete;
 
   ~ConfParas();
-  void readDatas(InputClass &In_Ptr);
-  void doOneRun(InputClass &In_Ptr);
+
   void setSampleOneDatas();
   void setSampleTwoDatas();
   void setSampleThreeDatas();
@@ -45,10 +45,11 @@ signals:
 
 private:
   Ui::ConfParas *ui;
-  QStringList *LayerDatas = new QStringList();
-  bool checkLayerDatas();
-  void setInstructor();
+  QVector<QVector<QLineEdit*>> layers_params;
   bool judgeParamsNotEmpty();
+  bool readDatas(InputClass &In_Ptr);
+  void doOneRun(InputClass &In_Ptr);
+  void setSampleTemplate(const int& num_layer,const std::vector<std::vector<double>>& data);
   static ConfParas *theConfParas;
 };
 

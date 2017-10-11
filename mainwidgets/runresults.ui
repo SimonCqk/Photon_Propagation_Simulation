@@ -6,19 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>350</height>
+    <width>620</width>
+    <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{
+	   height: 18px;
+       background-color:#76becc;
+       border-radius: 5px; 
+       border: 2px groove gray;
+       border-style: outset;
+}
+
+QPushButton::hover{
+       background-color:#228fbd;
+       border-radius: 5px; 
+       border: 1px groove gray;
+       border-style: outset;
+}
+
+QPushButton::pressed{
+       background-color:#009ad6;
+       border-radius: 5px; 
+       border: 1px groove gray;
+       border-style: outset;
+}
+
+QLineEdit{
+border-radius: 7px;
+height: 20px;
+background-color:#f2eada;
+}</string>
+  </property>
   <widget class="QWidget" name="gridLayoutWidget_2">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>90</y>
-     <width>571</width>
+     <y>100</y>
+     <width>574</width>
      <height>241</height>
     </rect>
    </property>
@@ -228,6 +257,9 @@
               <family>Consolas</family>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="text">
              <string>Data</string>
             </property>
@@ -394,6 +426,9 @@
       <property name="font">
        <font>
         <family>Consolas</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="text">
@@ -438,6 +473,11 @@
           <family>Consolas</family>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="3">
@@ -447,6 +487,11 @@
           <family>Consolas</family>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -455,6 +500,11 @@
          <font>
           <family>Consolas</family>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
         </property>
        </widget>
       </item>
@@ -488,6 +538,11 @@
          <font>
           <family>Consolas</family>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius: 7px;
+height: 20px;
+background-color:#D3D3D3;</string>
         </property>
        </widget>
       </item>

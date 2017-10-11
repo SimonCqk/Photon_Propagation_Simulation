@@ -4,5 +4,9 @@
         <file>image/logo.jpg</file>
         <file alias="background">image/photon.jpeg</file>
         <file>image/Photon.jpg</file>
+        <file>image/Photon__.jpg</file>
+        <file>image/photon_.jpg</file>
+        <file alias="about">image/about.jpg</file>
+        <file>image/WAVES.png</file>
     </qresource>
 </RCC>

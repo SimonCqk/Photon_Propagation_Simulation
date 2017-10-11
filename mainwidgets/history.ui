@@ -6,20 +6,49 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>350</height>
+    <width>620</width>
+    <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{
+	   height: 18px;
+       background-color:#76becc;
+       border-radius: 5px; 
+       border: 2px groove gray;
+       border-style: outset;
+}
+
+QPushButton::hover{
+       background-color:#228fbd;
+       border-radius: 5px; 
+       border: 1px groove gray;
+       border-style: outset;
+}
+
+QPushButton::pressed{
+       background-color:#009ad6;
+       border-radius: 5px; 
+       border: 1px groove gray;
+       border-style: outset;
+}
+
+QLineEdit{
+border-radius: 7px;
+height: 20px;
+background-color:#f2eada;
+}</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>551</width>
-     <height>281</height>
+     <width>561</width>
+     <height>291</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -28,6 +57,7 @@
       <property name="font">
        <font>
         <family>Consolas</family>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -169,7 +199,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>320</y>
+     <y>330</y>
      <width>401</width>
      <height>16</height>
     </rect>
