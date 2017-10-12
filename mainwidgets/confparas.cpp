@@ -90,7 +90,7 @@ ConfParas::ConfParas(QWidget *parent) : QWidget(parent), ui(new Ui::ConfParas) {
   ui->MedBelowEdit->setValidator(doublevalid);
 
   this->setAutoFillBackground(true);
-  QString bground_path = ":/image/image/Photon__.jpg";
+  QString bground_path = ":/image/image/bg.jpg";
   QPixmap bground; // set background image
   bground.load(bground_path);
   QPalette palette;

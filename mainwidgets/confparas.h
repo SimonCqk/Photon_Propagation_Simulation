@@ -22,7 +22,6 @@ public:
     return theConfParas;
   }
 
-  explicit ConfParas(QWidget *parent = 0);
   ConfParas(const ConfParas &) = delete;
   ConfParas &operator=(const ConfParas &) = delete;
 
@@ -45,6 +44,9 @@ signals:
   void isDone(); // signal for Running-is-done.
 
 private:
+  // make constructor private .
+  explicit ConfParas(QWidget *parent = 0);
+
   Ui::ConfParas *ui;
   QVector<QVector<QLineEdit *>> layers_params;
   bool judgeParamsNotEmpty();

@@ -20,7 +20,6 @@ public:
     return theHistory;
   }
 
-  explicit History(QWidget *parent = 0);
   History(const History &) = delete;
   History &operator=(const History &) = delete;
   inline int getNumberOfRunTimes() const { return num_RunTimes; }
@@ -36,6 +35,9 @@ signals:
   void clearCache();
 
 private:
+  // make constructor private .
+  explicit History(QWidget *parent = 0);
+
   Ui::History *ui;
   static History *theHistory;
   QString date;

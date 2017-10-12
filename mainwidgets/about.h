@@ -16,7 +16,7 @@ public:
       theAbout = new About();
     return theAbout;
   }
-  explicit About(QWidget *parent = 0);
+
   About(const About &) = delete;
   About &operator=(const About &) = delete;
 
@@ -29,6 +29,8 @@ private slots:
   void on_textBrowser_anchorClicked(const QUrl &arg1);
 
 private:
+  // make constructor private .
+  explicit About(QWidget *parent = 0);
   Ui::About *ui;
   static About *theAbout;
 };

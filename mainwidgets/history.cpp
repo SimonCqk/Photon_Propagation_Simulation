@@ -98,6 +98,7 @@ int QueryRunTimes() {
     QMessageBox::critical(0, QObject::tr("Query RunTimes Error"),
                           QString("Invalid Query Results"));
     QCoreApplication::quit();
+    return -1;
   } else {
     QMessageBox::critical(0, QObject::tr("Query RunTimes Error"),
                           query.lastError().text());
@@ -171,7 +172,7 @@ History::History(QWidget *parent) : QWidget(parent), ui(new Ui::History) {
   ui->setupUi(this);
   // set background.
   this->setAutoFillBackground(true);
-  QString bground_path = ":/image/image/Photon.jpg";
+  QString bground_path = ":/image/image/bg.jpg";
   QPixmap bground; // set background image
   bground.load(bground_path);
   QPalette palette;

@@ -21,7 +21,7 @@ public:
       theRunResults = new RunResults();
     return theRunResults;
   }
-  explicit RunResults(QWidget *parent = 0);
+
   RunResults(const RunResults &) = delete;
   RunResults &operator=(const RunResults &) = delete;
 
@@ -67,6 +67,9 @@ private slots:
   void on_View_total_trans_rdl_SplineChart_clicked();
 
 private:
+  // make constructor private .
+  explicit RunResults(QWidget *parent = 0);
+
   Ui::RunResults *ui;
   OutClass out_param;
   static RunResults *theRunResults;

@@ -8,5 +8,6 @@
         <file>image/photon_.jpg</file>
         <file alias="about">image/about.jpg</file>
         <file>image/WAVES.png</file>
+        <file>image/bg.jpg</file>
     </qresource>
 </RCC>

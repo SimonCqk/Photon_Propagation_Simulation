@@ -33,7 +33,7 @@ RunResults::RunResults(QWidget *parent)
   ui->setupUi(this);
 
   this->setAutoFillBackground(true);
-  QString bground_path = ":/image/image/Photon.jpg";
+  QString bground_path = ":/image/image/bg.jpg";
   QPixmap bground; // set background image
   bground.load(bground_path);
   QPalette palette;
