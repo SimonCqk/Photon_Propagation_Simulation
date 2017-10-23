@@ -11,6 +11,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 
 ConfParas *ConfParas::theConfParas = nullptr;
@@ -219,7 +220,11 @@ bool ConfParas::readDatas(InputClass &In_Ptr) {
   In_Ptr.input->da = 0.5 * PI / In_Ptr.input->na; // indispensable.
 
   In_Ptr.input->num_layers = ui->num_layer_spin->value();
-
+  if(In_Ptr.input->num_layers > 5){
+      QMessageBox::critical(0, QObject::tr("Too many layers"),
+                            QString("Number of layers should be less than 5."));
+      return false;
+  }
   In_Ptr.input->layerspecs.resize(In_Ptr.input->num_layers + 2);
   // Read the refractive index of the ambient and parameters of layers.
   In_Ptr.input->layerspecs[0].layer->rfct_index =
